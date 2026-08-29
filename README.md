@@ -2,6 +2,12 @@
 
 A minimal and fast blog built with Astro.
 
+## 🖼️ Preview
+
+![Mare Blog Preview](./public/preview.png)
+
+👉 **[View Live Demo →](https://mare-blog.surge.sh/)**
+
 ## 🛜 Tech Stack
 
 - [Astro](https://astro.build)
@@ -66,9 +72,3 @@ All commands are run from the root of the project, from a terminal:
 | `pnpm format`          | Formats code across the project using Prettier    |
 | `pnpm astro ...`       | Runs CLI commands like `astro add`, `astro check` |
 | `pnpm astro -- --help` | Gets help using the Astro CLI                     |
-
-## 🖼️ Preview
-
-![Preview of Mare Blog](./public/preview.png)
-
-**[Live Demo →](https://mare-blog.surge.sh/)**
