@@ -1,0 +1,12 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const pageTitle = "404 - Page Not Found";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <div class="text-center">
+    <h1 class="m-5 text-5xl">404</h1>
+    <p class="m-3.5">Oops! The page you're looking for doesn't exist.</p>
+    <a href="/" class="text-blue-500 hover:underline">Go back to Home</a>
+  </div>
+</BaseLayout>
