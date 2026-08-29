@@ -1,7 +1,7 @@
 export interface SiteConfig {
   siteTitle: string;
-  Author: string;
-  AuthorUrl: string;
+  author: string;
+  authorUrl: string;
 }
 
 export function defineConfig(config: SiteConfig): SiteConfig {
@@ -10,6 +10,6 @@ export function defineConfig(config: SiteConfig): SiteConfig {
 
 export default defineConfig({
   siteTitle: "Mare Blog",
-  Author: "Niceeepoiu",
-  AuthorUrl: "https://github.com/Niceeepoiu",
+  author: "Niceeepoiu",
+  authorUrl: "https://github.com/Niceeepoiu",
 });
