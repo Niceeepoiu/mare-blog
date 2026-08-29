@@ -7,7 +7,7 @@ description: "A minimal and fast blog built with Astro."
 
 ![Mare Blog Preview](../../assets/preview.png)
 
-👉 **[View Live Demo →](https://mare-blog.surge.sh/)**
+👉 **[GitHub Repository →](https://github.com/Niceeepoiu/mare-blog)**
 
 ## 🛜 Tech Stack
 
