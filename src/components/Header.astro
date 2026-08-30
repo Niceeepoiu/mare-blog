@@ -10,10 +10,7 @@ const currentPath = Astro.url.pathname;
 import siteConfig from "@config";
 ---
 
-<header class="mx-auto mt-8 max-w-5xl">
-  <div
-    class="flex items-center justify-between rounded-lg bg-white px-8 py-4 shadow-lg"
-  >
+<header class="mx-auto mt-8 max-w-5xl flex items-center justify-between rounded-lg bg-white px-6 py-4 shadow-lg">
     <a
       href="/"
       class="text-xl font-bold tracking-tight text-[#1f2937] transition-colors duration-200 hover:text-[#1a73e8]"
@@ -43,5 +40,4 @@ import siteConfig from "@config";
         })
       }
     </nav>
-  </div>
 </header>
