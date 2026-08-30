@@ -37,11 +37,11 @@ export default defineConfig({
   // Giscus Comment System Settings
   // Visit https://giscus.app to generate your repository & category details.
   giscus: {
-    enable: true, // Set to true to display comments on your blog posts
-    repo: "Niceeepoiu/mare-blog",
-    repoId: "R_kgDOUH3Ucg",
+    enable: false, // Set to true to display comments on your blog posts
+    repo: "your-username/your-repo-name",
+    repoId: "YOUR_GISCUS_REPO_ID",
     category: "Announcements",
-    categoryId: "DIC_kwDOUH3Ucs4DEfws",
+    categoryId: "YOUR_GISCUS_CATEGORY_ID",
     theme: "light",
     lang: "en",
   },
