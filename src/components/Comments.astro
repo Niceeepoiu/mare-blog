@@ -1,0 +1,27 @@
+---
+import siteConfig from "@config";
+
+const { giscus } = siteConfig;
+---
+
+{
+  giscus.enable && (
+    <section class="mt-12 border-t border-gray-200 pt-8">
+      <script
+        src="https://giscus.app/client.js"
+        data-repo={giscus.repo}
+        data-repo-id={giscus.repoId}
+        data-category={giscus.category}
+        data-category-id={giscus.categoryId}
+        data-mapping="pathname"
+        data-reactions-enabled="1"
+        data-input-position="top"
+        data-theme={giscus.theme}
+        data-lang={giscus.lang}
+        crossorigin="anonymous"
+        async
+        is:inline
+      />
+    </section>
+  )
+}

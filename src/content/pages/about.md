@@ -21,44 +21,11 @@ pnpm install  # Install dependencies
 pnpm dev      # Start local dev server at localhost:4321
 ```
 
-## ⚙️ Configuration
+## 📖 Documentation & Usage
 
-Customizing your blog is super easy. Simply modify the configuration file located at the root of the project:
+For detailed guides on site configuration, writing posts, updating the About page, and customizing the Giscus comment system, please refer to our documentation post:
 
-- **Config file:** `./site.config.ts`
-
-## ✍️ Content Management
-
-All blog contents and static pages are managed using Astro Content Collections.
-
-### 📝 Adding Blog Posts
-
-Create new Markdown (`.md`) or MDX (`.mdx`) files inside the `src/content/blog/` directory:
-
-```markdown
----
-title: "My First Blog Post"
-description: "This is a brief summary of the post."
-pubDate: 2026-08-29
----
-
-Your blog content goes here...
-```
-
-### 📄 Editing Pages (About, Privacy, etc.)
-
-Static pages like the "About" page are stored in `src/content/pages/`. To modify the About page, edit `src/content/pages/about.md`:
-
-```markdown
----
-title: "About Me"
-description: "Learn more about the author and this site."
----
-
-Your page content goes here...
-```
-
-> **Note:** Any new Markdown file added to `src/content/pages/` (e.g. `friends.md`) will automatically generate its corresponding route (e.g. `/friends`).
+👉 **[Read the Getting Started & Configuration Guide →](https://mare-blog.surge.sh/blog/guide)**
 
 ## 🧞 Commands
 
