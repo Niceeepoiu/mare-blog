@@ -61,21 +61,11 @@ To update your personal bio:
 
 ```markdown
 ---
-title: "About Me"
-description: "Learn more about Niceeepoiu and Mare Blog."
+title: "Title"
+description: "description..."
 ---
 
-Hello! I'm **Niceeepoiu**, a software developer passionate about minimal design and open-source software.
-
-### Projects & Showcase
-
-- **Mare Blog**: A minimal, high-performance Astro blog template.
-- **Project Two**: Another open-source initiative.
-
-### Connect
-
-- GitHub: [Niceeepoiu](https://github.com/Niceeepoiu)
-- Twitter: [@your_handle](https://twitter.com)
+Write your Markdown content here.
 ```
 
 ## 3. Writing & Publishing Posts
@@ -89,12 +79,12 @@ To publish a new article:
 
 ```markdown
 ---
-title: "My First Blog Post"
-description: "This is a short summary of my first blog post."
+title: "Blog Title"
+description: "description..."
 pubDate: 2026-08-30
 ---
 
-Write your Markdown content here. You can use **bold text**, _italics_, code snippets, and lists.
+Write your Markdown content here.
 ```
 
 The new post will automatically appear on your homepage and blog list.
