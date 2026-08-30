@@ -10,34 +10,36 @@ const currentPath = Astro.url.pathname;
 import siteConfig from "@config";
 ---
 
-<header class="mx-auto mt-8 max-w-5xl flex items-center justify-between rounded-lg bg-white px-6 py-4 shadow-lg">
-    <a
-      href="/"
-      class="text-xl font-bold tracking-tight text-[#1f2937] transition-colors duration-200 hover:text-[#1a73e8]"
-    >
-      {siteConfig.siteTitle}
-    </a>
+<header
+  class="mx-auto mt-8 flex max-w-5xl items-center justify-between rounded-lg bg-white px-6 py-4 shadow-lg"
+>
+  <a
+    href="/"
+    class="text-xl font-bold tracking-tight text-[#1f2937] transition-colors duration-200 hover:text-[#1a73e8]"
+  >
+    {siteConfig.siteTitle}
+  </a>
 
-    <nav class="flex items-center gap-2">
-      {
-        Navigation.map((item) => {
-          const isActive =
-            currentPath === item.href ||
-            (item.href !== "/" && currentPath.startsWith(item.href));
+  <nav class="flex items-center gap-2">
+    {
+      Navigation.map((item) => {
+        const isActive =
+          currentPath === item.href ||
+          (item.href !== "/" && currentPath.startsWith(item.href));
 
-          return (
-            <a
-              href={item.href}
-              class={`rounded-md px-4 py-2 text-sm font-medium transition-all duration-200 ${
-                isActive
-                  ? "bg-[#e8f0fe] font-semibold text-[#1a73e8]"
-                  : "text-[#5f6368] hover:scale-105 hover:bg-[#e8f0fe]/70 hover:text-[#1a73e8] active:scale-95"
-              }`}
-            >
-              {item.name}
-            </a>
-          );
-        })
-      }
-    </nav>
+        return (
+          <a
+            href={item.href}
+            class={`rounded-md px-4 py-2 text-sm font-medium transition-all duration-200 ${
+              isActive
+                ? "bg-[#e8f0fe] font-semibold text-[#1a73e8]"
+                : "text-[#5f6368] hover:scale-105 hover:bg-[#e8f0fe]/70 hover:text-[#1a73e8] active:scale-95"
+            }`}
+          >
+            {item.name}
+          </a>
+        );
+      })
+    }
+  </nav>
 </header>
