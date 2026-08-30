@@ -21,10 +21,10 @@ export default defineConfig({
 
   giscus: {
     enable: false,
-    repo: "Niceeepoiu/mare-blog",
-    repoId: "R_kgDOUH3Ucg",
+    repo: "your-username/your-repo-name",
+    repoId: "YOUR_GISCUS_REPO_ID",
     category: "Announcements",
-    categoryId: "DIC_kwDOUH3Ucs4DEfws",
+    categoryId: "YOUR_GISCUS_CATEGORY_ID",
     theme: "light",
     lang: "en",
   },
