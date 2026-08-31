@@ -18,10 +18,31 @@ const { pageTitle } = Astro.props;
       content="A minimal and fast blog built with Astro."
     />
     <title>{pageTitle}</title>
+    <script is:inline>
+      const theme = (() => {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark";
+        }
+        return "light";
+      })();
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
   </head>
   <body>
     <Header />
-    <main class="mx-auto my-10 max-w-5xl rounded-lg bg-white p-12 shadow-lg">
+    <main
+      class="mx-auto my-10 max-w-5xl rounded-lg bg-white p-12 shadow-lg transition-colors duration-200 dark:bg-gray-900 dark:shadow-none"
+    >
       <slot />
     </main>
     <Footer />

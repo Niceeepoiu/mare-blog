@@ -9,24 +9,26 @@ const { post } = Astro.props;
 ---
 
 <article
-  class="group rounded-md border border-gray-100 transition-all duration-200 hover:border-[#1a73e8]/30 hover:bg-[#e8f0fe]/20"
+  class="group rounded-md border border-gray-100 transition-all duration-200 hover:border-[#1a73e8]/30 hover:bg-[#e8f0fe]/20 dark:border-gray-800 dark:hover:border-blue-500/30 dark:hover:bg-blue-950/20"
 >
   <a href={`/blog/${post.id}`} class="flex flex-col p-6">
     <h2
-      class="text-xl font-bold text-[#1f2937] transition-colors group-hover:text-[#1a73e8]"
+      class="text-xl font-bold text-[#1f2937] transition-colors group-hover:text-[#1a73e8] dark:text-gray-100 dark:group-hover:text-blue-400"
     >
       {post.data.title}
     </h2>
 
     {
       post.data.description && (
-        <p class="mt-2 line-clamp-2 text-sm text-gray-600">
+        <p class="mt-2 line-clamp-2 text-sm text-gray-600 dark:text-gray-400">
           {post.data.description}
         </p>
       )
     }
 
-    <div class="mt-auto pt-4 text-xs font-medium text-gray-400">
+    <div
+      class="mt-auto pt-4 text-xs font-medium text-gray-400 dark:text-gray-500"
+    >
       <time datetime={post.data.pubDate.toISOString()}>
         {
           post.data.pubDate.toLocaleDateString("en-US", {

@@ -5,15 +5,15 @@ const currentYear = new Date().getFullYear();
 
 <footer class="mx-auto mb-10 max-w-5xl">
   <div
-    class="flex items-center justify-center rounded-lg bg-white px-8 py-6 shadow-lg"
+    class="flex items-center justify-center rounded-lg bg-white px-8 py-6 shadow-lg transition-colors duration-200 dark:bg-gray-900 dark:shadow-none"
   >
-    <p class="text-center text-[#5f6368]">
+    <p class="text-center text-[#5f6368] dark:text-gray-400">
       © {currentYear}&nbsp;
       <a
         href={siteConfig.authorUrl}
         target="_blank"
         rel="noopener noreferrer"
-        class="font-semibold text-[#1f2937] transition-colors duration-200 hover:text-[#1a73e8]"
+        class="font-semibold text-[#1f2937] transition-colors duration-200 hover:text-[#1a73e8] dark:text-gray-200 dark:hover:text-blue-400"
       >
         {siteConfig.author}
       </a>

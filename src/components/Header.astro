@@ -1,4 +1,7 @@
 ---
+import siteConfig from "@config";
+import ThemeToggle from "./ThemeToggle.astro";
+
 const Navigation = [
   { name: "Home", href: "/" },
   { name: "Blog", href: "/blog" },
@@ -6,16 +9,14 @@ const Navigation = [
 ];
 
 const currentPath = Astro.url.pathname;
-
-import siteConfig from "@config";
 ---
 
 <header
-  class="mx-auto mt-8 flex max-w-5xl items-center justify-between rounded-lg bg-white px-6 py-4 shadow-lg"
+  class="mx-auto mt-8 flex max-w-5xl items-center justify-between rounded-lg bg-white px-6 py-4 shadow-lg transition-colors duration-200 dark:bg-gray-900 dark:shadow-none"
 >
   <a
     href="/"
-    class="text-xl font-bold tracking-tight text-[#1f2937] transition-colors duration-200 hover:text-[#1a73e8]"
+    class="text-xl font-bold tracking-tight text-[#1f2937] transition-colors duration-200 hover:text-[#1a73e8] dark:text-gray-100 dark:hover:text-blue-400"
   >
     {siteConfig.siteTitle}
   </a>
@@ -32,8 +33,8 @@ import siteConfig from "@config";
             href={item.href}
             class={`rounded-md px-4 py-2 text-sm font-medium transition-all duration-200 ${
               isActive
-                ? "bg-[#e8f0fe] font-semibold text-[#1a73e8]"
-                : "text-[#5f6368] hover:scale-105 hover:bg-[#e8f0fe]/70 hover:text-[#1a73e8] active:scale-95"
+                ? "bg-[#e8f0fe] font-semibold text-[#1a73e8] dark:bg-blue-950/60 dark:text-blue-400"
+                : "text-[#5f6368] hover:scale-105 hover:bg-[#e8f0fe]/70 hover:text-[#1a73e8] active:scale-95 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-blue-400"
             }`}
           >
             {item.name}
@@ -42,4 +43,6 @@ import siteConfig from "@config";
       })
     }
   </nav>
+
+  <ThemeToggle />
 </header>

@@ -15,14 +15,14 @@ const { Content } = await render(page);
 ---
 
 <BaseLayout pageTitle={page.data.title}>
-  <header class="mb-8 border-b border-black pb-6">
+  <header class="mb-8 border-b border-gray-300 pb-6 dark:border-gray-700">
     <h1>
       {page.data.title}
     </h1>
 
     {
       page.data.description && (
-        <p class="mt-3 text-base leading-relaxed text-gray-600">
+        <p class="mt-3 text-base leading-relaxed text-gray-600 dark:text-gray-400">
           {page.data.description}
         </p>
       )
