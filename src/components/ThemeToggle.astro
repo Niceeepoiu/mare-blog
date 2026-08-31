@@ -52,6 +52,10 @@
         darkIcon.classList.remove("hidden");
         lightIcon.classList.add("hidden");
       }
+
+      document.dispatchEvent(
+        new CustomEvent("theme-changed", { detail: { isDark } }),
+      );
     };
   }
 

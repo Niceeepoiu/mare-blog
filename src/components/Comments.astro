@@ -25,3 +25,40 @@ const { giscus } = siteConfig;
     </section>
   )
 }
+
+<script
+  is:inline
+  data-light-theme={giscus.theme}
+  data-dark-theme={giscus.darkTheme}
+>
+  function updateGiscusTheme() {
+    const themeScript = document.querySelector("script[data-light-theme]");
+    const light = themeScript?.getAttribute("data-light-theme") || "light";
+    const dark = themeScript?.getAttribute("data-dark-theme") || "dark";
+
+    const isDark = document.documentElement.classList.contains("dark");
+    const targetTheme = isDark ? dark : light;
+
+    const iframe = document.querySelector("iframe.giscus-frame");
+    if (!iframe) return;
+
+    iframe.contentWindow.postMessage(
+      {
+        giscus: {
+          setConfig: {
+            theme: targetTheme,
+          },
+        },
+      },
+      "https://giscus.app",
+    );
+  }
+
+  window.addEventListener("message", (event) => {
+    if (event.origin !== "https://giscus.app") return;
+    if (!(typeof event.data === "object" && event.data.giscus)) return;
+    updateGiscusTheme();
+  });
+
+  document.addEventListener("theme-changed", updateGiscusTheme);
+</script>

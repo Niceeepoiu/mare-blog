@@ -17,8 +17,10 @@ export interface SiteConfig {
     category: string;
     /** The Discussion category GraphQL Node ID */
     categoryId: string;
-    /** Theme for Giscus iframe (e.g., 'light', 'dark', 'preferred_color_scheme') */
+    /** Theme for Giscus iframe in light mode (e.g., 'light', 'preferred_color_scheme') */
     theme: string;
+    /** Theme for Giscus iframe in dark mode (e.g., 'dark', 'transparent_dark') */
+    darkTheme: string;
     /** Language for the Giscus widget UI (e.g., 'en', 'zh-CN') */
     lang: string;
   };
@@ -43,6 +45,7 @@ export default defineConfig({
     category: "Announcements",
     categoryId: "YOUR_GISCUS_CATEGORY_ID",
     theme: "light",
+    darkTheme: "dark",
     lang: "en",
   },
 });
