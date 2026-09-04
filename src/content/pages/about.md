@@ -25,7 +25,7 @@ pnpm dev      # Start local dev server at localhost:4321
 
 For detailed guides on site configuration, writing posts, updating the About page, and customizing the Giscus comment system, please refer to our documentation post:
 
-👉 **[Read the Getting Started & Configuration Guide →](https://mare-blog.surge.sh/blog/guide)**
+👉 **[Read the Getting Started & Configuration Guide →](https://mare-blog.niceeepoiu.workers.dev/blog/guide/)**
 
 ## 🧞 Commands
 

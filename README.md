@@ -6,7 +6,7 @@ A minimal and fast blog built with Astro.
 
 ![Mare Blog Preview](./public/preview.png)
 
-👉 **[View Live Demo →](https://mare-blog.surge.sh/)**
+👉 **[View Live Demo →](https://mare-blog.niceeepoiu.workers.dev/)**
 
 ## 🛜 Tech Stack
 
@@ -24,7 +24,7 @@ pnpm dev      # Start local dev server at localhost:4321
 
 For detailed guides on site configuration, writing posts, updating the About page, and customizing the Giscus comment system, please refer to our documentation post:
 
-👉 **[Read the Getting Started & Configuration Guide →](https://mare-blog.surge.sh/blog/guide)**
+👉 **[Read the Getting Started & Configuration Guide →](https://mare-blog.niceeepoiu.workers.dev/blog/guide/)**
 
 ## 🧞 Commands
 

@@ -5,6 +5,8 @@ export interface SiteConfig {
   author: string;
   /** Link to the author's personal website or GitHub profile */
   authorUrl: string;
+  /** The base URL of your site (e.g., 'https://example.com') */
+  siteUrl: string;
   /** Giscus comments system configuration */
   giscus: {
     /** Enable or disable the Giscus comment system globally */
@@ -35,7 +37,7 @@ export default defineConfig({
   siteTitle: "Mare Blog",
   author: "Niceeepoiu",
   authorUrl: "https://github.com/Niceeepoiu",
-
+  siteUrl: "https://mare-blog.niceeepoiu.workers.dev/",
   // Giscus Comment System Settings
   // Visit https://giscus.app to generate your repository & category details.
   giscus: {
