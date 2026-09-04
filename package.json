@@ -10,8 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "format": "prettier --write \"**/*.{astro,html,js,jsx,ts,tsx,json,css,md}\"",
-    "deploy": "astro build && pnpm dlx surge publish ./dist"
+    "format": "prettier --write \"**/*.{astro,html,js,jsx,ts,tsx,json,css,md}\""
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
