@@ -76,7 +76,7 @@
     }
 
     & blockquote {
-      @apply my-4 rounded-r-md border-l-4 border-[#1a73e8] bg-[#e8f0fe]/30 p-4 pb-0.5 shadow-sm dark:border-blue-500 dark:bg-blue-950/30;
+      @apply my-4 rounded-md border-l-4 border-[#1a73e8] bg-[#e8f0fe]/30 p-4 pb-0.5 shadow-sm dark:border-blue-500 dark:bg-blue-950/30;
     }
 
     & a {

@@ -37,7 +37,7 @@ export default defineConfig({
   siteTitle: "Mare Blog",
   author: "Niceeepoiu",
   authorUrl: "https://github.com/Niceeepoiu",
-  siteUrl: "https://mare-blog.niceeepoiu.workers.dev/",
+  siteUrl: "https://mare-blog.niceeepoiu.workers.dev",
   // Giscus Comment System Settings
   // Visit https://giscus.app to generate your repository & category details.
   giscus: {
