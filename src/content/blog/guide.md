@@ -9,9 +9,9 @@ Welcome to **Mare Blog**! This post serves as a complete walkthrough to help you
 
 ## 1. Configuring Your Site
 
-All global site metadata and third-party integrations (such as the Giscus comment system) are managed inside `src/site.config.ts`.
+All global site metadata and third-party integrations (such as the Giscus comment system) are managed inside `/site.config.ts`.
 
-Open `src/site.config.ts` and update the values to match your personal details:
+Open `/site.config.ts` and update the values to match your personal details:
 
 ```typescript
 export default defineConfig({
