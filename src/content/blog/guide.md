@@ -51,7 +51,7 @@ export default defineConfig({
 
 ## 2. Modifying the About Page
 
-The About page content is managed via Markdown and located at `src/content/about.md`.
+The About page content is managed via Markdown and located at `src/content/pages/about.md`.
 
 To update your personal bio:
 
@@ -100,5 +100,5 @@ All commands are run from the root of the project, from a terminal:
 | `pnpm build`           | Builds your production site to `./dist/`          |
 | `pnpm preview`         | Previews your build locally, before deploying     |
 | `pnpm format`          | Formats code across the project using Prettier    |
-| `pnpm astro ...`       | Runs CLI commands like `astro add`, `astro check` |
+| `pnpm astro ...`       | Runs Astro CLI commands                      |
 | `pnpm astro -- --help` | Gets help using the Astro CLI                     |
