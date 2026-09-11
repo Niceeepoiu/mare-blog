@@ -3,16 +3,17 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
-  * {
-    @apply transition-colors duration-200 ease-in-out;
-  }
-
   html {
     scrollbar-gutter: stable;
   }
 
+  html.theme-transition,
+  html.theme-transition * {
+    @apply transition-colors duration-200 ease-in-out;
+  }
+
   body {
-    @apply bg-gray-100 text-gray-800 transition-colors duration-200 dark:bg-gray-950 dark:text-gray-200;
+    @apply bg-gray-100 text-gray-800 dark:bg-gray-950 dark:text-gray-200;
   }
 
   :is(h1, h2, h3, h4, h5, h6) {
@@ -123,5 +124,5 @@
 
 #nprogress .bar {
   @apply h-0.5 bg-[#1a73e8] dark:h-px dark:bg-blue-400;
-  box-shadow: none !important;
+  @apply shadow-none;
 }

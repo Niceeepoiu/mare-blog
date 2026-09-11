@@ -57,20 +57,27 @@
     }
 
     toggleBtn.onclick = () => {
-      const isDark = document.documentElement.classList.toggle("dark");
-      localStorage.setItem("theme", isDark ? "dark" : "light");
+      document.documentElement.classList.add("theme-transition");
+      window.requestAnimationFrame(() => {
+        const isDark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
 
-      if (isDark) {
-        lightIcon.classList.remove("hidden");
-        darkIcon.classList.add("hidden");
-      } else {
-        darkIcon.classList.remove("hidden");
-        lightIcon.classList.add("hidden");
-      }
+        if (isDark) {
+          lightIcon.classList.remove("hidden");
+          darkIcon.classList.add("hidden");
+        } else {
+          darkIcon.classList.remove("hidden");
+          lightIcon.classList.add("hidden");
+        }
 
-      document.dispatchEvent(
-        new CustomEvent("theme-changed", { detail: { isDark } }),
-      );
+        document.dispatchEvent(
+          new CustomEvent("theme-changed", { detail: { isDark } }),
+        );
+
+        window.setTimeout(() => {
+          document.documentElement.classList.remove("theme-transition");
+        }, 200);
+      });
     };
   }
 
