@@ -15,17 +15,21 @@ Open `/site.config.ts` and update the values to match your personal details:
 
 ```typescript
 export default defineConfig({
-  siteTitle: "Mare Blog",
+  title: "Mare Blog",
+  description: "A minimal and fast blog built with Astro.",
   author: "Niceeepoiu",
   authorUrl: "https://github.com/Niceeepoiu",
+  authorBio: "A passionate developer.",
+  url: "https://mare-blog.niceeepoiu.workers.dev",
 
   giscus: {
-    enable: false,
+    enabled: false,
     repo: "your-username/your-repo-name",
     repoId: "YOUR_GISCUS_REPO_ID",
     category: "Announcements",
     categoryId: "YOUR_GISCUS_CATEGORY_ID",
     theme: "light",
+    darkTheme: "dark",
     lang: "en",
   },
 });
@@ -35,23 +39,27 @@ export default defineConfig({
 
 #### Main Site Metadata
 
-- **`siteTitle`**: Sets the global display name for your blog across the header.
-- **`author`**: The default author name displayed on blog posts and footer copyright notices.
-- **`authorUrl`**: The link attached to the author's name (e.g., your personal website or GitHub profile).
+- **`title`**: The global title of your blog.
+- **`description`**: The primary summary and description of your site.
+- **`author`**: The name of the site author or owner.
+- **`authorUrl`**: Link to the author's profile or personal website.
+- **`authorBio`**: A short biography or intro text for the author.
+- **`url`**: The base production URL where your website is hosted.
 
 #### Giscus Comment System Settings
 
-- **`enable`**: Toggle `true` to enable or `false` to globally disable the comment widget on blog posts.
-- **`repo`**: Your GitHub repository path in `owner/repo` format where comments will be stored as Discussions.
-- **`repoId`**: The unique GraphQL Node ID of your target GitHub repository.
-- **`category`**: The target GitHub Discussion category name (e.g., `Announcements`).
-- **`categoryId`**: The unique GraphQL Node ID of your chosen Discussion category.
-- **`theme`**: The visual theme for the Giscus comment box (e.g., `light`, `dark`, `preferred_color_scheme`).
-- **`lang`**: The interface language tag for the Giscus widget UI (e.g., `en`, `zh-CN`, `ja`).
+- **`enabled`**: Set to `true` to enable Giscus comments on post pages, or `false` to disable.
+- **`repo`**: Target GitHub repository in `owner/repo` format.
+- **`repoId`**: The unique GraphQL Node ID of your repository.
+- **`category`**: The Discussion category name (e.g., `Announcements`).
+- **`categoryId`**: The unique GraphQL Node ID of your chosen category.
+- **`theme`**: Theme for the Giscus widget in light mode.
+- **`darkTheme`**: Theme for the Giscus widget in dark mode.
+- **`lang`**: The interface language for the Giscus UI (e.g., `en`, `zh-CN`).
 
 ## 2. Modifying the About Page
 
-The About page content is managed via Markdown and located at `src/content/pages/about.md`.
+The About page content is managed via Markdown and located at `src/content/page/about.md`.
 
 To update your personal bio:
 
@@ -93,12 +101,12 @@ The new post will automatically appear on your homepage and blog list.
 
 All commands are run from the root of the project, from a terminal:
 
-| Command                | Action                                            |
-| :--------------------- | :------------------------------------------------ |
-| `pnpm install`         | Installs dependencies                             |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`       |
-| `pnpm build`           | Builds your production site to `./dist/`          |
-| `pnpm preview`         | Previews your build locally, before deploying     |
-| `pnpm format`          | Formats code across the project using Prettier    |
-| `pnpm astro ...`       | Runs Astro CLI commands                      |
-| `pnpm astro -- --help` | Gets help using the Astro CLI                     |
+| Command                | Action                                         |
+| :--------------------- | :--------------------------------------------- |
+| `pnpm install`         | Installs dependencies                          |
+| `pnpm dev`             | Starts local dev server at `localhost:4321`    |
+| `pnpm build`           | Builds your production site to `./dist/`       |
+| `pnpm preview`         | Previews your build locally, before deploying  |
+| `pnpm format`          | Formats code across the project using Prettier |
+| `pnpm astro ...`       | Runs Astro CLI commands                        |
+| `pnpm astro -- --help` | Gets help using the Astro CLI                  |

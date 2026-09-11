@@ -16,11 +16,8 @@ const { pageTitle } = Astro.props;
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <meta
-      name="description"
-      content="A minimal and fast blog built with Astro."
-    />
-    <title>{pageTitle} - {siteConfig.siteTitle}</title>
+    <meta name="description" content={siteConfig.description} />
+    <title>{pageTitle} - {siteConfig.title}</title>
     <ClientRouter />
 
     <script is:inline>

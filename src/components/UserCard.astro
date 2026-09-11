@@ -1,10 +1,10 @@
 ---
-
+import siteConfig from "@config";
 ---
 
 <section
   class="mt-5 rounded-md border border-gray-100 p-6 dark:border-gray-800"
 >
-  <h2>Username</h2>
-  <p>This is a user card component.</p>
+  <h2>{siteConfig.author}</h2>
+  <p>{siteConfig.authorBio}</p>
 </section>

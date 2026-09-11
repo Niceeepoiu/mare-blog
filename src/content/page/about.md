@@ -31,12 +31,12 @@ For detailed guides on site configuration, writing posts, updating the About pag
 
 All commands are run from the root of the project, from a terminal:
 
-| Command                | Action                                            |
-| :--------------------- | :------------------------------------------------ |
-| `pnpm install`         | Installs dependencies                             |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`       |
-| `pnpm build`           | Builds your production site to `./dist/`          |
-| `pnpm preview`         | Previews your build locally, before deploying     |
-| `pnpm format`          | Formats code across the project using Prettier    |
-| `pnpm astro ...`       | Runs Astro CLI commands                      |
-| `pnpm astro -- --help` | Gets help using the Astro CLI                     |
+| Command                | Action                                         |
+| :--------------------- | :--------------------------------------------- |
+| `pnpm install`         | Installs dependencies                          |
+| `pnpm dev`             | Starts local dev server at `localhost:4321`    |
+| `pnpm build`           | Builds your production site to `./dist/`       |
+| `pnpm preview`         | Previews your build locally, before deploying  |
+| `pnpm format`          | Formats code across the project using Prettier |
+| `pnpm astro ...`       | Runs Astro CLI commands                        |
+| `pnpm astro -- --help` | Gets help using the Astro CLI                  |

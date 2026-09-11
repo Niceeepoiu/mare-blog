@@ -11,12 +11,12 @@ const blog = defineCollection({
   }),
 });
 
-const pages = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/pages" }),
+const page = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/content/page" }),
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
   }),
 });
 
-export const collections = { blog, pages };
+export const collections = { blog, page };

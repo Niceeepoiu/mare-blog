@@ -1,29 +1,33 @@
 export interface SiteConfig {
-  /** The title of your blog displayed in the header and metadata */
-  siteTitle: string;
-  /** The name of the blog owner or author */
+  /** Site title */
+  title: string;
+  /** Site description */
+  description: string;
+  /** Author name */
   author: string;
-  /** Link to the author's personal website or GitHub profile */
+  /** Author URL */
   authorUrl: string;
-  /** The base URL of your site (e.g., 'https://example.com') */
-  siteUrl: string;
-  /** Giscus comments system configuration */
+  /** Author biography */
+  authorBio: string;
+  /** Base URL of the site */
+  url: string;
+  /** Giscus comment system configuration */
   giscus: {
-    /** Enable or disable the Giscus comment system globally */
-    enable: boolean;
-    /** Your GitHub repository for comments (e.g., 'username/repo-name') */
+    /** Enable or disable Giscus comments */
+    enabled: boolean;
+    /** Target GitHub repository in 'owner/repo' format */
     repo: string;
-    /** Your GitHub repository GraphQL Node ID */
+    /** Repository GraphQL Node ID */
     repoId: string;
-    /** The Discussion category name (e.g., 'Announcements') */
+    /** Discussion category name */
     category: string;
-    /** The Discussion category GraphQL Node ID */
+    /** Discussion category GraphQL Node ID */
     categoryId: string;
-    /** Theme for Giscus iframe in light mode (e.g., 'light', 'preferred_color_scheme') */
+    /** Theme for light mode */
     theme: string;
-    /** Theme for Giscus iframe in dark mode (e.g., 'dark', 'transparent_dark') */
+    /** Theme for dark mode */
     darkTheme: string;
-    /** Language for the Giscus widget UI (e.g., 'en', 'zh-CN') */
+    /** UI language */
     lang: string;
   };
 }
@@ -33,15 +37,15 @@ export function defineConfig(config: SiteConfig): SiteConfig {
 }
 
 export default defineConfig({
-  // Main Site Metadata
-  siteTitle: "Mare Blog",
+  title: "Mare Blog",
+  description: "A minimal and fast blog built with Astro.",
   author: "Niceeepoiu",
   authorUrl: "https://github.com/Niceeepoiu",
-  siteUrl: "https://mare-blog.niceeepoiu.workers.dev",
-  // Giscus Comment System Settings
-  // Visit https://giscus.app to generate your repository & category details.
+  authorBio: "A passionate developer.",
+  url: "https://mare-blog.niceeepoiu.workers.dev",
+
   giscus: {
-    enable: false, // Set to true to display comments on your blog posts
+    enabled: false,
     repo: "your-username/your-repo-name",
     repoId: "YOUR_GISCUS_REPO_ID",
     category: "Announcements",
