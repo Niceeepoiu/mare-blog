@@ -39,23 +39,23 @@ export default defineConfig({
 
 #### Main Site Metadata
 
-- **`title`**: The global title of your blog.
-- **`description`**: The primary summary and description of your site.
-- **`author`**: The name of the site author or owner.
-- **`authorUrl`**: Link to the author's profile or personal website.
-- **`authorBio`**: A short biography or intro text for the author.
-- **`url`**: The base production URL where your website is hosted.
+- `title`: The global title of your blog used in SEO meta tags and header.
+- `description`: Default meta description for social sharing and search engines.
+- `author`: The name displayed in post footers and copyright claims.
+- `authorUrl`: External link to your GitHub, Twitter, or personal portfolio.
+- `authorBio`: Brief introduction featured in author cards.
+- `url`: The public base URL (e.g., `https://mare-blog.cn.eu.org`).
 
 #### Giscus Comment System Settings
 
-- **`enabled`**: Set to `true` to enable Giscus comments on post pages, or `false` to disable.
-- **`repo`**: Target GitHub repository in `owner/repo` format.
-- **`repoId`**: The unique GraphQL Node ID of your repository.
-- **`category`**: The Discussion category name (e.g., `Announcements`).
-- **`categoryId`**: The unique GraphQL Node ID of your chosen category.
-- **`theme`**: Theme for the Giscus widget in light mode.
-- **`darkTheme`**: Theme for the Giscus widget in dark mode.
-- **`lang`**: The interface language for the Giscus UI (e.g., `en`, `zh-CN`).
+- `enabled`: Toggle `true` or `false` to show or hide comments globally.
+- `repo`: GitHub repository path.
+- `repoId`: Unique repository ID generated from giscus.app.
+- `category`: Discussion category dedicated to blog comments.
+- `categoryId`: Unique category ID generated from giscus.app.
+- `theme`: Preset theme name applied in light mode.
+- `darkTheme`: Preset theme name applied in dark mode.
+- `lang`: Two-letter ISO language code for the comment UI.
 
 ## 2. Modifying the About Page
 

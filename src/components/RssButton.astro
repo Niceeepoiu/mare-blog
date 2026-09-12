@@ -1,0 +1,31 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  href?: string;
+  class?: string;
+  ariaLabel?: string;
+  title?: string;
+}
+
+const {
+  href = "/rss.xml",
+  class: className = "",
+  ariaLabel = "RSS Feed",
+  title = "Subscribe to RSS Feed",
+} = Astro.props;
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={ariaLabel}
+  title={title}
+  class:list={[
+    "inline-flex items-center justify-center rounded-md p-2 text-sm font-medium text-[#5f6368] transition-all duration-200 hover:scale-105 hover:bg-[#e8f0fe]/70 hover:text-[#1a73e8] active:scale-95 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-blue-400",
+    className,
+  ]}
+>
+  <Icon name="lucide:rss" class="h-5 w-5" />
+</a>

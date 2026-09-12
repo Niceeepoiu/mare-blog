@@ -1,42 +1,26 @@
 ---
 title: "About"
-description: "A minimal and fast blog built with Astro."
+description: "A minimal, responsive, and fast blog built with Astro."
 ---
 
-## 🖼️ Preview
-
-![Mare Blog Preview](../../assets/preview.png)
-
-👉 **[GitHub Repository →](https://github.com/Niceeepoiu/mare-blog)**
+Welcome to **Mare Blog** — a minimalist personal publication space inspired by the Twilight theme, focusing on web development, technical explorations, and daily thoughts.
 
 ## 🛜 Tech Stack
 
-- [Astro](https://astro.build)
-- [TailwindCSS](https://tailwindcss.com)
+This blog is designed for high performance and clean aesthetics, powered by:
 
-## 🚀 Getting Started
+- **Framework**: [Astro](https://astro.build) (v7+)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com)
 
-```bash
-pnpm install  # Install dependencies
-pnpm dev      # Start local dev server at localhost:4321
-```
+## 📖 Getting Started & Guide
 
-## 📖 Documentation & Usage
+If you are looking for site configuration guides, writing syntax, or setting up the comment system, check out the documentation:
 
-For detailed guides on site configuration, writing posts, updating the About page, and customizing the Giscus comment system, please refer to our documentation post:
+👉 **[Read the Configuration & Usage Guide →](/blog/guide/)**
 
-👉 **[Read the Getting Started & Configuration Guide →](https://mare-blog.niceeepoiu.workers.dev/blog/guide/)**
+## 🔗 Project & Links
 
-## 🧞 Commands
+This blog is completely open-source. Feel free to explore the repository or subscribe to stay updated:
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                | Action                                         |
-| :--------------------- | :--------------------------------------------- |
-| `pnpm install`         | Installs dependencies                          |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`    |
-| `pnpm build`           | Builds your production site to `./dist/`       |
-| `pnpm preview`         | Previews your build locally, before deploying  |
-| `pnpm format`          | Formats code across the project using Prettier |
-| `pnpm astro ...`       | Runs Astro CLI commands                        |
-| `pnpm astro -- --help` | Gets help using the Astro CLI                  |
+- 🐙 **Source Code**: [GitHub Repository](https://github.com/Niceeepoiu/mare-blog)
+- 📡 **RSS Feed**: [Subscribe via RSS](/rss.xml)

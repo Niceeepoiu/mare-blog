@@ -1,18 +1,20 @@
 ---
 import siteConfig from "@config";
 import ThemeToggle from "./ThemeToggle.astro";
+import RssButton from "./RssButton.astro";
+import { Icon } from "astro-icon/components";
 
 const Navigation = [
-  { name: "Home", href: "/" },
-  { name: "Blog", href: "/blog" },
-  { name: "About", href: "/about" },
+  { name: "Home", href: "/", icon: "lucide:home" },
+  { name: "Blog", href: "/blog", icon: "lucide:book-open" },
+  { name: "About", href: "/about", icon: "lucide:user" },
 ];
 
 const currentPath = Astro.url.pathname;
 ---
 
 <header
-  class="mx-auto mt-8 flex max-w-5xl items-center justify-between rounded-lg bg-white px-6 py-4 shadow-sm  dark:bg-gray-900"
+  class="mx-auto mt-8 flex max-w-5xl items-center justify-between rounded-lg bg-white px-6 py-4 shadow-sm dark:bg-gray-900"
 >
   <a
     href="/"
@@ -31,18 +33,24 @@ const currentPath = Astro.url.pathname;
         return (
           <a
             href={item.href}
-            class={`rounded-md px-4 py-2 text-sm font-medium transition-all duration-200 ${
+            aria-label={item.name}
+            class={`inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-all duration-200 ${
               isActive
                 ? "bg-[#e8f0fe] font-semibold text-[#1a73e8] dark:bg-blue-950/60 dark:text-blue-400"
                 : "text-[#5f6368] hover:scale-105 hover:bg-[#e8f0fe]/70 hover:text-[#1a73e8] active:scale-95 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-blue-400"
             }`}
           >
-            {item.name}
+            <Icon name={item.icon} class="h-4 w-4" />
+
+            <span class="hidden md:inline">{item.name}</span>
           </a>
         );
       })
     }
   </nav>
 
-  <ThemeToggle />
+  <div class="flex items-center gap-1">
+    <RssButton />
+    <ThemeToggle />
+  </div>
 </header>
