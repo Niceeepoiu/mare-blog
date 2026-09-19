@@ -124,5 +124,4 @@
 
 #nprogress .bar {
   @apply h-0.5 bg-[#1a73e8] dark:h-px dark:bg-blue-400;
-  @apply shadow-none;
 }

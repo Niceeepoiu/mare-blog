@@ -1,3 +1,11 @@
+export interface NavItem {
+  /** Navigation item display label */
+  name: string;
+  /** Navigation target path or URL */
+  href: string;
+  /** Icon identifier (e.g., 'lucide:home') */
+  icon?: string;
+}
 export interface SiteConfig {
   /** Site title */
   title: string;
@@ -11,6 +19,8 @@ export interface SiteConfig {
   authorBio: string;
   /** Base URL of the site */
   url: string;
+  /** Header navigation items */
+  nav: NavItem[];
   /** Giscus comment system configuration */
   giscus: {
     /** Enable or disable Giscus comments */
@@ -43,7 +53,11 @@ export default defineConfig({
   authorUrl: "https://github.com/Niceeepoiu",
   authorBio: "A passionate developer.",
   url: "https://mare-blog.niceeepoiu.workers.dev",
-
+  nav: [
+    { name: "Home", href: "/", icon: "lucide:home" },
+    { name: "Blog", href: "/blog", icon: "lucide:book-open" },
+    { name: "About", href: "/about", icon: "lucide:user" },
+  ],
   giscus: {
     enabled: false,
     repo: "your-username/your-repo-name",

@@ -1,6 +1,6 @@
 ---
 title: "About"
-description: "A minimal, responsive, and fast blog built with Astro."
+description: "A minimal and fast blog built with Astro."
 ---
 
 Welcome to **Mare Blog** — a minimalist personal publication space inspired by the Twilight theme, focusing on web development, technical explorations, and daily thoughts.
