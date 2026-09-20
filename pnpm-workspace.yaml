@@ -4,5 +4,6 @@ packages:
 allowBuilds:
   esbuild: true
   sharp: true
+  workerd: true
 minimumReleaseAgeExclude:
   - astro@7.2.9
