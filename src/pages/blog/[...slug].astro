@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Comments from "../../components/Comments.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -15,7 +14,7 @@ const post = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BaseLayout pageTitle={post.data.title}>
+<BaseLayout pageTitle={post.data.title} showComments={true}>
   <header class="mb-8 border-b border-gray-300 pb-6 dark:border-gray-700">
     <h1>
       {post.data.title}
@@ -46,5 +45,4 @@ const { Content } = await render(post);
   <article class="markdown-content">
     <Content />
   </article>
-  <Comments />
 </BaseLayout>

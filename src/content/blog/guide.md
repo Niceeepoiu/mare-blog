@@ -44,18 +44,40 @@ export default defineConfig({
 - `author`: The name displayed in post footers and copyright claims.
 - `authorUrl`: External link to your GitHub, Twitter, or personal portfolio.
 - `authorBio`: Brief introduction featured in author cards.
-- `url`: The public base URL (e.g., `https://mare-blog.cn.eu.org`).
+- `url`: The public base URL (e.g., `https://mare-blog.niceeepoiu.workers.dev`).
 
 #### Giscus Comment System Settings
 
 - `enabled`: Toggle `true` or `false` to show or hide comments globally.
-- `repo`: GitHub repository path.
+- `repo`: GitHub repository path formatted as `owner/repo`.
 - `repoId`: Unique repository ID generated from giscus.app.
 - `category`: Discussion category dedicated to blog comments.
 - `categoryId`: Unique category ID generated from giscus.app.
 - `theme`: Preset theme name applied in light mode.
 - `darkTheme`: Preset theme name applied in dark mode.
 - `lang`: Two-letter ISO language code for the comment UI.
+
+---
+
+### Step-by-Step Guide: How to Obtain Giscus Credentials
+
+Follow these steps to generate your required `repoId` and `categoryId`:
+
+1. **Prepare Your GitHub Repository**:
+   - Ensure your repository is **Public** (Giscus will not work with private repositories).
+   - Enable the **Discussions** feature: Navigate to your repository **Settings** -> **General** -> check **Discussions**.
+
+2. **Install the Giscus App**:
+   - Grant Giscus permission to access your repository by visiting [github.com/apps/giscus](https://github.com/apps/giscus).
+
+3. **Generate Credentials via Giscus Website**:
+   - Head over to [giscus.app](https://giscus.app).
+   - Scroll down to the **Repository** field and enter your repository path.
+   - Choose a Discussion Category.
+   - Scroll down to the **Enable giscus** section. Giscus will automatically generate a script tag containing your unique `data-repo-id` and `data-category-id`.
+   - Copy these two values into your `/site.config.ts` file and set `enabled: true`.
+
+---
 
 ## 2. Modifying the About Page
 
