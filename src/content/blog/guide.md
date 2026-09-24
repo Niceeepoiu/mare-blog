@@ -20,7 +20,7 @@ export default defineConfig({
   author: "Niceeepoiu",
   authorUrl: "https://github.com/Niceeepoiu",
   authorBio: "A passionate developer.",
-  url: "https://mare-blog.niceeepoiu.workers.dev",
+  url: "https://mare-blog.pages.dev",
 
   giscus: {
     enabled: false,
@@ -44,7 +44,7 @@ export default defineConfig({
 - `author`: The name displayed in post footers and copyright claims.
 - `authorUrl`: External link to your GitHub, Twitter, or personal portfolio.
 - `authorBio`: Brief introduction featured in author cards.
-- `url`: The public base URL (e.g., `https://mare-blog.niceeepoiu.workers.dev`).
+- `url`: The public base URL.
 
 #### Giscus Comment System Settings
 

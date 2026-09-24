@@ -50,9 +50,9 @@ export default defineConfig({
   title: "Mare Blog",
   description: "A minimal and fast blog built with Astro.",
   author: "Niceeepoiu",
-  authorUrl: "https://github.com/Niceeepoiu",
+  authorUrl: "https://mare-blog.pages.dev",
   authorBio: "A passionate developer.",
-  url: "https://mare-blog.niceeepoiu.workers.dev",
+  url: "https://mare-blog.pages.dev",
   nav: [
     { name: "Home", href: "/", icon: "lucide:home" },
     { name: "Blog", href: "/blog", icon: "lucide:book-open" },
