@@ -4,7 +4,7 @@ A minimal and fast blog built with Astro.
 
 ## 🖼️ Preview
 
-![Mare Blog Preview](./public/preview.png)
+![Mare Blog Preview](./src/assets/preview.png)
 
 👉 **[View Live Demo →](https://mare-blog.pages.dev)**
 

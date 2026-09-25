@@ -2,6 +2,7 @@
 import siteConfig from "@config";
 import ThemeToggle from "./ThemeToggle.astro";
 import RssButton from "./RssButton.astro";
+import Search from "./Search.astro";
 import { Icon } from "astro-icon/components";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
@@ -48,6 +49,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
   </nav>
 
   <div class="flex items-center gap-1">
+    <Search />
     <RssButton />
     <ThemeToggle />
   </div>

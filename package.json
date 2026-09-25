@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier --write \"**/*.{astro,html,js,jsx,ts,tsx,json,css,md}\""
@@ -18,6 +18,7 @@
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "@iconify-json/lucide": "^1.2.131",
+    "@pagefind/component-ui": "^1.5.2",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.2",
     "astro-icon": "^1.2.0",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@types/nprogress": "^0.2.3",
+    "pagefind": "^1.5.2",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.1"
