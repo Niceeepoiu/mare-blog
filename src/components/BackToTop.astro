@@ -12,7 +12,17 @@ import { Icon } from "astro-icon/components";
 </button>
 
 <script>
+  type BackToTopWindow = Window & {
+    __backToTopCleanup?: () => void;
+  };
+
+  const typedWindow = window as BackToTopWindow;
+
   function setupBackToTop() {
+    if (typedWindow.__backToTopCleanup) {
+      typedWindow.__backToTopCleanup();
+    }
+
     const btn = document.getElementById("back-to-top");
     if (!btn) return;
 
@@ -50,9 +60,22 @@ import { Icon } from "astro-icon/components";
     window.addEventListener("scroll", toggleVisibility, { passive: true });
     btn.addEventListener("click", scrollToTop);
 
+    typedWindow.__backToTopCleanup = () => {
+      window.removeEventListener("scroll", toggleVisibility);
+      btn.removeEventListener("click", scrollToTop);
+    };
+
     toggleVisibility();
   }
 
-  setupBackToTop();
+  function cleanupBackToTop() {
+    if (typedWindow.__backToTopCleanup) {
+      typedWindow.__backToTopCleanup();
+      delete typedWindow.__backToTopCleanup;
+    }
+  }
+
+  document.addEventListener("astro:before-swap", cleanupBackToTop);
   document.addEventListener("astro:page-load", setupBackToTop);
+  setupBackToTop();
 </script>

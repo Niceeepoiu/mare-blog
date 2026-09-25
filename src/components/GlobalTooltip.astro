@@ -3,7 +3,17 @@
 ---
 
 <script>
+  type GlobalTooltipWindow = Window & {
+    __globalTooltipCleanup?: () => void;
+  };
+
+  const typedWindow = window as GlobalTooltipWindow;
+
   function setupGlobalTooltip() {
+    if (typedWindow.__globalTooltipCleanup) {
+      typedWindow.__globalTooltipCleanup();
+    }
+
     let currentTooltipEl: HTMLElement | null = null;
     let activeTarget: HTMLElement | null = null;
 
@@ -65,8 +75,8 @@
       tooltip.style.setProperty("--tooltip-left", `${left}px`);
     };
 
-    document.addEventListener("mouseover", (e) => {
-      const target = (e.target as HTMLElement).closest(
+    const handleMouseOver = (event: MouseEvent) => {
+      const target = (event.target as HTMLElement).closest(
         "[data-tooltip]",
       ) as HTMLElement;
 
@@ -100,31 +110,50 @@
           }
         });
       });
-    });
+    };
 
-    document.addEventListener("mouseout", (e) => {
+    const handleMouseOut = (event: MouseEvent) => {
       if (!activeTarget) return;
 
-      const target = (e.target as HTMLElement).closest("[data-tooltip]");
+      const target = (event.target as HTMLElement).closest("[data-tooltip]");
       if (target === activeTarget) {
-        const relatedTarget = e.relatedTarget as Node | null;
+        const relatedTarget = event.relatedTarget as Node | null;
         if (!relatedTarget || !target.contains(relatedTarget)) {
           removeTooltip();
         }
       }
-    });
+    };
 
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (activeTarget && currentTooltipEl) {
-          updatePosition(activeTarget, currentTooltipEl);
-        }
-      },
-      { passive: true },
-    );
+    const handleScroll = () => {
+      if (activeTarget && currentTooltipEl) {
+        updatePosition(activeTarget, currentTooltipEl);
+      }
+    };
+
+    document.addEventListener("mouseover", handleMouseOver);
+    document.addEventListener("mouseout", handleMouseOut);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    typedWindow.__globalTooltipCleanup = () => {
+      document.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mouseout", handleMouseOut);
+      window.removeEventListener("scroll", handleScroll);
+      if (currentTooltipEl) {
+        currentTooltipEl.remove();
+        currentTooltipEl = null;
+      }
+      activeTarget = null;
+    };
   }
 
-  setupGlobalTooltip();
+  function cleanupGlobalTooltip() {
+    if (typedWindow.__globalTooltipCleanup) {
+      typedWindow.__globalTooltipCleanup();
+      delete typedWindow.__globalTooltipCleanup;
+    }
+  }
+
+  document.addEventListener("astro:before-swap", cleanupGlobalTooltip);
   document.addEventListener("astro:page-load", setupGlobalTooltip);
+  setupGlobalTooltip();
 </script>
