@@ -109,7 +109,6 @@ const isDev = import.meta.env.DEV;
     syncPagefindTheme();
 
     const searchButton = document.getElementById("search-toggle");
-    const pagefindTrigger = document.getElementById("pagefind-search-trigger");
     const devDialog = document.getElementById("search-dev-dialog");
 
     if (!searchButton) return;
@@ -126,9 +125,10 @@ const isDev = import.meta.env.DEV;
         return;
       }
 
-      if (!pagefindTrigger) return;
-      const triggerButton = pagefindTrigger.querySelector("button");
-      triggerButton?.click();
+      const modal = document.querySelector("pagefind-modal");
+      if (modal && "open" in modal && typeof modal.open === "function") {
+        modal.open();
+      }
     };
   }
 
