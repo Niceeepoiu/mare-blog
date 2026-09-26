@@ -1,0 +1,107 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import type { GetStaticPaths } from "astro";
+import { Icon } from "astro-icon/components";
+import siteConfig from "@config";
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import PostCard from "../../../../components/PostCard.astro";
+import {
+  getPostsForTag,
+  getTagHref,
+  getTagSummaries,
+} from "../../../../utils/tags";
+
+type Props = {
+  tagName: string;
+  posts: CollectionEntry<"blog">[];
+};
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection("blog");
+  const tags = getTagSummaries(posts);
+
+  return tags.map((tag) => ({
+    params: { tag: tag.slug },
+    props: { tagName: tag.name, posts: getPostsForTag(posts, tag.slug) },
+  }));
+}) satisfies GetStaticPaths;
+
+const { tagName, posts } = Astro.props as Props;
+const pageSize = Math.max(1, Math.floor(siteConfig.postsPerPage ?? 6));
+const totalPages = Math.max(1, Math.ceil(posts.length / pageSize));
+const pageItems = posts.slice(0, pageSize);
+const pageLinks = Array.from({ length: totalPages }, (_, index) => index + 1);
+const tagHref = getTagHref(tagName);
+---
+
+<BaseLayout pageTitle={`Tag: ${tagName}`}>
+  <header class="mb-8 border-b border-gray-300 pb-6 dark:border-gray-700">
+    <p class="text-base font-medium text-gray-600 dark:text-gray-300">
+      <a
+        href="/blog/tags"
+        class="hover:text-[#1a73e8] dark:hover:text-blue-400"
+      >
+        Tags
+      </a>
+    </p>
+    <h1 class="mt-2 text-2xl sm:text-3xl">{tagName}</h1>
+    <p class="mt-3 text-base text-gray-600 dark:text-gray-400">
+      {posts.length}
+      {posts.length === 1 ? "article" : "articles"} with this tag
+    </p>
+  </header>
+
+  <div class="flex flex-col gap-6">
+    {pageItems.map((post) => <PostCard post={post} />)}
+  </div>
+
+  <nav
+    aria-label="Tag archive pagination"
+    class="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm"
+  >
+    <span
+      data-tooltip="No previous page"
+      aria-label="Previous page"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-600"
+    >
+      <Icon name="lucide:chevron-left" class="h-4 w-4" />
+    </span>
+
+    {
+      pageLinks.map((pageNumber) => (
+        <a
+          href={pageNumber === 1 ? tagHref : `${tagHref}/${pageNumber}`}
+          aria-current={pageNumber === 1 ? "page" : undefined}
+          class={`flex h-10 w-10 items-center justify-center rounded-md border text-sm transition-colors ${
+            pageNumber === 1
+              ? "border-[#1a73e8] bg-[#1a73e8] text-white"
+              : "border-gray-200 bg-white text-gray-700 hover:border-[#1a73e8] hover:text-[#1a73e8] dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-blue-500 dark:hover:text-blue-400"
+          }`}
+        >
+          {pageNumber}
+        </a>
+      ))
+    }
+
+    {
+      totalPages > 1 ? (
+        <a
+          href={`${tagHref}/2`}
+          data-tooltip="Next page"
+          aria-label="Next page"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 bg-white text-gray-700 transition-colors hover:border-[#1a73e8] hover:text-[#1a73e8] dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-blue-500 dark:hover:text-blue-400"
+        >
+          <Icon name="lucide:chevron-right" class="h-4 w-4" />
+        </a>
+      ) : (
+        <span
+          data-tooltip="No next page"
+          aria-label="Next page"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-600"
+        >
+          <Icon name="lucide:chevron-right" class="h-4 w-4" />
+        </span>
+      )
+    }
+  </nav>
+</BaseLayout>

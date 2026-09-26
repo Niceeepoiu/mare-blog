@@ -36,6 +36,9 @@ const pageLinks = Array.from(
 
 <BaseLayout pageTitle={pageTitle}>
   <h1>Blog</h1>
+  <p class="mb-8 text-base leading-relaxed text-gray-600 dark:text-gray-400">
+    Browse all articles, notes, and guides.
+  </p>
 
   <div class="flex flex-col gap-6">
     {page.data.map((post) => <PostCard post={post} />)}

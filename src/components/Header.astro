@@ -6,6 +6,14 @@ import Search from "./Search.astro";
 import { Icon } from "astro-icon/components";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const activeNavHref = siteConfig.nav
+  .map((item) => item.href.replace(/\/$/, "") || "/")
+  .filter((href) =>
+    href === "/"
+      ? currentPath === "/"
+      : currentPath === href || currentPath.startsWith(`${href}/`),
+  )
+  .sort((left, right) => right.length - left.length)[0];
 ---
 
 <header
@@ -22,12 +30,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
     {
       siteConfig.nav.map((item) => {
         const normalizedHref = item.href.replace(/\/$/, "") || "/";
-
-        const isActive =
-          normalizedHref === "/"
-            ? currentPath === "/"
-            : currentPath === normalizedHref ||
-              currentPath.startsWith(`${normalizedHref}/`);
+        const isActive = normalizedHref === activeNavHref;
 
         return (
           <a

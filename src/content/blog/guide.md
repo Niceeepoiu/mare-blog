@@ -3,6 +3,7 @@ title: "Getting Started with Mare Blog: Configuration and Usage Guide"
 description: "A comprehensive guide on configuring your site, managing pages, publishing posts, and using CLI commands in Mare Blog."
 pubDate: 2026-08-30
 featured: false
+tags: [astro, blogging]
 ---
 
 Welcome to **Mare Blog**! This post serves as a complete walkthrough to help you set up, customize, and maintain your new blog. Whether you are modifying global configurations, managing your pages, or creating fresh content, you will find all the essential steps below.
@@ -119,6 +120,7 @@ title: "Blog Title"
 description: "description..."
 pubDate: 2026-08-30
 featured: true
+tags: [astro, writing]
 ---
 
 Write your Markdown content here.
@@ -127,6 +129,16 @@ Write your Markdown content here.
 Every new post appears in the blog list. Only posts with `featured: true` appear
 in the homepage's featured section. If no posts are featured, the section shows
 an empty-state message.
+
+Use the optional `tags` field to group related posts. Tags appear on article
+cards and article pages, link to their tag archive, and are listed at
+`/blog/tags`. Posts without tags remain valid and are omitted from the tag index.
+
+```yaml
+tags:
+   - astro
+   - writing
+```
 
 ## 4. Commands
 

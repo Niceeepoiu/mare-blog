@@ -59,6 +59,7 @@ export default defineConfig({
   nav: [
     { name: "Home", href: "/", icon: "lucide:home" },
     { name: "Blog", href: "/blog", icon: "lucide:book-open" },
+    { name: "Tags", href: "/blog/tags", icon: "lucide:tags" },
     { name: "About", href: "/about", icon: "lucide:user" },
   ],
   giscus: {
