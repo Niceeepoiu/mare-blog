@@ -1,54 +1,94 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
+import type { GetStaticPaths } from "astro";
 import siteConfig from "@config";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PostCard from "../../components/PostCard.astro";
 
-const allPosts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+type BlogPage = {
+  data: CollectionEntry<"blog">[];
+  currentPage: number;
+  lastPage: number;
+  url: {
+    prev?: string;
+    next?: string;
+  };
+};
 
-const pageSize = siteConfig.postsPerPage ?? 6;
-const totalPages = Math.max(1, Math.ceil(allPosts.length / pageSize));
-const currentPage = 1;
-const pageItems = allPosts.slice(0, pageSize);
-const pageLinks = Array.from({ length: totalPages }, (_, index) => index + 1);
-const pageTitle = "Blog";
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = (await getCollection("blog")).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  );
+
+  return paginate(posts, {
+    pageSize: siteConfig.postsPerPage ?? 6,
+  });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props as { page: BlogPage };
+const pageTitle = `Blog - Page ${page.currentPage}`;
+const pageLinks = Array.from(
+  { length: page.lastPage },
+  (_, index) => index + 1,
+);
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <h1>Blog</h1>
 
   <div class="flex flex-col gap-6">
-    {pageItems.map((post) => <PostCard post={post} />)}
+    {page.data.map((post) => <PostCard post={post} />)}
   </div>
 
   <nav
     aria-label="Blog pagination"
     class="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm"
   >
-    <span
-      data-tooltip="No previous page"
-      class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-600"
-      aria-label="Previous page"
-    >
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="h-4 w-4"
-      >
-        <path d="m15 18-6-6 6-6"></path>
-      </svg>
-    </span>
+    {
+      page.url.prev ? (
+        <a
+          href={page.url.prev}
+          data-tooltip="Previous page"
+          aria-label="Previous page"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 bg-white text-gray-700 transition-colors hover:border-[#1a73e8] hover:text-[#1a73e8] dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-blue-500 dark:hover:text-blue-400"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-4 w-4"
+          >
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+        </a>
+      ) : (
+        <span
+          data-tooltip="No previous page"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-600"
+          aria-label="Previous page"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-4 w-4"
+          >
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+        </span>
+      )
+    }
 
     {
       pageLinks.map((pageNumber) => {
         const href = pageNumber === 1 ? "/blog" : `/blog/${pageNumber}`;
-        const isCurrent = currentPage === pageNumber;
+        const isCurrent = page.currentPage === pageNumber;
 
         return (
           <a
@@ -67,9 +107,9 @@ const pageTitle = "Blog";
     }
 
     {
-      totalPages > 1 ? (
+      page.url.next ? (
         <a
-          href="/blog/2"
+          href={page.url.next}
           data-tooltip="Next page"
           aria-label="Next page"
           class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 bg-white text-gray-700 transition-colors hover:border-[#1a73e8] hover:text-[#1a73e8] dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-blue-500 dark:hover:text-blue-400"

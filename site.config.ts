@@ -19,6 +19,8 @@ export interface SiteConfig {
   authorBio: string;
   /** Base URL of the site */
   url: string;
+  /** Number of posts to show on each blog archive page */
+  postsPerPage: number;
   /** Header navigation items */
   nav: NavItem[];
   /** Giscus comment system configuration */
@@ -50,9 +52,10 @@ export default defineConfig({
   title: "Mare Blog",
   description: "A minimal and fast blog built with Astro.",
   author: "Niceeepoiu",
-  authorUrl: "https://mare-blog.pages.dev",
+  authorUrl: "https://www.github.com/Niceeepoiu",
   authorBio: "A passionate developer.",
   url: "https://mare-blog.pages.dev",
+  postsPerPage: 6,
   nav: [
     { name: "Home", href: "/", icon: "lucide:home" },
     { name: "Blog", href: "/blog", icon: "lucide:book-open" },
