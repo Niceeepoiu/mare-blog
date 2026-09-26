@@ -17,43 +17,148 @@ const activeNavHref = siteConfig.nav
 ---
 
 <header
-  class="mx-auto my-8 flex max-w-5xl items-center justify-between rounded-lg bg-white px-6 py-4 shadow-sm dark:bg-gray-900"
+  class="mx-auto my-8 flex max-w-5xl flex-col rounded-lg bg-white shadow-sm dark:bg-gray-900"
 >
-  <a
-    href="/"
-    class="text-xl font-bold tracking-tight text-[#1f2937] dark:text-gray-100"
-  >
-    {siteConfig.title}
-  </a>
+  <div class="flex w-full items-center justify-between px-3 py-4 sm:px-6">
+    <a
+      href="/"
+      class="text-xl font-bold tracking-tight text-[#1f2937] dark:text-gray-100"
+    >
+      {siteConfig.title}
+    </a>
 
-  <nav class="flex items-center gap-2">
-    {
-      siteConfig.nav.map((item) => {
-        const normalizedHref = item.href.replace(/\/$/, "") || "/";
-        const isActive = normalizedHref === activeNavHref;
+    <nav class="hidden items-center gap-2 md:flex">
+      {
+        siteConfig.nav.map((item) => {
+          const normalizedHref = item.href.replace(/\/$/, "") || "/";
+          const isActive = normalizedHref === activeNavHref;
 
-        return (
-          <a
-            href={item.href}
-            aria-label={item.name}
-            class={`nav-scale-bg inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-              isActive
-                ? "font-semibold text-[#1a73e8] before:bg-[#e8f0fe] dark:text-blue-400 dark:before:bg-blue-950/60"
-                : "text-[#5f6368] hover:text-[#1a73e8] hover:before:bg-[#e8f0fe]/70 dark:text-gray-400 dark:hover:text-blue-400 dark:hover:before:bg-gray-800"
-            }`}
-          >
-            {item.icon && <Icon name={item.icon} class="h-4 w-4" />}
+          return (
+            <a
+              href={item.href}
+              aria-label={item.name}
+              class={`nav-scale-bg inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                isActive
+                  ? "font-semibold text-[#1a73e8] before:bg-[#e8f0fe] dark:text-blue-400 dark:before:bg-blue-950/60"
+                  : "text-[#5f6368] hover:text-[#1a73e8] hover:before:bg-[#e8f0fe]/70 dark:text-gray-400 dark:hover:text-blue-400 dark:hover:before:bg-gray-800"
+              }`}
+            >
+              {item.icon && <Icon name={item.icon} class="h-4 w-4" />}
 
-            <span class="hidden md:inline">{item.name}</span>
-          </a>
-        );
-      })
-    }
-  </nav>
+              <span>{item.name}</span>
+            </a>
+          );
+        })
+      }
+    </nav>
 
-  <div class="flex items-center gap-1">
-    <Search />
-    <RssButton />
-    <ThemeToggle />
+    <div class="flex items-center gap-1">
+      <button
+        id="mobile-navigation-toggle"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="mobile-navigation-menu"
+        aria-expanded="false"
+        data-tooltip="Navigation menu"
+        class="nav-scale-bg flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-[#5f6368] transition-colors duration-200 hover:text-[#1a73e8] hover:before:bg-[#e8f0fe]/70 md:hidden dark:text-gray-400 dark:hover:text-blue-400 dark:hover:before:bg-gray-800"
+      >
+        <Icon name="lucide:menu" class="h-5 w-5" />
+      </button>
+      <Search />
+      <RssButton />
+      <ThemeToggle />
+    </div>
   </div>
+
+  <nav
+    id="mobile-navigation-menu"
+    aria-label="Mobile navigation"
+    hidden
+    class="w-full border-t border-gray-200 px-3 py-3 sm:px-6 md:hidden dark:border-gray-800"
+  >
+    <div class="flex flex-col gap-1">
+      {
+        siteConfig.nav.map((item) => {
+          const normalizedHref = item.href.replace(/\/$/, "") || "/";
+          const isActive = normalizedHref === activeNavHref;
+
+          return (
+            <a
+              href={item.href}
+              class={`flex min-h-12 items-center gap-3 rounded-md px-4 py-3 text-base font-medium transition-colors ${
+                isActive
+                  ? "bg-[#e8f0fe] text-[#1a73e8] dark:bg-blue-950/60 dark:text-blue-400"
+                  : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+              }`}
+            >
+              {item.icon && <Icon name={item.icon} class="h-4 w-4" />}
+              <span>{item.name}</span>
+            </a>
+          );
+        })
+      }
+    </div>
+  </nav>
 </header>
+
+<script>
+  const closeMobileNavigation = () => {
+    const menu = document.getElementById("mobile-navigation-menu");
+    const toggle = document.getElementById("mobile-navigation-toggle");
+    if (!menu || !toggle) return;
+
+    menu.hidden = true;
+    toggle.setAttribute("aria-expanded", "false");
+  };
+
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+
+    const menu = document.getElementById("mobile-navigation-menu");
+    const toggle = event.target.closest("#mobile-navigation-toggle");
+
+    if (toggle && menu) {
+      const isOpen = !menu.hidden;
+      menu.hidden = isOpen;
+      toggle.setAttribute("aria-expanded", String(!isOpen));
+      return;
+    }
+
+    if (menu && !menu.hidden) {
+      const clickedLink = event.target.closest("#mobile-navigation-menu a");
+      const clickedOutside = !menu.contains(event.target);
+      if (clickedLink || clickedOutside) closeMobileNavigation();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+
+    const menu = document.getElementById("mobile-navigation-menu");
+    const toggle = document.getElementById("mobile-navigation-toggle");
+    if (!menu || menu.hidden) return;
+
+    closeMobileNavigation();
+    toggle?.focus();
+  });
+</script>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    #mobile-navigation-menu:not([hidden]) {
+      animation: mobile-navigation-enter 180ms ease-out both;
+    }
+
+    @keyframes mobile-navigation-enter {
+      from {
+        opacity: 0;
+        transform: translateY(-0.5rem);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+</style>
