@@ -22,6 +22,13 @@ export default defineConfig({
   authorUrl: "https://github.com/Niceeepoiu",
   authorBio: "A passionate developer.",
   url: "https://mare-blog.pages.dev",
+  nav: [
+    { name: "Home", href: "/", icon: "lucide:home" },
+    { name: "Blog", href: "/blog", icon: "lucide:book-open" },
+    { name: "Journal", href: "/journal", icon: "lucide:calendar-days" },
+    { name: "Tags", href: "/blog/tags", icon: "lucide:tags" },
+    { name: "About", href: "/about", icon: "lucide:user" },
+  ],
 
   giscus: {
     enabled: true,
@@ -48,6 +55,11 @@ The project defaults to Giscus enabled, but comments only render if the repo, re
 - `authorUrl`: External link to your GitHub, Twitter, or personal portfolio.
 - `authorBio`: Brief introduction featured in author cards.
 - `url`: The public base URL.
+- `nav`: Array of header links. Each item requires `name` (visible label) and
+  `href` (destination path); `icon` is optional and accepts an icon identifier
+  such as `lucide:home`. Add, remove, or reorder items in this array to customize
+  the header navigation. Lucide icons referenced by the site are collected
+  automatically during the build.
 
 #### Giscus Comment System Settings
 
@@ -136,11 +148,29 @@ cards and article pages, link to their tag archive, and are listed at
 
 ```yaml
 tags:
-   - astro
-   - writing
+  - astro
+  - writing
 ```
 
-## 4. Commands
+## 4. Keeping a Journal
+
+Short notes and moments can be published on the Journal timeline without
+appearing in the blog archive. Create a `.md` or `.mdx` file in
+`src/content/journal/` with a title and date/time:
+
+```markdown
+---
+title: "A small note"
+pubDate: 2026-09-26T14:30:00Z
+---
+
+Write a short note here. Markdown content appears directly on the timeline.
+```
+
+Entries are sorted newest first. The date and time appear beside each entry on
+the left in UTC; its title and content appear on the right.
+
+## 5. Commands
 
 All commands are run from the root of the project, from a terminal:
 

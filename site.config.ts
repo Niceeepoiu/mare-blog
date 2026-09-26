@@ -3,9 +3,10 @@ export interface NavItem {
   name: string;
   /** Navigation target path or URL */
   href: string;
-  /** Icon identifier (e.g., 'lucide:home') */
+  /** Icon identifier */
   icon?: string;
 }
+
 export interface SiteConfig {
   /** Site title */
   title: string;
@@ -59,6 +60,7 @@ export default defineConfig({
   nav: [
     { name: "Home", href: "/", icon: "lucide:home" },
     { name: "Blog", href: "/blog", icon: "lucide:book-open" },
+    { name: "Journal", href: "/journal", icon: "lucide:calendar-days" },
     { name: "Tags", href: "/blog/tags", icon: "lucide:tags" },
     { name: "About", href: "/about", icon: "lucide:user" },
   ],
