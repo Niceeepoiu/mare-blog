@@ -2,7 +2,7 @@
 title: "Getting Started with Mare Blog: Configuration and Usage Guide"
 description: "A comprehensive guide on configuring your site, managing pages, publishing posts, and using CLI commands in Mare Blog."
 pubDate: 2026-08-30
-author: "Niceeepoiu"
+featured: false
 ---
 
 Welcome to **Mare Blog**! This post serves as a complete walkthrough to help you set up, customize, and maintain your new blog. Whether you are modifying global configurations, managing your pages, or creating fresh content, you will find all the essential steps below.
@@ -105,19 +105,24 @@ Blog articles live inside the content directory: `src/content/blog/`.
 To publish a new article:
 
 1. Create a new `.md` or `.mdx` file in `src/content/blog/` (e.g., `my-first-post.md`).
-2. Add the required Frontmatter metadata at the top of the file:
+2. Add the required Frontmatter metadata at the top of the file. Set `featured` to
+   `true` if the post should appear in the homepage's featured section; it defaults
+   to `false` when omitted.
 
 ```markdown
 ---
 title: "Blog Title"
 description: "description..."
 pubDate: 2026-08-30
+featured: true
 ---
 
 Write your Markdown content here.
 ```
 
-The new post will automatically appear on your homepage and blog list.
+Every new post appears in the blog list. Only posts with `featured: true` appear
+in the homepage's featured section. If no posts are featured, the section shows
+an empty-state message.
 
 ## 4. Commands
 

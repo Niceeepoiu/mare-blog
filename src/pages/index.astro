@@ -1,12 +1,36 @@
 ---
 import siteConfig from "@config";
+import { getCollection } from "astro:content";
+import PostCard from "../components/PostCard.astro";
 import UserCard from "../components/UserCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 const pageTitle = "Home";
+const featuredPosts = (await getCollection("blog"))
+  .filter((post) => post.data.featured)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <h1>Welcome to My Blog</h1>
   <p>{siteConfig.description}</p>
+
+  <section class="mt-12" aria-labelledby="featured-posts-heading">
+    <h2 id="featured-posts-heading" class="mb-6 text-2xl font-bold">
+      Featured posts
+    </h2>
+    {
+      featuredPosts.length > 0 ? (
+        <div class="flex flex-col gap-6">
+          {featuredPosts.map((post) => (
+            <PostCard post={post} />
+          ))}
+        </div>
+      ) : (
+        <p class="py-2 text-sm text-gray-500 dark:text-gray-400">
+          No featured posts yet.
+        </p>
+      )
+    }
+  </section>
   <UserCard />
 </BaseLayout>
