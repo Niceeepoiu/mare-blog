@@ -67,7 +67,7 @@ const { pageTitle, showComments = false } = Astro.props;
     <Header transition:persist />
 
     <main
-      class="mx-auto my-10 max-w-5xl rounded-lg bg-white p-12 shadow-sm dark:bg-gray-900"
+      class="mx-auto my-8 max-w-5xl rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900"
       data-pagefind-body
     >
       <slot />
@@ -75,7 +75,7 @@ const { pageTitle, showComments = false } = Astro.props;
 
     {
       showComments && (
-        <section class="mx-auto mb-16 max-w-5xl">
+        <section class="mx-auto my-8 max-w-5xl">
           <Comment />
         </section>
       )
