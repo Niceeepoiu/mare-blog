@@ -14,7 +14,11 @@ const post = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BaseLayout pageTitle={post.data.title} showComments={true}>
+<BaseLayout
+  pageTitle={post.data.title}
+  description={post.data.description}
+  showComments={true}
+>
   <header class="mb-8 border-b border-gray-300 pb-6 dark:border-gray-700">
     <h1>
       {post.data.title}
