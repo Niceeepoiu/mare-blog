@@ -23,7 +23,7 @@ export default defineConfig({
   url: "https://mare-blog.pages.dev",
 
   giscus: {
-    enabled: false,
+    enabled: true,
     repo: "your-username/your-repo-name",
     repoId: "YOUR_GISCUS_REPO_ID",
     category: "Announcements",
@@ -34,6 +34,8 @@ export default defineConfig({
   },
 });
 ```
+
+The project defaults to Giscus enabled, but comments only render if the repo, repository ID, category, and category ID are all valid. If any of them are missing or invalid, the site shows a disabled notice instead of crashing during build or navigation.
 
 ### Configuration Options Breakdown
 
@@ -48,7 +50,7 @@ export default defineConfig({
 
 #### Giscus Comment System Settings
 
-- `enabled`: Toggle `true` or `false` to show or hide comments globally.
+- `enabled`: Toggle `true` or `false` to show or hide comments globally. The default template uses `true`.
 - `repo`: GitHub repository path formatted as `owner/repo`.
 - `repoId`: Unique repository ID generated from giscus.app.
 - `category`: Discussion category dedicated to blog comments.
@@ -56,6 +58,8 @@ export default defineConfig({
 - `theme`: Preset theme name applied in light mode.
 - `darkTheme`: Preset theme name applied in dark mode.
 - `lang`: Two-letter ISO language code for the comment UI.
+
+When `enabled` is on but the repo credentials are incomplete, the UI shows a clear disabled state and keeps navigation working smoothly without breaking the page.
 
 ---
 

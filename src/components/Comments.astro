@@ -74,6 +74,11 @@ const hasValidGiscusConfig = Boolean(
   const COMMENTS_LOAD_TIMEOUT = 10000;
 
   function cleanupCommentsState() {
+    if (window.__commentsCleanup) {
+      window.__commentsCleanup();
+      delete window.__commentsCleanup;
+    }
+
     if (window.__giscusMessageHandler) {
       window.removeEventListener("message", window.__giscusMessageHandler);
       delete window.__giscusMessageHandler;
