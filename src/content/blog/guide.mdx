@@ -1,12 +1,12 @@
 ---
 title: "Getting Started with Mare Blog: Configuration and Usage Guide"
-description: "A comprehensive guide on configuring your site, managing pages, publishing posts, and using CLI commands in Mare Blog."
+description: "A comprehensive guide on configuring your site, managing pages, publishing posts, using Pages CMS, and executing CLI commands in Mare Blog."
 pubDate: 2026-08-30
 featured: false
 tags: [astro, blogging]
 ---
 
-Welcome to **Mare Blog**! This post serves as a complete walkthrough to help you set up, customize, and maintain your new blog. Whether you are modifying global configurations, managing your pages, or creating fresh content, you will find all the essential steps below.
+Welcome to **Mare Blog**! This post serves as a complete walkthrough to help you set up, customize, and maintain your new blog. Whether you are modifying global configurations, managing your pages, using Pages CMS for editing, or creating fresh content, you will find all the essential steps below.
 
 ## 1. Configuring Your Site
 
@@ -19,9 +19,9 @@ export default defineConfig({
   title: "Mare Blog",
   description: "A minimal and fast blog built with Astro.",
   author: "Niceeepoiu",
-  authorUrl: "https://github.com/Niceeepoiu",
+  authorUrl: "[https://github.com/Niceeepoiu](https://github.com/Niceeepoiu)",
   authorBio: "A passionate developer.",
-  url: "https://mare-blog.pages.dev",
+  url: "[https://mare-blog.pages.dev](https://mare-blog.pages.dev)",
   nav: [
     { name: "Home", href: "/", icon: "lucide:home" },
     { name: "Blog", href: "/blog", icon: "lucide:book-open" },
@@ -74,8 +74,6 @@ The project defaults to Giscus enabled, but comments only render if the repo, re
 
 When `enabled` is on but the repo credentials are incomplete, the UI shows a clear disabled state and keeps navigation working smoothly without breaking the page.
 
----
-
 ### Step-by-Step Guide: How to Obtain Giscus Credentials
 
 Follow these steps to generate your required `repoId` and `categoryId`:
@@ -94,25 +92,23 @@ Follow these steps to generate your required `repoId` and `categoryId`:
    - Scroll down to the **Enable giscus** section. Giscus will automatically generate a script tag containing your unique `data-repo-id` and `data-category-id`.
    - Copy these two values into your `/site.config.ts` file and set `enabled: true`.
 
----
-
 ## 2. Modifying the About Page
 
-The About page content is managed via Markdown and located at `src/content/page/about.md`.
+The About page content is managed via MDX and located at `src/content/page/about.mdx`.
 
 To update your personal bio:
 
-1. Open the About Markdown file.
+1. Open the About MDX file.
 2. Update the Frontmatter metadata at the top if needed.
-3. Edit the Markdown body below the Frontmatter to update your personal intro, project showcase, or social media links.
+3. Edit the content below the Frontmatter to update your personal intro, project showcase, or social media links. Since MDX is enabled, you can also embed Astro or JSX components seamlessly.
 
 ```markdown
 ---
-title: "Title"
-description: "description..."
+title: "About"
+description: "Learn more about me and this blog."
 ---
 
-Write your Markdown content here.
+Write your Markdown or MDX content here.
 ```
 
 ## 3. Writing & Publishing Posts
@@ -121,7 +117,7 @@ Blog articles live inside the content directory: `src/content/blog/`.
 
 To publish a new article:
 
-1. Create a new `.md` or `.mdx` file in `src/content/blog/` (e.g., `my-first-post.md`).
+1. Create a new `.md` or `.mdx` file in `src/content/blog/` (e.g., `my-first-post.mdx`).
 2. Add the required Frontmatter metadata at the top of the file. Set `featured` to
    `true` if the post should appear in the homepage's featured section; it defaults
    to `false` when omitted.
@@ -129,13 +125,13 @@ To publish a new article:
 ```markdown
 ---
 title: "Blog Title"
-description: "description..."
+description: "A short description of the post..."
 pubDate: 2026-08-30
 featured: true
 tags: [astro, writing]
 ---
 
-Write your Markdown content here.
+Write your Markdown or MDX content here.
 ```
 
 Every new post appears in the blog list. Only posts with `featured: true` appear
@@ -170,7 +166,22 @@ Write a short note here. Markdown content appears directly on the timeline.
 Entries are sorted newest first. The date and time appear beside each entry on
 the left in UTC; its title and content appear on the right.
 
-## 5. Commands
+## 5. Visual Editing via Pages CMS
+
+If you prefer a clean visual editor instead of writing Markdown files in your code editor, **Mare Blog** comes pre-configured with **Pages CMS**.
+
+### Quick Start Guide
+
+1. Visit [pagescms.org](https://pagescms.org) and log in with your GitHub account.
+2. Select your **Mare Blog** repository from the list.
+3. Choose what you want to edit from the sidebar:
+   - **Blog Posts**: Create or update articles (saved automatically as `.mdx`).
+   - **Pages**: Edit site pages like About (saved as `.mdx`).
+   - **Journal Entries**: Post quick timeline thoughts (saved as `.md`).
+
+All changes published through Pages CMS are automatically committed to your GitHub repository and trigger a site rebuild.
+
+## 6. Commands
 
 All commands are run from the root of the project, from a terminal:
 

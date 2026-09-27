@@ -10,7 +10,7 @@
     "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
-    "format": "prettier --write \"**/*.{astro,html,js,jsx,ts,tsx,json,css,md}\""
+    "format": "prettier --write \"**/*.{astro,html,js,jsx,ts,tsx,json,css,md,mdx}\""
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.1",

@@ -1,0 +1,93 @@
+media:
+  input: src/assets
+  output: '../../assets/{file}'
+
+content:
+  - name: blog
+    label: Blog Posts
+    type: collection
+    path: src/content/blog
+    filename: '{year}-{month}-{day}-{slug}'
+    extension: mdx
+    format: yaml-frontmatter
+    view:
+      fields: [title, pubDate, featured]
+
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+
+      - name: description
+        label: Description
+        type: string
+        required: true
+
+      - name: pubDate
+        label: Publish Date
+        type: date
+        required: true
+
+      - name: featured
+        label: Featured Post
+        type: boolean
+        default: false
+
+      - name: tags
+        label: Tags
+        type: list
+        default: []
+
+      - name: body
+        label: Content
+        type: rich-text
+
+  - name: page
+    label: Pages
+    type: collection
+    path: src/content/page
+    filename: '{slug}'
+    extension: mdx
+    format: yaml-frontmatter
+    view:
+      fields: [title]
+
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+
+      - name: description
+        label: Description
+        type: string
+
+      - name: body
+        label: Content
+        type: rich-text
+
+  - name: journal
+    label: Journal Entries
+    type: collection
+    path: src/content/journal
+    filename: '{year}-{month}-{day}-{slug}'
+    extension: md
+    format: yaml-frontmatter
+    view:
+      fields: [title, pubDate]
+
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+
+      - name: pubDate
+        label: Publish Date
+        type: date
+        required: true
+
+      - name: body
+        label: Content
+        type: rich-text

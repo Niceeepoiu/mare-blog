@@ -1,6 +1,6 @@
 # Mare Blog 🥳
 
-A minimal and fast blog built with Astro.
+A minimal, lightning-fast personal blog built with **Astro**, **Tailwind CSS**, and **Pages CMS**.
 
 ## 🖼️ Preview
 
@@ -8,10 +8,23 @@ A minimal and fast blog built with Astro.
 
 👉 **[View Live Demo →](https://mare-blog.pages.dev)**
 
+## ✨ Key Features
+
+- **⚡ Lightning Fast**: Built on Astro for optimized static site generation and zero JS by default.
+- **🔍 Pagefind Search**: Instant, zero-config full-text search powered by Pagefind with zero server runtime.
+- **🎨 Minimal & Responsive**: Clean design powered by Tailwind CSS, with seamlessly integrated **Light & Dark theme toggle**.
+- **💬 Giscus Comments**: Powered by GitHub Discussions—lightweight, secure, and privacy-friendly.
+- **📡 RSS Feed Support**: Built-in RSS feed generation out of the box (`/rss.xml`).
+- **✍️ Headless Git-CMS**: Pre-configured with **Pages CMS** for visual Markdown/MDX editing without local code setups.
+- **📂 Multi-Collection**: Built-in support for Blog articles, Journal entries (timeline notes), and standalone Pages.
+
 ## 🛜 Tech Stack
 
-- [Astro](https://astro.build)
-- [TailwindCSS](https://tailwindcss.com)
+- **Framework**: [Astro](https://astro.build)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com)
+- **Search**: [Pagefind](https://pagefind.app)
+- **CMS**: [Pages CMS](https://pagescms.org)
+- **Comments**: [Giscus](https://giscus.app)
 
 ## 🚀 Getting Started
 
@@ -22,13 +35,11 @@ pnpm dev      # Start local dev server at localhost:4321
 
 ## 📖 Documentation & Usage
 
-For detailed guides on site configuration, writing posts, updating the About page, and customizing the Giscus comment system, please refer to our documentation post:
+For detailed guides on site configuration, writing posts, managing pages, and setting up Giscus comments, refer to the documentation post:
 
-👉 **[Read the Getting Started & Configuration Guide →](https://mare-blog.pages.dev/blog/guide/)**
+👉 [Read the Getting Started & Configuration Guide →](https://mare-blog.pages.dev/blog/guide/)
 
 ## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
 
 | Command                | Action                                         |
 | :--------------------- | :--------------------------------------------- |
