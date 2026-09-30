@@ -10,12 +10,12 @@ const { post } = Astro.props;
 ---
 
 <article
-  class="group rounded-md border border-gray-100 transition-all duration-200 hover:border-[#1a73e8]/30 hover:bg-[#e8f0fe]/20 dark:border-gray-800 dark:hover:border-blue-500/30 dark:hover:bg-blue-950/20"
+  class="group rounded-md border border-gray-100 transition-all duration-200 hover:border-blue-500/30 hover:bg-blue-50/20 dark:border-gray-800 dark:hover:border-blue-500/30 dark:hover:bg-blue-950/20"
 >
   <div class="flex flex-col p-6">
     <a href={`/blog/${post.id}`} class="flex flex-col">
       <h2
-        class="text-xl font-bold text-[#1f2937] transition-colors duration-200 group-hover:text-[#1a73e8] dark:text-gray-100 dark:group-hover:text-blue-400"
+        class="text-xl font-bold text-gray-800 transition-colors duration-200 group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400"
       >
         {post.data.title}
       </h2>
@@ -48,7 +48,7 @@ const { post } = Astro.props;
             <li>
               <a
                 href={getTagHref(tag)}
-                class="inline-flex rounded-sm border border-gray-200 px-2 py-1 text-xs font-medium text-gray-600 transition-colors hover:border-[#1a73e8] hover:text-[#1a73e8] dark:border-gray-700 dark:text-gray-400 dark:hover:border-blue-500 dark:hover:text-blue-400"
+                class="inline-flex rounded-sm border border-gray-200 px-2 py-1 text-xs font-medium text-gray-600 transition-colors hover:border-blue-600 hover:text-blue-600 dark:border-gray-700 dark:text-gray-400 dark:hover:border-blue-500 dark:hover:text-blue-400"
               >
                 {tag}
               </a>

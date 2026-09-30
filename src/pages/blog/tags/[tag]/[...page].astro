@@ -1,0 +1,131 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import type { GetStaticPaths, Page } from "astro";
+import { Icon } from "astro-icon/components";
+import siteConfig from "@config";
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import PostCard from "../../../../components/PostCard.astro";
+import {
+  getPostsForTag,
+  getTagHref,
+  getTagSummaries,
+} from "../../../../utils/tags";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const allPosts = await getCollection("blog");
+  const tags = getTagSummaries(allPosts);
+  const pageSize = Math.max(1, Math.floor(siteConfig.postsPerPage ?? 6));
+
+  return tags.flatMap((tag) => {
+    const posts = getPostsForTag(allPosts, tag.slug);
+    return paginate(posts, {
+      params: { tag: tag.slug },
+      pageSize,
+      props: { tagName: tag.name, totalPosts: posts.length },
+    });
+  });
+}) satisfies GetStaticPaths;
+
+type Props = {
+  page: Page<CollectionEntry<"blog">>;
+  tagName: string;
+  totalPosts: number;
+};
+
+const { page, tagName, totalPosts } = Astro.props;
+const pageLinks = Array.from(
+  { length: page.lastPage },
+  (_, index) => index + 1,
+);
+const tagHref = getTagHref(tagName);
+---
+
+<BaseLayout
+  pageTitle={`Tag: ${tagName}${page.currentPage > 1 ? ` - Page ${page.currentPage}` : ""}`}
+>
+  <header class="mb-8 border-b border-gray-300 pb-6 dark:border-gray-700">
+    <p class="text-base font-medium text-gray-600 dark:text-gray-300">
+      <a href="/blog/tags" class="hover:text-blue-600 dark:hover:text-blue-400">
+        Tags
+      </a>
+    </p>
+    <h1 class="mt-2 text-2xl sm:text-3xl">{tagName}</h1>
+    {
+      page.currentPage === 1 && (
+        <p class="mt-3 text-base text-gray-600 dark:text-gray-400">
+          {totalPosts} {totalPosts === 1 ? "article" : "articles"} with this tag
+        </p>
+      )
+    }
+  </header>
+
+  <div class="flex flex-col gap-6">
+    {page.data.map((post) => <PostCard post={post} />)}
+  </div>
+
+  <nav
+    aria-label="Tag archive pagination"
+    class="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm"
+  >
+    {
+      page.url.prev ? (
+        <a
+          href={page.url.prev}
+          data-tooltip="Previous page"
+          aria-label="Previous page"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 bg-white text-gray-700 transition-colors hover:border-blue-600 hover:text-blue-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-blue-500 dark:hover:text-blue-400"
+        >
+          <Icon name="lucide:chevron-left" class="h-4 w-4" />
+        </a>
+      ) : (
+        <span
+          data-tooltip="No previous page"
+          aria-label="Previous page"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-600"
+        >
+          <Icon name="lucide:chevron-left" class="h-4 w-4" />
+        </span>
+      )
+    }
+    {
+      pageLinks.map((pageNumber) => {
+        const href = pageNumber === 1 ? tagHref : `${tagHref}/${pageNumber}`;
+        const isCurrent = page.currentPage === pageNumber;
+
+        return (
+          <a
+            href={href}
+            aria-current={isCurrent ? "page" : undefined}
+            class={`flex h-10 w-10 items-center justify-center rounded-md border text-sm transition-colors ${
+              isCurrent
+                ? "border-blue-600 bg-blue-600 text-white"
+                : "border-gray-200 bg-white text-gray-700 hover:border-blue-600 hover:text-blue-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-blue-500 dark:hover:text-blue-400"
+            }`}
+          >
+            {pageNumber}
+          </a>
+        );
+      })
+    }
+    {
+      page.url.next ? (
+        <a
+          href={page.url.next}
+          data-tooltip="Next page"
+          aria-label="Next page"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 bg-white text-gray-700 transition-colors hover:border-blue-600 hover:text-blue-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-blue-500 dark:hover:text-blue-400"
+        >
+          <Icon name="lucide:chevron-right" class="h-4 w-4" />
+        </a>
+      ) : (
+        <span
+          data-tooltip="No next page"
+          aria-label="Next page"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-600"
+        >
+          <Icon name="lucide:chevron-right" class="h-4 w-4" />
+        </span>
+      )
+    }
+  </nav>
+</BaseLayout>

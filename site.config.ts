@@ -8,6 +8,8 @@ export interface NavItem {
 }
 
 export interface SiteConfig {
+  /** Site language (e.g. 'en', 'zh-CN') */
+  lang: string;
   /** Site title */
   title: string;
   /** Site description */
@@ -50,6 +52,7 @@ export function defineConfig(config: SiteConfig): SiteConfig {
 }
 
 export default defineConfig({
+  lang: "en",
   title: "Mare Blog",
   description: "A minimal and fast blog built with Astro.",
   author: "Niceeepoiu",
