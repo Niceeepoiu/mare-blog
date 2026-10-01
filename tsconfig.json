@@ -4,7 +4,6 @@
   "exclude": ["dist"],
   "compilerOptions": {
     "paths": {
-      "@/*": ["./src/*"],
       "@config": ["./site.config.ts"]
     }
   }

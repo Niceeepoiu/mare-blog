@@ -1,7 +1,7 @@
 ---
 title: "Getting Started with Mare Blog: Configuration and Usage Guide"
 description: "A comprehensive guide on configuring your site, managing pages, publishing posts, using Pages CMS, and executing CLI commands in Mare Blog."
-pubDate: 2026-08-30
+pubDate: 2026-08-30T00:00:00
 featured: false
 tags: [astro, blogging]
 ---
@@ -117,7 +117,7 @@ Blog articles live inside the content directory: `src/content/blog/`.
 
 To publish a new article:
 
-1. Create a new `.md` or `.mdx` file in `src/content/blog/` (e.g., `my-first-post.mdx`).
+1. Create a new `.md` or `.mdx` file in `src/content/blog/` (e.g., `my-first-post.md`).
 2. Add the required Frontmatter metadata at the top of the file. Set `featured` to
    `true` if the post should appear in the homepage's featured section; it defaults
    to `false` when omitted.
@@ -126,7 +126,7 @@ To publish a new article:
 ---
 title: "Blog Title"
 description: "A short description of the post..."
-pubDate: 2026-08-30
+pubDate: 2026-08-30T09:00:00
 featured: true
 tags: [astro, writing]
 ---
@@ -157,31 +157,17 @@ appearing in the blog archive. Create a `.md` or `.mdx` file in
 ```markdown
 ---
 title: "A small note"
-pubDate: 2026-09-26T14:30:00Z
+pubDate: 2026-09-26T14:30:00
 ---
 
 Write a short note here. Markdown content appears directly on the timeline.
 ```
 
 Entries are sorted newest first. The date and time appear beside each entry on
-the left in UTC; its title and content appear on the right.
+the left; its title and content appear on the right. Use the same
+`YYYY-MM-DDTHH:mm:ss` format for blog posts and journal entries.
 
-## 5. Visual Editing via Pages CMS
-
-If you prefer a clean visual editor instead of writing Markdown files in your code editor, **Mare Blog** comes pre-configured with **Pages CMS**.
-
-### Quick Start Guide
-
-1. Visit [pagescms.org](https://pagescms.org) and log in with your GitHub account.
-2. Select your **Mare Blog** repository from the list.
-3. Choose what you want to edit from the sidebar:
-   - **Blog Posts**: Create or update articles (saved automatically as `.mdx`).
-   - **Pages**: Edit site pages like About (saved as `.mdx`).
-   - **Journal Entries**: Post quick timeline thoughts (saved as `.md`).
-
-All changes published through Pages CMS are automatically committed to your GitHub repository and trigger a site rebuild.
-
-## 6. Commands
+## 5. Commands
 
 All commands are run from the root of the project, from a terminal:
 

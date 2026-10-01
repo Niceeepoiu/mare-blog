@@ -29,25 +29,23 @@ const renderedEntries = await Promise.all(
     renderedEntries.length > 0 ? (
       <ol class="space-y-10">
         {renderedEntries.map(({ entry, Content }, index) => (
-          <li class="grid grid-cols-[4.5rem_1rem_minmax(0,1fr)] items-stretch gap-x-2 sm:grid-cols-[7rem_1.5rem_minmax(0,1fr)] sm:gap-x-4">
+          <li class="grid grid-cols-[6rem_1rem_minmax(0,1fr)] items-stretch gap-x-2 sm:grid-cols-[8.5rem_1.5rem_minmax(0,1fr)] sm:gap-x-4">
             <time
               datetime={entry.data.pubDate.toISOString()}
-              class="pt-1 text-right text-xs leading-5 text-gray-500 sm:text-sm dark:text-gray-400"
+              class="pt-1 whitespace-nowrap text-right text-[11px] leading-5 text-gray-500 sm:text-sm dark:text-gray-400"
             >
-              <span class="block">
+              <span class="inline-block">
                 {entry.data.pubDate.toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "short",
                   day: "numeric",
-                  timeZone: "UTC",
                 })}
               </span>
-              <span class="block text-[11px] sm:text-xs">
+              <span class="ml-2 inline-block">
                 {entry.data.pubDate.toLocaleTimeString("en-US", {
-                  hour: "numeric",
+                  hour: "2-digit",
                   minute: "2-digit",
-                  timeZone: "UTC",
-                  timeZoneName: "short",
+                  hour12: false,
                 })}
               </span>
             </time>

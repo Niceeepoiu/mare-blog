@@ -31,10 +31,13 @@ const { post } = Astro.props;
       <div class="pt-4 text-xs font-medium text-gray-400 dark:text-gray-500">
         <time datetime={post.data.pubDate.toISOString()}>
           {
-            post.data.pubDate.toLocaleDateString("en-US", {
+            post.data.pubDate.toLocaleString("en-US", {
               year: "numeric",
               month: "short",
               day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: false,
             })
           }
         </time>
@@ -44,7 +47,7 @@ const { post } = Astro.props;
     {
       post.data.tags.length > 0 && (
         <ul class="mt-4 flex flex-wrap gap-2" aria-label="Article tags">
-          {post.data.tags.map((tag) => (
+          {post.data.tags.map((tag: string) => (
             <li>
               <a
                 href={getTagHref(tag)}

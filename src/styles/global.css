@@ -108,7 +108,7 @@
     }
 
     & blockquote {
-      @apply my-4 rounded-md border-l-4 border-blue-600 bg-blue-50/50 p-4 shadow-sm dark:border-blue-500 dark:bg-blue-950/30;
+      @apply pb-0.5 my-4 rounded-md border-l-4 border-blue-600 bg-blue-50/50 p-4 shadow-sm dark:border-blue-500 dark:bg-blue-950/30;
     }
 
     & a {

@@ -29,7 +29,7 @@ This site is built with modern, lightweight web technologies:
 
 Looking for setup instructions, configuration details, or guide on creating content with Pages CMS?
 
-👉 **[Read the Configuration & Usage Guide →](/blog/guide/)**
+👉 [Read the Configuration & Usage Guide →](/blog/guide/)
 
 ## 🔗 Project & Links
 

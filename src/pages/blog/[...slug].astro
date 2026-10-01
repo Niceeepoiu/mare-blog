@@ -37,10 +37,13 @@ const { Content } = await render(post);
     >
       <time datetime={post.data.pubDate.toISOString()}>
         {
-          post.data.pubDate.toLocaleDateString("en-US", {
+          post.data.pubDate.toLocaleString("en-US", {
             year: "numeric",
-            month: "long",
+            month: "short",
             day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
           })
         }
       </time>
