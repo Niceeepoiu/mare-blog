@@ -23,6 +23,7 @@
     "astro": "^7.3.5",
     "astro-icon": "^1.2.0",
     "nprogress": "^0.2.0",
+    "pagefind": "^1.5.2", 
     "sharp": "^0.35.4",
     "tailwindcss": "^4.3.3"
   },
@@ -31,7 +32,6 @@
   },
   "devDependencies": {
     "@types/nprogress": "^0.2.3",
-    "pagefind": "^1.5.2",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.1"

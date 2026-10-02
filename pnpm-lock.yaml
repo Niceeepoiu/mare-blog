@@ -38,6 +38,9 @@ importers:
       nprogress:
         specifier: ^0.2.0
         version: 0.2.0
+      pagefind:
+        specifier: ^1.5.2
+        version: 1.5.2
       sharp:
         specifier: ^0.35.4
         version: 0.35.4(@types/node@24.13.3)
@@ -48,9 +51,6 @@ importers:
       '@types/nprogress':
         specifier: ^0.2.3
         version: 0.2.3
-      pagefind:
-        specifier: ^1.5.2
-        version: 1.5.2
       prettier:
         specifier: ^3.9.6
         version: 3.9.6
