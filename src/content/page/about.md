@@ -23,11 +23,10 @@ This site is built with modern, lightweight web technologies:
 - **Styling**: [Tailwind CSS](https://tailwindcss.com)
 - **Search**: [Pagefind](https://pagefind.app)
 - **Comments**: [Giscus](https://giscus.app)
-- **Content Editing**: [Pages CMS](https://pagescms.org)
 
 ## 📖 Getting Started & Guide
 
-Looking for setup instructions, configuration details, or guide on creating content with Pages CMS?
+Looking for setup instructions, configuration details.
 
 👉 [Read the Configuration & Usage Guide →](/blog/guide/)
 

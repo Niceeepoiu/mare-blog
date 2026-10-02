@@ -1,6 +1,6 @@
 # Mare Blog 🥳
 
-A minimal, lightning-fast personal blog built with **Astro**, **Tailwind CSS**, and **Pages CMS**.
+A minimal, lightning-fast personal blog built with **Astro**.
 
 ## 🖼️ Preview
 
@@ -15,7 +15,6 @@ A minimal, lightning-fast personal blog built with **Astro**, **Tailwind CSS**, 
 - **🎨 Minimal & Responsive**: Clean design powered by Tailwind CSS, with seamlessly integrated **Light & Dark theme toggle**.
 - **💬 Giscus Comments**: Powered by GitHub Discussions—lightweight, secure, and privacy-friendly.
 - **📡 RSS Feed Support**: Built-in RSS feed generation out of the box (`/rss.xml`).
-- **✍️ Headless Git-CMS**: Pre-configured with **Pages CMS** for visual Markdown/MDX editing without local code setups.
 - **📂 Multi-Collection**: Built-in support for Blog articles, Journal entries (timeline notes), and standalone Pages.
 
 ## 🛜 Tech Stack
@@ -23,7 +22,6 @@ A minimal, lightning-fast personal blog built with **Astro**, **Tailwind CSS**, 
 - **Framework**: [Astro](https://astro.build)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com)
 - **Search**: [Pagefind](https://pagefind.app)
-- **CMS**: [Pages CMS](https://pagescms.org)
 - **Comments**: [Giscus](https://giscus.app)
 
 ## 🚀 Getting Started

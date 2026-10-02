@@ -1,12 +1,12 @@
 ---
 title: "Getting Started with Mare Blog: Configuration and Usage Guide"
-description: "A comprehensive guide on configuring your site, managing pages, publishing posts, using Pages CMS, and executing CLI commands in Mare Blog."
+description: "A comprehensive guide on configuring your site, managing pages, publishing posts, and executing CLI commands in Mare Blog."
 pubDate: 2026-08-30T00:00:00
 featured: false
 tags: [astro, blogging]
 ---
 
-Welcome to **Mare Blog**! This post serves as a complete walkthrough to help you set up, customize, and maintain your new blog. Whether you are modifying global configurations, managing your pages, using Pages CMS for editing, or creating fresh content, you will find all the essential steps below.
+Welcome to **Mare Blog**! This post serves as a complete walkthrough to help you set up, customize, and maintain your new blog. Whether you are modifying global configurations, managing your pages, or creating fresh content, you will find all the essential steps below.
 
 ## 1. Configuring Your Site
 
