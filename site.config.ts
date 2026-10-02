@@ -54,7 +54,7 @@ export function defineConfig(config: SiteConfig): SiteConfig {
 export default defineConfig({
   lang: "en",
   title: "Mare Blog",
-  description: "A minimal and fast blog built with Astro.",
+  description: "A minimal, lightning-fast personal blog built with Astro.",
   author: "Niceeepoiu",
   authorUrl: "https://www.github.com/Niceeepoiu",
   authorBio: "A passionate developer.",

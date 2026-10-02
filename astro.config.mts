@@ -13,14 +13,14 @@ import icon from "astro-icon";
 
 const sourceExtensions = new Set([".astro", ".js", ".jsx", ".ts", ".tsx"]);
 
-function getSourceFiles(directory: string): string[] {
+const getSourceFiles = (directory: string): string[] => {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
     const entryPath = join(directory, entry.name);
 
     if (entry.isDirectory()) return getSourceFiles(entryPath);
     return sourceExtensions.has(extname(entry.name)) ? [entryPath] : [];
   });
-}
+};
 
 const sourceFiles = [
   ...getSourceFiles(fileURLToPath(new URL("./src", import.meta.url))),
@@ -29,7 +29,9 @@ const sourceFiles = [
 const lucideIcons = [
   ...new Set(
     sourceFiles
-      .flatMap((file) => readFileSync(file, "utf8").match(/lucide:[\w-]+/g) ?? [])
+      .flatMap(
+        (file) => readFileSync(file, "utf8").match(/lucide:[\w-]+/g) ?? [],
+      )
       .map((name) => name.slice("lucide:".length)),
   ),
 ];

@@ -100,7 +100,7 @@ const isDev = import.meta.env.DEV;
 </style>
 
 <script is:inline>
-  function syncPagefindTheme() {
+  const syncPagefindTheme = () => {
     const pagefindModal = document.querySelector("pagefind-modal");
     if (!(pagefindModal instanceof HTMLElement)) return;
 
@@ -109,9 +109,9 @@ const isDev = import.meta.env.DEV;
     } else {
       pagefindModal.removeAttribute("data-pf-theme");
     }
-  }
+  };
 
-  function setupSearchToggle() {
+  const setupSearchToggle = () => {
     syncPagefindTheme();
 
     const searchButton = document.getElementById("search-toggle");
@@ -136,7 +136,7 @@ const isDev = import.meta.env.DEV;
         modal.open();
       }
     };
-  }
+  };
 
   setupSearchToggle();
   document.addEventListener("astro:page-load", setupSearchToggle);

@@ -23,7 +23,7 @@
     "astro": "^7.3.5",
     "astro-icon": "^1.2.0",
     "nprogress": "^0.2.0",
-    "pagefind": "^1.5.2", 
+    "pagefind": "^1.5.2",
     "sharp": "^0.35.4",
     "tailwindcss": "^4.3.3"
   },

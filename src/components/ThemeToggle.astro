@@ -18,7 +18,7 @@ import { Icon } from "astro-icon/components";
 </button>
 
 <script is:inline>
-  function updateIcon(isDark) {
+  const updateIcon = (isDark) => {
     const darkIcon = document.getElementById("theme-toggle-dark-icon");
     const lightIcon = document.getElementById("theme-toggle-light-icon");
     if (!darkIcon || !lightIcon) return;
@@ -30,9 +30,9 @@ import { Icon } from "astro-icon/components";
       darkIcon.classList.remove("hidden");
       lightIcon.classList.add("hidden");
     }
-  }
+  };
 
-  function setupThemeToggle() {
+  const setupThemeToggle = () => {
     const toggleBtn = document.getElementById("theme-toggle");
     if (!toggleBtn) return;
 
@@ -93,7 +93,7 @@ import { Icon } from "astro-icon/components";
         );
       });
     };
-  }
+  };
 
   setupThemeToggle();
   document.addEventListener("astro:after-swap", setupThemeToggle);

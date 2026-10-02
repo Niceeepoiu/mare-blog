@@ -9,7 +9,7 @@
 
   const typedWindow = window as GlobalTooltipWindow;
 
-  function setupGlobalTooltip() {
+  const setupGlobalTooltip = () => {
     if (typedWindow.__globalTooltipCleanup) {
       typedWindow.__globalTooltipCleanup();
     }
@@ -176,14 +176,14 @@
       }
       activeTarget = null;
     };
-  }
+  };
 
-  function cleanupGlobalTooltip() {
+  const cleanupGlobalTooltip = () => {
     if (typedWindow.__globalTooltipCleanup) {
       typedWindow.__globalTooltipCleanup();
       delete typedWindow.__globalTooltipCleanup;
     }
-  }
+  };
 
   document.addEventListener("astro:before-swap", cleanupGlobalTooltip);
   document.addEventListener("astro:page-load", setupGlobalTooltip);

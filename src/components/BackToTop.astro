@@ -18,7 +18,7 @@ import { Icon } from "astro-icon/components";
 
   const typedWindow = window as BackToTopWindow;
 
-  function setupBackToTop() {
+  const setupBackToTop = () => {
     if (typedWindow.__backToTopCleanup) {
       typedWindow.__backToTopCleanup();
     }
@@ -66,14 +66,14 @@ import { Icon } from "astro-icon/components";
     };
 
     toggleVisibility();
-  }
+  };
 
-  function cleanupBackToTop() {
+  const cleanupBackToTop = () => {
     if (typedWindow.__backToTopCleanup) {
       typedWindow.__backToTopCleanup();
       delete typedWindow.__backToTopCleanup;
     }
-  }
+  };
 
   document.addEventListener("astro:before-swap", cleanupBackToTop);
   document.addEventListener("astro:page-load", setupBackToTop);

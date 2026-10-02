@@ -6,8 +6,6 @@ featured: false
 tags: [astro, blogging]
 ---
 
-Welcome to **Mare Blog**! This post serves as a complete walkthrough to help you set up, customize, and maintain your new blog. Whether you are modifying global configurations, managing your pages, or creating fresh content, you will find all the essential steps below.
-
 ## 1. Configuring Your Site
 
 All global site metadata and third-party integrations (such as the Giscus comment system) are managed inside `/site.config.ts`.
@@ -19,9 +17,9 @@ export default defineConfig({
   title: "Mare Blog",
   description: "A minimal and fast blog built with Astro.",
   author: "Niceeepoiu",
-  authorUrl: "[https://github.com/Niceeepoiu](https://github.com/Niceeepoiu)",
+  authorUrl: "https://github.com/Niceeepoiu",
   authorBio: "A passionate developer.",
-  url: "[https://mare-blog.pages.dev](https://mare-blog.pages.dev)",
+  url: "https://mare-blog.pages.dev",
   nav: [
     { name: "Home", href: "/", icon: "lucide:home" },
     { name: "Blog", href: "/blog", icon: "lucide:book-open" },

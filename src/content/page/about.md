@@ -3,10 +3,6 @@ title: "About"
 description: "A minimal, lightning-fast personal blog built with Astro."
 ---
 
-Welcome to **Mare Blog** — a minimalist personal space dedicated to web development, technical explorations, and daily thoughts.
-
-This blog is designed around three core principles: **Simplicity, Performance, and Reader Experience**.
-
 ## ✨ Features & Reading Experience
 
 - **⚡ Lightning Fast**: Powered by Astro for static generation, ensuring instant page loads and silky-smooth navigation.
