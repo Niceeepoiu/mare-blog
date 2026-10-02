@@ -32,7 +32,7 @@ const renderedEntries = await Promise.all(
           <li class="grid grid-cols-[6rem_1rem_minmax(0,1fr)] items-stretch gap-x-2 sm:grid-cols-[8.5rem_1.5rem_minmax(0,1fr)] sm:gap-x-4">
             <time
               datetime={entry.data.pubDate.toISOString()}
-              class="pt-1 whitespace-nowrap text-right text-[11px] leading-5 text-gray-500 sm:text-sm dark:text-gray-400"
+              class="pt-1 text-right text-[11px] leading-5 whitespace-nowrap text-gray-500 sm:text-sm dark:text-gray-400"
             >
               <span class="inline-block">
                 {entry.data.pubDate.toLocaleDateString("en-US", {

@@ -40,14 +40,15 @@
     @apply relative isolate;
 
     &::before {
-      @apply absolute inset-0 -z-10 rounded-[inherit] transition-transform duration-200 ease-in-out content-[''];
+      @apply absolute inset-0 -z-10 rounded-[inherit] duration-200 ease-in-out content-[''];
+      transition-property: transform, scale, background-color;
     }
 
-    &:hover::before {
+    &:not(.nav-active):hover::before {
       @apply scale-105;
     }
 
-    &:active::before {
+    &:not(.nav-active):active::before {
       @apply scale-95;
     }
   }
@@ -108,7 +109,7 @@
     }
 
     & blockquote {
-      @apply pb-0.5 my-4 rounded-md border-l-4 border-blue-600 bg-blue-50/50 p-4 shadow-sm dark:border-blue-500 dark:bg-blue-950/30;
+      @apply my-4 rounded-md border-l-4 border-blue-600 bg-blue-50/50 p-4 pb-0.5 shadow-sm dark:border-blue-500 dark:bg-blue-950/30;
     }
 
     & a {
