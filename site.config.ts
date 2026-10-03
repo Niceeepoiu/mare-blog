@@ -17,7 +17,7 @@ export interface AuthorLink {
 }
 
 export interface SiteConfig {
-  /** Site language (e.g. 'en', 'zh-CN') */
+  /** Site language */
   lang: string;
   /** Site title */
   title: string;
