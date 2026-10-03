@@ -7,6 +7,15 @@ export interface NavItem {
   icon?: string;
 }
 
+export interface AuthorLink {
+  /** Link display label */
+  name: string;
+  /** Link target URL */
+  href: string;
+  /** Icon identifier */
+  icon?: string;
+}
+
 export interface SiteConfig {
   /** Site language (e.g. 'en', 'zh-CN') */
   lang: string;
@@ -20,6 +29,12 @@ export interface SiteConfig {
   authorUrl: string;
   /** Author biography */
   authorBio: string;
+  /** Author location */
+  authorLocation: string;
+  /** Author avatar image URL */
+  avatar: string;
+  /** Optional array of author links */
+  authorLinks?: AuthorLink[];
   /** Base URL of the site */
   url: string;
   /** Number of posts to show on each blog archive page */
@@ -58,6 +73,15 @@ export default defineConfig({
   author: "Niceeepoiu",
   authorUrl: "https://www.github.com/Niceeepoiu",
   authorBio: "A passionate developer.",
+  authorLocation: "Zhejiang, China",
+  avatar: "https://www.github.com/Niceeepoiu.png",
+  authorLinks: [
+    {
+      name: "GitHub",
+      href: "https://www.github.com/Niceeepoiu",
+      icon: "lucide:github",
+    },
+  ],
   url: "https://mare-blog.pages.dev",
   postsPerPage: 6,
   nav: [

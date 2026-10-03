@@ -2,7 +2,6 @@
 import siteConfig from "@config";
 import { getCollection } from "astro:content";
 import PostCard from "../components/PostCard.astro";
-import UserCard from "../components/UserCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 const pageTitle = "Home";
 const featuredPosts = (await getCollection("blog"))
@@ -32,5 +31,4 @@ const featuredPosts = (await getCollection("blog"))
       )
     }
   </section>
-  <UserCard />
 </BaseLayout>

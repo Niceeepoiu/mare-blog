@@ -49,7 +49,7 @@
     }
 
     &:not(.nav-active):active::before {
-      @apply scale-95;
+      @apply scale-98;
     }
   }
 
@@ -70,6 +70,10 @@
 
     & li {
       @apply mb-1;
+    }
+
+    & hr {
+      @apply my-6 border-gray-300 dark:border-gray-700;
     }
 
     & h1 {
