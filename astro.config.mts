@@ -82,11 +82,11 @@ export default defineConfig({
                 remainingChildren,
               );
 
-              const classes = node.properties.className;
-              const classNames = Array.isArray(classes)
-                ? classes
-                : typeof classes === "string"
-                  ? classes.split(/\s+/)
+              const rawClasses = node.properties.className as unknown;
+              const classNames = Array.isArray(rawClasses)
+                ? rawClasses
+                : typeof rawClasses === "string"
+                  ? rawClasses.split(/\s+/)
                   : [];
               context.setProperty(node, "className", [
                 ...classNames,

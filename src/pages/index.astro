@@ -11,9 +11,9 @@ const featuredPosts = (await getCollection("blog"))
 
 <BaseLayout pageTitle={pageTitle} showMainCard={false}>
   <header
-    class="rounded-lg bg-white px-5 py-6 shadow-sm sm:px-8 sm:py-7 dark:bg-gray-900"
+    class="rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900"
   >
-    <h1 class="mb-2">Welcome to My Blog</h1>
+    <h1 class="mb-4">Welcome to My Blog</h1>
     <p class="text-base leading-relaxed text-gray-600 dark:text-gray-400">
       {siteConfig.description}
     </p>
