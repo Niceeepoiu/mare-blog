@@ -76,6 +76,46 @@ The blockquote element represents content that is quoted from another source, op
 
 [^1]: The above quote is excerpted from Rob Pike's [talk](https://www.youtube.com/watch?v=PAAkCSZUG1c) during Gopherfest, November 18, 2015.
 
+## GitHub-style alerts
+
+Alerts are special blockquotes for highlighting notes, tips, and warnings. Use one of the five supported alert types.
+
+### Syntax
+
+```markdown
+> [!NOTE]
+> Useful information that readers should know.
+
+> [!TIP]
+> Helpful advice for doing something better.
+
+> [!IMPORTANT]
+> Key information readers need to know.
+
+> [!WARNING]
+> Urgent information that needs immediate attention.
+
+> [!CAUTION]
+> Advice about potential negative consequences.
+```
+
+### Output
+
+> [!NOTE]
+> Useful information that readers should know.
+
+> [!TIP]
+> Helpful advice for doing something better.
+
+> [!IMPORTANT]
+> Key information readers need to know.
+
+> [!WARNING]
+> Urgent information that needs immediate attention.
+
+> [!CAUTION]
+> Advice about potential negative consequences.
+
 ## Tables
 
 ### Syntax

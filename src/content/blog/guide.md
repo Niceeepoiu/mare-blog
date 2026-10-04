@@ -51,7 +51,7 @@ export default defineConfig({
 });
 ```
 
-The project defaults to Giscus enabled, but comments only render if the repository, repository ID, category, and category ID are all valid. If any of those are missing or invalid, the site shows a disabled notice instead of crashing during build or navigation.
+The project defaults to Giscus enabled, but comments only render if the repository, repository ID, category, and category ID are all valid.
 
 ### Configuration Options Breakdown
 

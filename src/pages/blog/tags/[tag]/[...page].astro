@@ -88,26 +88,29 @@ const tagHref = getTagHref(tagName);
       )
     }
     {
-      <div class="inline-flex rounded-lg border border-gray-200 dark:border-gray-700">
-        {pageLinks.map((pageNumber) => {
-          const href = pageNumber === 1 ? tagHref : `${tagHref}/${pageNumber}`;
-          const isCurrent = page.currentPage === pageNumber;
+      (
+        <div class="inline-flex rounded-lg border border-gray-200 dark:border-gray-700">
+          {pageLinks.map((pageNumber) => {
+            const href =
+              pageNumber === 1 ? tagHref : `${tagHref}/${pageNumber}`;
+            const isCurrent = page.currentPage === pageNumber;
 
-          return (
-            <a
-              href={href}
-              aria-current={isCurrent ? "page" : undefined}
-              class={`relative flex h-10 w-10 items-center justify-center border-r border-gray-200 text-sm transition-colors duration-200 first:rounded-l-lg last:rounded-r-lg last:border-r-0 dark:border-gray-700 ${
-                isCurrent
-                  ? "z-10 bg-blue-600 font-medium text-white"
-                  : "bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-blue-400"
-              }`}
-            >
-              {pageNumber}
-            </a>
-          );
-        })}
-      </div>
+            return (
+              <a
+                href={href}
+                aria-current={isCurrent ? "page" : undefined}
+                class={`relative flex h-10 w-10 items-center justify-center border-r border-gray-200 text-sm transition-colors duration-200 first:rounded-l-lg last:rounded-r-lg last:border-r-0 dark:border-gray-700 ${
+                  isCurrent
+                    ? "z-10 bg-blue-600 font-medium text-white"
+                    : "bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-blue-400"
+                }`}
+              >
+                {pageNumber}
+              </a>
+            );
+          })}
+        </div>
+      )
     }
     {
       page.url.next ? (
