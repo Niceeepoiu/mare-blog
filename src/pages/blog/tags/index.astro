@@ -6,10 +6,12 @@ import { getTagHref, getTagSummaries } from "../../../utils/tags";
 const tags = getTagSummaries(await getCollection("blog"));
 ---
 
-<BaseLayout pageTitle="Tags">
-  <header class="mb-8 border-b border-gray-300 pb-6 dark:border-gray-700">
-    <h1>Tags</h1>
-    <p class="mt-3 text-base leading-relaxed text-gray-600 dark:text-gray-400">
+<BaseLayout pageTitle="Tags" showMainCard={false}>
+  <header
+    class="mb-6 rounded-lg bg-white px-5 py-6 shadow-sm sm:px-8 sm:py-7 dark:bg-gray-900"
+  >
+    <h1 class="mb-2">Tags</h1>
+    <p class="text-base leading-relaxed text-gray-600 dark:text-gray-400">
       Browse articles by topic.
     </p>
   </header>
@@ -21,7 +23,7 @@ const tags = getTagSummaries(await getCollection("blog"));
           <li>
             <a
               href={getTagHref(tag.name)}
-              class="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-2 text-sm text-gray-700 transition-colors hover:border-blue-600/30 hover:text-blue-600 dark:border-gray-700 dark:text-gray-300 dark:hover:border-blue-500/30 dark:hover:text-blue-400"
+              class="inline-flex items-center gap-2 rounded-md bg-white px-3 py-2 text-sm text-gray-700 shadow-sm transition-colors hover:text-blue-600 dark:bg-gray-900 dark:text-gray-300 dark:hover:text-blue-400"
             >
               <span>{tag.name}</span>
               <span class="text-xs text-gray-400 dark:text-gray-500">

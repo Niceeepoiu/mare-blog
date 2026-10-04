@@ -9,11 +9,17 @@ const featuredPosts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<BaseLayout pageTitle={pageTitle}>
-  <h1>Welcome to My Blog</h1>
-  <p>{siteConfig.description}</p>
+<BaseLayout pageTitle={pageTitle} showMainCard={false}>
+  <header
+    class="rounded-lg bg-white px-5 py-6 shadow-sm sm:px-8 sm:py-7 dark:bg-gray-900"
+  >
+    <h1 class="mb-2">Welcome to My Blog</h1>
+    <p class="text-base leading-relaxed text-gray-600 dark:text-gray-400">
+      {siteConfig.description}
+    </p>
+  </header>
 
-  <section class="mt-12" aria-labelledby="featured-posts-heading">
+  <section class="mt-8" aria-labelledby="featured-posts-heading">
     <h2 id="featured-posts-heading" class="mb-6 text-2xl font-bold">
       Featured posts
     </h2>

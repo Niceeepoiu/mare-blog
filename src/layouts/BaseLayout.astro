@@ -13,12 +13,14 @@ interface Props {
   pageTitle: string;
   description?: string;
   showComments?: boolean;
+  showMainCard?: boolean;
 }
 
 const {
   pageTitle,
   description = siteConfig.description,
   showComments = false,
+  showMainCard = true,
 } = Astro.props;
 
 const lang = siteConfig.lang ?? "en";
@@ -75,7 +77,12 @@ const lang = siteConfig.lang ?? "en";
     <Header transition:persist />
 
     <main
-      class="mx-auto my-8 max-w-5xl rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900"
+      class:list={[
+        "mx-auto my-8 max-w-5xl",
+        showMainCard
+          ? "rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900"
+          : "p-0",
+      ]}
       data-pagefind-body
     >
       <slot />
