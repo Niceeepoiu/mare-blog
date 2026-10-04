@@ -41,7 +41,7 @@ const pageLinks = Array.from(
 
   <nav
     aria-label="Blog pagination"
-    class="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm"
+    class="mt-8 flex flex-wrap items-center justify-center gap-2 text-sm"
   >
     {
       page.url.prev ? (
@@ -49,14 +49,14 @@ const pageLinks = Array.from(
           href={page.url.prev}
           data-tooltip="Previous page"
           aria-label="Previous page"
-          class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 bg-white text-gray-700 transition-colors hover:border-blue-600 hover:text-blue-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-blue-500 dark:hover:text-blue-400"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-700 transition-colors duration-200 hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-blue-500 dark:hover:bg-gray-800 dark:hover:text-blue-400"
         >
           <Icon name="lucide:chevron-left" class="h-4 w-4" />
         </a>
       ) : (
         <span
           data-tooltip="No previous page"
-          class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-600"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-600"
           aria-label="Previous page"
         >
           <Icon name="lucide:chevron-left" class="h-4 w-4" />
@@ -65,24 +65,26 @@ const pageLinks = Array.from(
     }
 
     {
-      pageLinks.map((pageNumber) => {
-        const href = pageNumber === 1 ? "/blog" : `/blog/${pageNumber}`;
-        const isCurrent = page.currentPage === pageNumber;
+      <div class="inline-flex rounded-lg border border-gray-200 dark:border-gray-700">
+        {pageLinks.map((pageNumber) => {
+          const href = pageNumber === 1 ? "/blog" : `/blog/${pageNumber}`;
+          const isCurrent = page.currentPage === pageNumber;
 
-        return (
-          <a
-            href={href}
-            aria-current={isCurrent ? "page" : undefined}
-            class={`flex h-10 w-10 items-center justify-center rounded-md border text-sm transition-colors ${
-              isCurrent
-                ? "border-blue-600 bg-blue-600 text-white"
-                : "border-gray-200 bg-white text-gray-700 hover:border-blue-600 hover:text-blue-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-blue-500 dark:hover:text-blue-400"
-            }`}
-          >
-            {pageNumber}
-          </a>
-        );
-      })
+          return (
+            <a
+              href={href}
+              aria-current={isCurrent ? "page" : undefined}
+              class={`relative flex h-10 w-10 items-center justify-center border-r border-gray-200 text-sm transition-colors duration-200 first:rounded-l-lg last:rounded-r-lg last:border-r-0 dark:border-gray-700 ${
+                isCurrent
+                  ? "z-10 bg-blue-600 font-medium text-white"
+                  : "bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-blue-400"
+              }`}
+            >
+              {pageNumber}
+            </a>
+          );
+        })}
+      </div>
     }
 
     {
@@ -91,14 +93,14 @@ const pageLinks = Array.from(
           href={page.url.next}
           data-tooltip="Next page"
           aria-label="Next page"
-          class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 bg-white text-gray-700 transition-colors hover:border-blue-600 hover:text-blue-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-blue-500 dark:hover:text-blue-400"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-700 transition-colors duration-200 hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-blue-500 dark:hover:bg-gray-800 dark:hover:text-blue-400"
         >
           <Icon name="lucide:chevron-right" class="h-4 w-4" />
         </a>
       ) : (
         <span
           data-tooltip="No next page"
-          class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gray-200 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-600"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-gray-100 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-600"
           aria-label="Next page"
         >
           <Icon name="lucide:chevron-right" class="h-4 w-4" />
