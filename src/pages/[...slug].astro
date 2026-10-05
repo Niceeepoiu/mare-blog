@@ -15,8 +15,10 @@ const { page } = Astro.props;
 const { Content } = await render(page);
 ---
 
-<BaseLayout pageTitle={page.data.title}>
-  <header class="mb-8 border-b border-gray-300 pb-6 dark:border-gray-700">
+<BaseLayout pageTitle={page.data.title} showMainCard={false}>
+  <header
+    class="mb-8 rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900"
+  >
     <h1>
       {page.data.title}
     </h1>
@@ -30,7 +32,7 @@ const { Content } = await render(page);
     }
   </header>
 
-  <article class="markdown-content">
+  <article class="markdown-content rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900">
     <Content />
   </article>
 </BaseLayout>

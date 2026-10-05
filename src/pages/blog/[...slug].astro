@@ -19,8 +19,11 @@ const { Content } = await render(post);
   pageTitle={post.data.title}
   description={post.data.description}
   showComments={true}
+  showMainCard={false}
 >
-  <header class="mb-8 border-b border-gray-300 pb-6 dark:border-gray-700">
+  <header
+    class="mb-8 rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900"
+  >
     <h1 class="flex items-center gap-3">
       <span class="h-10 w-1 shrink-0 rounded-full bg-blue-500"></span>
       <span>{post.data.title}</span>
@@ -66,7 +69,7 @@ const { Content } = await render(post);
     }
   </header>
 
-  <article class="markdown-content">
+  <article class="markdown-content rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900">
     <Content />
   </article>
 </BaseLayout>

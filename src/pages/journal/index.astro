@@ -17,8 +17,11 @@ const renderedEntries = await Promise.all(
 <BaseLayout
   pageTitle="Journal"
   description="Short notes and moments collected over time."
+  showMainCard={false}
 >
-  <header class="mb-10 border-b border-gray-300 pb-6 dark:border-gray-700">
+  <header
+    class="mb-8 rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900"
+  >
     <h1>Journal</h1>
     <p class="mt-3 text-base leading-relaxed text-gray-600 dark:text-gray-400">
       Short notes and moments, collected over time.
@@ -27,7 +30,7 @@ const renderedEntries = await Promise.all(
 
   {
     renderedEntries.length > 0 ? (
-      <ol class="space-y-10">
+      <ol class="space-y-10 rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900">
         {renderedEntries.map(({ entry, Content }, index) => (
           <li class="grid grid-cols-[6rem_1rem_minmax(0,1fr)] items-stretch gap-x-2 sm:grid-cols-[8.5rem_1.5rem_minmax(0,1fr)] sm:gap-x-4">
             <time
@@ -72,10 +75,12 @@ const renderedEntries = await Promise.all(
         ))}
       </ol>
     ) : (
-      <p class="text-sm text-gray-500 dark:text-gray-400">
-        No journal entries yet. Add a Markdown file in
-        <code>src/content/journal/</code> to begin.
-      </p>
+      <section class="rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900">
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          No journal entries yet. Add a Markdown file in
+          <code>src/content/journal/</code> to begin.
+        </p>
+      </section>
     )
   }
 </BaseLayout>
