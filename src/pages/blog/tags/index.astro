@@ -26,7 +26,7 @@ const tags = getTagSummaries(await getCollection("blog"));
               class="inline-flex items-center gap-2 rounded-md bg-white px-3 py-2 text-sm text-gray-700 shadow-sm transition-colors hover:text-blue-600 dark:bg-gray-900 dark:text-gray-300 dark:hover:text-blue-400"
             >
               <span>{tag.name}</span>
-              <span class="text-xs text-gray-400 dark:text-gray-500">
+              <span class="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-400 dark:bg-amber-50/10 dark:text-gray-500">
                 {tag.count}
               </span>
             </a>
