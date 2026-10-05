@@ -16,7 +16,6 @@ instant search, and no server-side runtime.
 - **Full-text search**: Pagefind indexes the site during the production build.
 - **Responsive themes**: Tailwind CSS styling with light and dark modes.
 - **Comments**: Optional Giscus comments backed by GitHub Discussions.
-- **RSS feed**: Subscribe to new posts at `/rss.xml`.
 - **Three content types**: Publish blog posts, timeline-style journal entries, and standalone pages.
 
 ## 🧰 Tech Stack

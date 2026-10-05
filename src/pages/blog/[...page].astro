@@ -29,16 +29,10 @@ const pageLinks = Array.from(
 );
 ---
 
-<BaseLayout pageTitle={pageTitle} showMainCard={false}>
-  <header
-    class="mb-6 rounded-md bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900"
-  >
-    <h1 class="mb-4">Blog</h1>
-    <p class="text-base leading-relaxed text-gray-600 dark:text-gray-400">
-      Browse all articles, notes, and guides.
-    </p>
-  </header>
-
+<BaseLayout
+  pageTitle={pageTitle}
+  description="Browse all articles, notes, and guides."
+>
   <div class="flex flex-col gap-6">
     {page.data.map((post) => <PostCard post={post} />)}
   </div>

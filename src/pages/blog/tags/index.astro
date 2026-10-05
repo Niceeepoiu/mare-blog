@@ -6,16 +6,7 @@ import { getTagHref, getTagSummaries } from "../../../utils/tags";
 const tags = getTagSummaries(await getCollection("blog"));
 ---
 
-<BaseLayout pageTitle="Tags" showMainCard={false}>
-  <header
-    class="mb-6 rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900"
-  >
-    <h1 class="mb-4">Tags</h1>
-    <p class="text-base leading-relaxed text-gray-600 dark:text-gray-400">
-      Browse articles by topic.
-    </p>
-  </header>
-
+<BaseLayout pageTitle="Tags" description="Browse articles by topic.">
   {
     tags.length > 0 ? (
       <ul class="flex flex-wrap gap-3">

@@ -38,29 +38,23 @@ const pageLinks = Array.from(
   (_, index) => index + 1,
 );
 const tagHref = getTagHref(tagName);
+const description =
+  page.currentPage === 1
+    ? `${totalPosts} ${totalPosts === 1 ? "article" : "articles"} with this tag`
+    : undefined;
 ---
 
 <BaseLayout
   pageTitle={`Tag: ${tagName}${page.currentPage > 1 ? ` - Page ${page.currentPage}` : ""}`}
-  showMainCard={false}
+  description={description}
 >
-  <header
-    class="mb-6 rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900"
-  >
-    <p class="text-sm font-medium text-gray-600 dark:text-gray-300">
+  <div slot="page-header-prefix">
+    <p class="text-md font-medium text-gray-600 dark:text-gray-300">
       <a href="/blog/tags" class="hover:text-blue-600 dark:hover:text-blue-400">
-        Tags
+        Back to tags
       </a>
     </p>
-    <h1 class="mt-2 mb-4 text-3xl">{tagName}</h1>
-    {
-      page.currentPage === 1 && (
-        <p class="mt-3 text-base text-gray-600 dark:text-gray-400">
-          {totalPosts} {totalPosts === 1 ? "article" : "articles"} with this tag
-        </p>
-      )
-    }
-  </header>
+  </div>
 
   <div class="flex flex-col gap-6">
     {page.data.map((post) => <PostCard post={post} />)}

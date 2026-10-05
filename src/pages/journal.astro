@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const entries = (await getCollection("journal")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -17,17 +17,7 @@ const renderedEntries = await Promise.all(
 <BaseLayout
   pageTitle="Journal"
   description="Short notes and moments collected over time."
-  showMainCard={false}
 >
-  <header
-    class="mb-8 rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900"
-  >
-    <h1>Journal</h1>
-    <p class="mt-3 text-base leading-relaxed text-gray-600 dark:text-gray-400">
-      Short notes and moments, collected over time.
-    </p>
-  </header>
-
   {
     renderedEntries.length > 0 ? (
       <ol class="space-y-10 rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900">

@@ -19,24 +19,10 @@ const { Content } = await render(post);
   pageTitle={post.data.title}
   description={post.data.description}
   showComments={true}
-  showMainCard={false}
 >
-  <header
-    class="mb-8 rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900"
-  >
-    <h1 class="flex items-center gap-3">
-      <span class="h-10 w-1 shrink-0 rounded-full bg-blue-500"></span>
-      <span>{post.data.title}</span>
-    </h1>
-    {
-      post.data.description && (
-        <p class="mt-3 text-base leading-relaxed text-gray-600 dark:text-gray-400">
-          {post.data.description}
-        </p>
-      )
-    }
+  <div slot="page-header-details">
     <div
-      class="mt-4 flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400"
+      class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400"
     >
       <time datetime={post.data.pubDate.toISOString()}>
         {
@@ -67,9 +53,11 @@ const { Content } = await render(post);
         </ul>
       )
     }
-  </header>
+  </div>
 
-  <article class="markdown-content rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900">
+  <article
+    class="markdown-content rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900"
+  >
     <Content />
   </article>
 </BaseLayout>

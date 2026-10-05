@@ -15,12 +15,11 @@ You can deploy your own copy of Mare Blog using Cloudflare Pages' Git integratio
 Sign in to Cloudflare, connect GitHub, and select your fork or copy of the
 repository. Configure the project with:
 
-| Setting                | Value                               |
-| :--------------------- | :---------------------------------- |
-| Framework preset       | Astro                               |
-| Build command          | `pnpm build`                        |
-| Build output directory | `dist`                              |
-| Environment variable   | `NODE_VERSION` = `22.12.0` or later |
+| Setting                | Value        |
+| :--------------------- | :----------- |
+| Framework preset       | Astro        |
+| Build command          | `pnpm build` |
+| Build output directory | `dist`       |
 
 The build command runs Astro and creates the Pagefind search index. Once the
 first deployment succeeds, pushes to the connected branch trigger new builds.
@@ -101,8 +100,6 @@ The project defaults to Giscus enabled, but comments only render if the reposito
 - `theme`: Theme name used in light mode.
 - `darkTheme`: Theme name used in dark mode.
 - `lang`: Language code used by the comment widget UI.
-
-When `enabled` is on but the repo credentials are incomplete, the UI shows a clear disabled state and keeps navigation working smoothly without breaking the page.
 
 ### Step-by-Step Guide: How to Obtain Giscus Credentials
 
