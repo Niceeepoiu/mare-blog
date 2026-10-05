@@ -3,19 +3,22 @@ import { Icon } from "astro-icon/components";
 import siteConfig from "@config";
 
 const { giscus } = siteConfig;
+const shouldRenderComments = giscus.enabled;
 ---
 
-<section
-  id="comments-section"
-  data-repo={giscus.repo}
-  data-repo-id={giscus.repoId}
-  data-category={giscus.category}
-  data-category-id={giscus.categoryId}
-  data-theme={giscus.theme}
-  data-dark-theme={giscus.darkTheme}
-  data-lang={giscus.lang}
-  class="w-full rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900"
->
+{
+  shouldRenderComments && (
+    <section
+      id="comments-section"
+      data-repo={giscus.repo}
+      data-repo-id={giscus.repoId}
+      data-category={giscus.category}
+      data-category-id={giscus.categoryId}
+      data-theme={giscus.theme}
+      data-dark-theme={giscus.darkTheme}
+      data-lang={giscus.lang}
+      class="w-full rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900"
+    >
   <div
     data-comments-loading
     class="flex items-center justify-center gap-2 text-lg text-gray-500 dark:text-gray-400"
@@ -44,8 +47,10 @@ const { giscus } = siteConfig;
     </button>
   </div>
 
-  <div data-comments-mount></div>
-</section>
+      <div data-comments-mount></div>
+    </section>
+  )
+}
 
 <script is:inline>
   const COMMENTS_LOAD_TIMEOUT = 10000;

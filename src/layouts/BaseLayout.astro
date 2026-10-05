@@ -89,7 +89,7 @@ const lang = siteConfig.lang ?? "en";
     </main>
 
     {
-      showComments && (
+      showComments && siteConfig.giscus.enabled && (
         <section class="mx-auto my-8 max-w-5xl">
           <Comment />
         </section>
