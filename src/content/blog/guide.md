@@ -6,9 +6,30 @@ featured: false
 tags: [astro, blogging]
 ---
 
-## 1. Configuring Your Site
+## 1. Deploying to Cloudflare Pages
 
-All global site metadata and third-party integrations are managed in `/site.config.ts`.
+You can deploy your own copy of Mare Blog using Cloudflare Pages' Git integration:
+
+[![Deploy to Cloudflare Pages](https://img.shields.io/badge/Deploy%20to-Cloudflare%20Pages-F38020?logo=cloudflare&logoColor=white)](https://dash.cloudflare.com/?to=/:account/pages/new/provider/github)
+
+Sign in to Cloudflare, connect GitHub, and select your fork or copy of the
+repository. Configure the project with:
+
+| Setting                | Value                               |
+| :--------------------- | :---------------------------------- |
+| Framework preset       | Astro                               |
+| Build command          | `pnpm build`                        |
+| Build output directory | `dist`                              |
+| Environment variable   | `NODE_VERSION` = `22.12.0` or later |
+
+The build command runs Astro and creates the Pagefind search index. Once the
+first deployment succeeds, pushes to the connected branch trigger new builds.
+After deployment, update `url` in `site.config.ts` to your site's public URL.
+
+## 2. Configuring Your Site
+
+All global site metadata and third-party integrations are managed in
+`site.config.ts`.
 
 This project ships with a working default configuration that you can customize to fit your site:
 
@@ -101,11 +122,12 @@ Follow these steps to generate your required `repoId` and `categoryId`:
    - Copy the generated `data-repo-id` and `data-category-id` values.
    - Paste them into `/site.config.ts` and keep `enabled: true`.
 
-To customize the site, update the fields in `/site.config.ts` and keep the rest of the project unchanged unless you also want to revise the site structure or content.
+To customize the site, update the fields in `site.config.ts`. You can change
+the content and structure independently.
 
-## 2. Modifying the About Page
+## 3. Modifying the About Page
 
-The About page content is managed via MDX and located at `src/content/page/about.mdx`.
+The About page is an MDX file at `src/content/page/about.mdx`.
 
 To update your personal bio:
 
@@ -122,7 +144,7 @@ description: "Learn more about me and this blog."
 Write your Markdown or MDX content here.
 ```
 
-## 3. Writing & Publishing Posts
+## 4. Writing & Publishing Posts
 
 Blog articles live inside the content directory: `src/content/blog/`.
 
@@ -159,7 +181,7 @@ tags:
   - writing
 ```
 
-## 4. Keeping a Journal
+## 5. Keeping a Journal
 
 Short notes and moments can be published on the Journal timeline without
 appearing in the blog archive. Create a `.md` or `.mdx` file in
@@ -178,7 +200,7 @@ Entries are sorted newest first. The date and time appear beside each entry on
 the left; its title and content appear on the right. Use the same
 `YYYY-MM-DDTHH:mm:ss` format for blog posts and journal entries.
 
-## 5. Commands
+## 6. Commands
 
 All commands are run from the root of the project, from a terminal:
 
