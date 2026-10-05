@@ -102,6 +102,12 @@ const activeNavHref = siteConfig.nav
 </header>
 
 <script>
+  type HeaderWindow = Window & {
+    __headerCleanup?: () => void;
+  };
+
+  const typedWindow = window as HeaderWindow;
+
   const closeMobileNavigation = () => {
     const menu = document.getElementById("mobile-navigation-menu");
     const toggle = document.getElementById("mobile-navigation-toggle");
@@ -111,36 +117,61 @@ const activeNavHref = siteConfig.nav
     toggle.setAttribute("aria-expanded", "false");
   };
 
-  document.addEventListener("click", (event) => {
-    if (!(event.target instanceof Element)) return;
-
-    const menu = document.getElementById("mobile-navigation-menu");
-    const toggle = event.target.closest("#mobile-navigation-toggle");
-
-    if (toggle && menu) {
-      const isOpen = !menu.hidden;
-      menu.hidden = isOpen;
-      toggle.setAttribute("aria-expanded", String(!isOpen));
-      return;
+  const setupHeaderInteractions = () => {
+    if (typedWindow.__headerCleanup) {
+      typedWindow.__headerCleanup();
+      delete typedWindow.__headerCleanup;
     }
 
-    if (menu && !menu.hidden) {
-      const clickedLink = event.target.closest("#mobile-navigation-menu a");
-      const clickedOutside = !menu.contains(event.target);
-      if (clickedLink || clickedOutside) closeMobileNavigation();
+    const handleDocumentClick = (event: MouseEvent) => {
+      if (!(event.target instanceof Element)) return;
+
+      const menu = document.getElementById("mobile-navigation-menu");
+      const toggle = event.target.closest("#mobile-navigation-toggle");
+
+      if (toggle && menu) {
+        const isOpen = !menu.hidden;
+        menu.hidden = isOpen;
+        toggle.setAttribute("aria-expanded", String(!isOpen));
+        return;
+      }
+
+      if (menu && !menu.hidden) {
+        const clickedLink = event.target.closest("#mobile-navigation-menu a");
+        const clickedOutside = !menu.contains(event.target);
+        if (clickedLink || clickedOutside) closeMobileNavigation();
+      }
+    };
+
+    const handleKeydown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+
+      const menu = document.getElementById("mobile-navigation-menu");
+      const toggle = document.getElementById("mobile-navigation-toggle");
+      if (!menu || menu.hidden) return;
+
+      closeMobileNavigation();
+      toggle?.focus();
+    };
+
+    document.addEventListener("click", handleDocumentClick);
+    document.addEventListener("keydown", handleKeydown);
+
+    typedWindow.__headerCleanup = () => {
+      document.removeEventListener("click", handleDocumentClick);
+      document.removeEventListener("keydown", handleKeydown);
+    };
+  };
+
+  document.addEventListener("astro:before-swap", () => {
+    if (typedWindow.__headerCleanup) {
+      typedWindow.__headerCleanup();
+      delete typedWindow.__headerCleanup;
     }
   });
 
-  document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") return;
-
-    const menu = document.getElementById("mobile-navigation-menu");
-    const toggle = document.getElementById("mobile-navigation-toggle");
-    if (!menu || menu.hidden) return;
-
-    closeMobileNavigation();
-    toggle?.focus();
-  });
+  setupHeaderInteractions();
+  document.addEventListener("astro:page-load", setupHeaderInteractions);
 </script>
 
 <style>
