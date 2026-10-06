@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
 import { getTagHref } from "../../utils/tags";
 
 export async function getStaticPaths() {
@@ -21,10 +22,16 @@ const { Content } = await render(post);
   showComments={true}
 >
   <div slot="page-header-details">
-    <div
-      class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400"
+    <time
+      datetime={post.data.pubDate.toISOString()}
+      class="mr-auto flex inline-flex items-center gap-1 rounded-md bg-gray-50 p-2 text-sm font-medium text-gray-400 dark:bg-gray-800 dark:text-gray-500"
     >
-      <time datetime={post.data.pubDate.toISOString()}>
+      <Icon
+        name="lucide:calendar"
+        aria-hidden="true"
+        class="mr-1 h-3.5 w-3.5 shrink-0"
+      />
+      <span>
         {
           post.data.pubDate.toLocaleString("en-US", {
             year: "numeric",
@@ -35,8 +42,8 @@ const { Content } = await render(post);
             hour12: false,
           })
         }
-      </time>
-    </div>
+      </span>
+    </time>
     {
       post.data.tags.length > 0 && (
         <ul class="mt-4 flex flex-wrap gap-2" aria-label="Article tags">
@@ -44,9 +51,14 @@ const { Content } = await render(post);
             <li>
               <a
                 href={getTagHref(tag)}
-                class="nav-scale-bg inline-flex rounded-md px-2.5 py-1.5 text-sm font-medium text-gray-600 no-underline transition-colors duration-200 hover:text-blue-600 hover:before:bg-blue-50/70 dark:text-gray-400 dark:hover:text-blue-400 dark:hover:before:bg-gray-800"
+                class="dark:hover:bg-blue-450 flex inline-flex items-center gap-1 rounded-md bg-blue-50/70 px-2.5 py-1.5 text-sm font-medium text-blue-600 no-underline transition-colors duration-200 hover:bg-blue-500 hover:text-white dark:bg-gray-800 dark:text-blue-400 dark:hover:text-gray-100"
               >
-                {tag}
+                <Icon
+                  name="lucide:tag"
+                  aria-hidden="true"
+                  class="mr-1 h-3.5 w-3.5 shrink-0"
+                />
+                <span>{tag}</span>
               </a>
             </li>
           ))}

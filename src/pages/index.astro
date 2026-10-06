@@ -11,9 +11,17 @@ const featuredPosts = (await getCollection("blog"))
 
 <BaseLayout pageTitle={pageTitle} description={siteConfig.description}>
   <section class="mt-8" aria-labelledby="featured-posts-heading">
-    <h2 id="featured-posts-heading" class="mb-6 text-2xl font-bold">
-      Featured posts
-    </h2>
+    <div class="flex items-center justify-between">
+      <h2 id="featured-posts-heading" class="mb-6 text-2xl font-bold">
+        Featured posts
+      </h2>
+      <a
+        href="/blog"
+        class="mb-6 text-sm font-medium text-blue-500 hover:underline dark:text-blue-400"
+      >
+        View all posts
+      </a>
+    </div>
     {
       featuredPosts.length > 0 ? (
         <div class="flex flex-col gap-6">
