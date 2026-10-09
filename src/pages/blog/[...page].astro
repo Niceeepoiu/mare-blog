@@ -33,9 +33,25 @@ const pageLinks = Array.from(
   pageTitle={pageTitle}
   description="Browse all articles, notes, and guides."
 >
-  <div class="flex flex-col gap-6">
-    {page.data.map((post) => <PostCard post={post} />)}
-  </div>
+  {
+    page.data.length > 0 ? (
+      <div class="flex flex-col gap-6">
+        {page.data.map((post) => (
+          <PostCard post={post} />
+        ))}
+      </div>
+    ) : (
+      <section class="rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900">
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          No blog posts yet. Add a Markdown file in{" "}
+          <code class="rounded bg-gray-100 px-1.5 py-0.5 text-sm text-blue-600 dark:bg-gray-800 dark:text-blue-400">
+            src/content/blog/
+          </code>{" "}
+          to begin.
+        </p>
+      </section>
+    )
+  }
 
   <nav
     aria-label="Blog pagination"

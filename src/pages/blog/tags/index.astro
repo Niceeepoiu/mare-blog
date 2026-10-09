@@ -25,9 +25,11 @@ const tags = getTagSummaries(await getCollection("blog"));
         ))}
       </ul>
     ) : (
-      <p class="text-sm text-gray-500 dark:text-gray-400">
-        No tags have been added yet.
-      </p>
+      <section class="rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900">
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          No tags have been added yet.
+        </p>
+      </section>
     )
   }
 </BaseLayout>

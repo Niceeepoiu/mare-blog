@@ -1,5 +1,5 @@
 ---
-title: "Getting Started with Mare Blog: Configuration and Usage Guide"
+title: "Getting Started"
 description: "A comprehensive guide on configuring your site, managing pages, publishing posts, and executing CLI commands in Mare Blog."
 pubDate: 2026-08-30T00:00:00
 featured: false

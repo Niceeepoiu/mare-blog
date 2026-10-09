@@ -67,8 +67,11 @@ const renderedEntries = await Promise.all(
     ) : (
       <section class="rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900">
         <p class="text-sm text-gray-500 dark:text-gray-400">
-          No journal entries yet. Add a Markdown file in
-          <code>src/content/journal/</code> to begin.
+          No journal entries yet. Add a Markdown file in{" "}
+          <code class="rounded bg-gray-100 px-1.5 py-0.5 text-sm text-blue-600 dark:bg-gray-800 dark:text-blue-400">
+            src/content/journal/
+          </code>{" "}
+          to begin.
         </p>
       </section>
     )
