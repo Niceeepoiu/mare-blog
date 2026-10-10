@@ -71,8 +71,10 @@ const lang = siteConfig.lang ?? "en";
   <body>
     <Header transition:persist />
 
-    <main class="mx-auto my-8 max-w-5xl" data-pagefind-body>
-      <header class="mb-8 rounded-lg bg-white p-10 shadow-sm dark:bg-gray-900">
+    <main class="mx-4 my-8 max-w-5xl sm:mx-6 lg:mx-auto" data-pagefind-body>
+      <header
+        class="mb-8 rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900"
+      >
         {
           Astro.slots.has("page-header-prefix") && (
             <slot name="page-header-prefix" />
@@ -98,7 +100,7 @@ const lang = siteConfig.lang ?? "en";
     </main>
     {
       showComments && siteConfig.giscus.enabled && (
-        <section class="mx-auto my-8 max-w-5xl">
+        <section class="mx-4 my-8 max-w-5xl sm:mx-6 lg:mx-auto">
           <Comment />
         </section>
       )
