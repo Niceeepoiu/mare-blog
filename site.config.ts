@@ -29,8 +29,12 @@ export interface SiteConfig {
   authorUrl: string;
   /** Author biography */
   authorBio: string;
+  /** Detailed author introduction displayed on the About page */
+  authorDetails: string;
   /** Author location */
   authorLocation: string;
+  /** GitHub username used for the contribution graph */
+  githubUsername: string;
   /** Author avatar image URL */
   avatar: string;
   /** Optional array of author links */
@@ -73,7 +77,10 @@ export default defineConfig({
   author: "Niceeepoiu",
   authorUrl: "https://www.github.com/Niceeepoiu",
   authorBio: "A passionate developer.",
+  authorDetails:
+    "A student with basic full-stack development skills who enjoys playing Minecraft.",
   authorLocation: "Zhejiang, China",
+  githubUsername: "Niceeepoiu",
   avatar: "https://www.github.com/Niceeepoiu.png",
   authorLinks: [
     {

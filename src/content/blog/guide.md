@@ -40,7 +40,10 @@ export default defineConfig({
   author: "Niceeepoiu",
   authorUrl: "https://www.github.com/Niceeepoiu",
   authorBio: "A passionate developer.",
+  authorDetails:
+    "I'm a developer who enjoys building and learning. This blog is where I share longer articles, journal entries, and notes from my projects.",
   authorLocation: "Zhejiang, China",
+  githubUsername: "Niceeepoiu",
   avatar: "https://www.github.com/Niceeepoiu.png",
   authorLinks: [
     {
@@ -83,7 +86,9 @@ The project defaults to Giscus enabled, but comments only render if the reposito
 - `author`: The name displayed in post footers and other author metadata.
 - `authorUrl`: External link to your GitHub, personal website, or portfolio.
 - `authorBio`: Short introduction used in author-related UI blocks.
+- `authorDetails`: Detailed introduction displayed on the About page profile card. Separate paragraphs with a blank line.
 - `authorLocation`: Optional location text displayed with the author profile.
+- `githubUsername`: GitHub username used to display the contribution graph on the About page.
 - `avatar`: URL for the author avatar image.
 - `authorLinks`: Optional list of profile links such as GitHub, X, or LinkedIn.
 - `url`: The public base URL of the site.
@@ -124,13 +129,16 @@ the content and structure independently.
 
 ## 3. Modifying the About Page
 
-The About page is an MDX file at `src/content/page/about.mdx`.
+The About page profile card uses `authorDetails` in `site.config.ts`; its
+Markdown/MDX page content is rendered by `src/pages/about.astro` from
+`src/content/page/about.mdx`.
 
 To update your personal bio:
 
-1. Open the About MDX file.
-2. Update the Frontmatter metadata at the top if needed.
-3. Edit the content below the Frontmatter to update your personal intro, project showcase, or social media links. Since MDX is enabled, you can also embed Astro or JSX components seamlessly.
+1. Update `authorDetails` in `site.config.ts` to edit the profile card introduction.
+2. Open the About MDX file to edit the page content.
+3. Update the Frontmatter metadata at the top if needed.
+4. Edit the content below the Frontmatter to update the page copy, project showcase, or links. Since MDX is enabled, you can also embed Astro or JSX components seamlessly.
 
 ```markdown
 ---
