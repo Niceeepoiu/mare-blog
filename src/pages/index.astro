@@ -2,6 +2,7 @@
 import siteConfig from "@config";
 import { getCollection } from "astro:content";
 import PostCard from "../components/PostCard.astro";
+import UserCard from "../components/UserCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 const pageTitle = "Welcome to My Blog";
 const featuredPosts = (await getCollection("blog"))
@@ -10,11 +11,13 @@ const featuredPosts = (await getCollection("blog"))
 ---
 
 <BaseLayout pageTitle={pageTitle} description={siteConfig.description}>
+  <section aria-labelledby="user-card-heading">
+    <h2 class="mb-6">About the author</h2>
+    <UserCard />
+  </section>
   <section class="mt-8" aria-labelledby="featured-posts-heading">
     <div class="flex items-center justify-between">
-      <h2 id="featured-posts-heading" class="mb-6 text-2xl font-bold">
-        Featured posts
-      </h2>
+      <h2 id="featured-posts-heading" class="mb-6">Featured posts</h2>
       <a
         href="/blog"
         class="mb-6 text-sm font-medium text-blue-500 hover:underline dark:text-blue-400"
