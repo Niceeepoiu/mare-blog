@@ -6,8 +6,16 @@ import Search from "./Search.astro";
 import { Icon } from "astro-icon/components";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
-const activeNavHref = siteConfig.nav
-  .map((item) => item.href.replace(/\/$/, "") || "/")
+const navItems = siteConfig.nav.map((item) => {
+  const normalizedHref = item.href.replace(/\/$/, "") || "/";
+  return {
+    ...item,
+    normalizedHref,
+  };
+});
+
+const activeNavHref = navItems
+  .map((item) => item.normalizedHref)
   .filter((href) =>
     href === "/"
       ? currentPath === "/"
@@ -29,10 +37,8 @@ const activeNavHref = siteConfig.nav
 
     <nav class="hidden items-center gap-2 md:flex">
       {
-        siteConfig.nav.map((item) => {
-          const normalizedHref = item.href.replace(/\/$/, "") || "/";
-          const isActive = normalizedHref === activeNavHref;
-
+        navItems.map((item) => {
+          const isActive = item.normalizedHref === activeNavHref;
           return (
             <a
               href={item.href}
@@ -44,7 +50,6 @@ const activeNavHref = siteConfig.nav
               }`}
             >
               {item.icon && <Icon name={item.icon} class="h-4 w-4" />}
-
               <span>{item.name}</span>
             </a>
           );
@@ -78,10 +83,8 @@ const activeNavHref = siteConfig.nav
   >
     <div class="flex flex-col gap-1">
       {
-        siteConfig.nav.map((item) => {
-          const normalizedHref = item.href.replace(/\/$/, "") || "/";
-          const isActive = normalizedHref === activeNavHref;
-
+        navItems.map((item) => {
+          const isActive = item.normalizedHref === activeNavHref;
           return (
             <a
               href={item.href}
@@ -111,10 +114,37 @@ const activeNavHref = siteConfig.nav
   const closeMobileNavigation = () => {
     const menu = document.getElementById("mobile-navigation-menu");
     const toggle = document.getElementById("mobile-navigation-toggle");
+    if (!menu || !toggle || menu.hidden) return;
+
+    toggle.setAttribute("aria-expanded", "false");
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (prefersReducedMotion) {
+      menu.hidden = true;
+      return;
+    }
+
+    menu.classList.add("is-closing");
+
+    const handleAnimationEnd = () => {
+      menu.classList.remove("is-closing");
+      menu.hidden = true;
+      menu.removeEventListener("animationend", handleAnimationEnd);
+    };
+
+    menu.addEventListener("animationend", handleAnimationEnd, { once: true });
+  };
+
+  const openMobileNavigation = () => {
+    const menu = document.getElementById("mobile-navigation-menu");
+    const toggle = document.getElementById("mobile-navigation-toggle");
     if (!menu || !toggle) return;
 
-    menu.hidden = true;
-    toggle.setAttribute("aria-expanded", "false");
+    menu.classList.remove("is-closing");
+    menu.hidden = false;
+    toggle.setAttribute("aria-expanded", "true");
   };
 
   const setupHeaderInteractions = () => {
@@ -130,13 +160,16 @@ const activeNavHref = siteConfig.nav
       const toggle = event.target.closest("#mobile-navigation-toggle");
 
       if (toggle && menu) {
-        const isOpen = !menu.hidden;
-        menu.hidden = isOpen;
-        toggle.setAttribute("aria-expanded", String(!isOpen));
+        const isOpen = !menu.hidden && !menu.classList.contains("is-closing");
+        if (isOpen) {
+          closeMobileNavigation();
+        } else {
+          openMobileNavigation();
+        }
         return;
       }
 
-      if (menu && !menu.hidden) {
+      if (menu && !menu.hidden && !menu.classList.contains("is-closing")) {
         const clickedLink = event.target.closest("#mobile-navigation-menu a");
         const clickedOutside = !menu.contains(event.target);
         if (clickedLink || clickedOutside) closeMobileNavigation();
@@ -180,15 +213,29 @@ const activeNavHref = siteConfig.nav
       animation: mobile-navigation-enter 180ms ease-out both;
     }
 
+    #mobile-navigation-menu.is-closing {
+      animation: mobile-navigation-exit 150ms ease-in both;
+    }
+
     @keyframes mobile-navigation-enter {
       from {
         opacity: 0;
         transform: translateY(-0.5rem);
       }
-
       to {
         opacity: 1;
         transform: translateY(0);
+      }
+    }
+
+    @keyframes mobile-navigation-exit {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-0.5rem);
       }
     }
   }
