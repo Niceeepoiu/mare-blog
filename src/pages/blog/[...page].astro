@@ -33,6 +33,28 @@ const pageLinks = Array.from(
   pageTitle={pageTitle}
   description="Browse all articles, notes, and guides."
 >
+  <section class="mb-8 grid w-full gap-8 sm:grid-cols-1 lg:grid-cols-2">
+    <a
+      href="/blog/tags"
+      class="flex items-center gap-4 rounded-lg bg-white p-4 shadow-sm sm:p-6 lg:p-8"
+    >
+      <Icon name="lucide:tag" class="h-6 w-6" />
+      <div>
+        <h3>Tags</h3>
+        <p>Browse articles by topic.</p>
+      </div>
+    </a>
+    <a
+      href="/404"
+      class="flex items-center gap-4 rounded-lg bg-white p-4 shadow-sm sm:p-6 lg:p-8"
+    >
+      <Icon name="lucide:tag" class="h-6 w-6" />
+      <div>
+        <h3>Archives</h3>
+        <p>Browse articles by timestamp.</p>
+      </div>
+    </a>
+  </section>
   {
     page.data.length > 0 ? (
       <div class="flex flex-col gap-6">
