@@ -5,13 +5,12 @@ import PostCard from "../components/PostCard.astro";
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
-const pageTitle = "Welcome to My Blog";
 const featuredPosts = (await getCollection("blog"))
   .filter((post) => post.data.featured)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<BaseLayout pageTitle={pageTitle} description={siteConfig.description}>
+<BaseLayout pageTitle="Home" description={siteConfig.description}>
   <section aria-labelledby="user-card-heading">
     <div class="flex items-center justify-between">
       <h2 id="user-card-heading" class="mb-6">About the author</h2>
