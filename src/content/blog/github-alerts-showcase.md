@@ -1,7 +1,7 @@
 ---
 title: "GitHub-Style Alerts in Markdown"
 description: "A standalone showcase of the five GitHub-style alert blockquotes supported on this blog."
-pubDate: 2026-10-04T00:00:00
+pubDate: 2026-10-04T08:00
 featured: false
 tags: [markdown, github]
 ---
