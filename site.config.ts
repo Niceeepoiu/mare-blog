@@ -81,7 +81,7 @@ export default defineConfig({
     "A student with basic full-stack development skills who enjoys playing Minecraft.",
   authorLocation: "Zhejiang, China",
   githubUsername: "Niceeepoiu",
-  avatar: "./avatar.webp",
+  avatar: "/avatar.webp",
   authorLinks: [
     {
       name: "GitHub",

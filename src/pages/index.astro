@@ -2,7 +2,6 @@
 import siteConfig from "@config";
 import PostCard from "../components/PostCard.astro";
 import { Icon } from "astro-icon/components";
-import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getFeaturedPosts } from "../utils/content";
 
@@ -24,11 +23,12 @@ const featuredPosts = await getFeaturedPosts();
       class="rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900"
     >
       <div class="flex items-center gap-4 sm:gap-5">
-        <Image
+        <img
           src={siteConfig.avatar}
           alt={siteConfig.author}
-          width={104}
-          height={104}
+          loading="lazy"
+          width="104"
+          height="104"
           class="h-25 w-25 shrink-0 rounded-full object-cover shadow-sm ring-4 ring-white dark:ring-gray-800"
         />
         <div class="min-w-0">
