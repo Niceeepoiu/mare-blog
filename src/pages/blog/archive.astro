@@ -1,13 +1,15 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import {
+  formatISODate,
+  formatMonthDay,
+  getBlogPosts,
+} from "../../utils/content";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const posts = await getBlogPosts();
 
 const groupedPosts = Object.groupBy(posts, (post) =>
-  new Date(post.data.pubDate).getFullYear().toString(),
+  String(post.data.pubDate.getUTCFullYear()),
 );
 
 const archiveEntries = (
@@ -47,15 +49,10 @@ const archiveEntries = (
                       class="col-span-3 grid grid-cols-[3.5rem_3rem_minmax(0,1fr)] items-center rounded-md py-2 transition-colors duration-200 hover:bg-blue-50/70 focus-visible:bg-blue-50/70 focus-visible:outline-none dark:hover:bg-gray-800/70 dark:focus-visible:bg-gray-800/70"
                     >
                       <time
-                        datetime={post.data.pubDate.toISOString().slice(0, 10)}
+                        datetime={formatISODate(post.data.pubDate)}
                         class="pr-1 text-right text-xs font-medium text-gray-500 sm:text-sm dark:text-gray-400"
                       >
-                        {post.data.pubDate
-                          .toLocaleDateString("en-US", {
-                            month: "2-digit",
-                            day: "2-digit",
-                          })
-                          .replace("/", "-")}
+                        {formatMonthDay(post.data.pubDate)}
                       </time>
                       <span class="relative z-10 flex justify-center">
                         <span class="h-1 w-1 rounded-full bg-gray-400 transition-all duration-200 group-hover:h-5 group-hover:bg-blue-500 dark:bg-gray-500 dark:group-hover:bg-blue-400" />

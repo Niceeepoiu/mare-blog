@@ -1,10 +1,13 @@
 ---
-import { getCollection, render } from "astro:content";
+import { render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import {
+  formatISODate,
+  formatMonthDay,
+  getJournalEntries,
+} from "../utils/content";
 
-const entries = (await getCollection("journal")).sort(
-  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
-);
+const entries = await getJournalEntries();
 
 const renderedEntries = await Promise.all(
   entries.map(async (entry) => {
@@ -20,36 +23,14 @@ const renderedEntries = await Promise.all(
 const entriesByYear = new Map<number, typeof renderedEntries>();
 
 for (const item of renderedEntries) {
-  const year = item.entry.data.pubDate.getFullYear();
+  const year = item.entry.data.pubDate.getUTCFullYear();
   const yearEntries = entriesByYear.get(year) ?? [];
 
   yearEntries.push(item);
   entriesByYear.set(year, yearEntries);
 }
 
-// entries 已按日期倒序排列，因此年份分组也按倒序生成
 const journalYears = [...entriesByYear.entries()];
-
-// 避免在模板中重复创建日期格式化器
-const monthDayFormatter = new Intl.DateTimeFormat("en-US", {
-  month: "2-digit",
-  day: "2-digit",
-});
-
-const formatMonthDay = (date: Date) =>
-  monthDayFormatter
-    .formatToParts(date)
-    .filter((part) => part.type === "month" || part.type === "day")
-    .map((part) => part.value)
-    .join("-");
-
-const formatDateTime = (date: Date) => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-
-  return `${year}-${month}-${day}`;
-};
 ---
 
 <BaseLayout
@@ -84,8 +65,8 @@ const formatDateTime = (date: Date) => {
                   return (
                     <li class="grid grid-cols-[3.5rem_3rem_minmax(0,1fr)] items-start">
                       <time
-                        datetime={formatDateTime(date)}
-                        class="col-start-1 row-start-1 pt-2 pr-1 text-right text-xs font-medium text-gray-500 sm:text-sm dark:text-gray-400"
+                        datetime={formatISODate(date)}
+                        class="col-start-1 row-start-1 mt-2.5 mr-1 text-right text-xs font-medium text-gray-500 sm:text-sm dark:text-gray-400"
                       >
                         {formatMonthDay(date)}
                       </time>
@@ -93,7 +74,7 @@ const formatDateTime = (date: Date) => {
                         <span class="h-3.5 w-3.5 rounded-full border-2 border-blue-500 bg-white dark:border-blue-400 dark:bg-gray-900" />
                       </span>
                       <article class="col-start-3 row-start-1 min-w-0 py-2">
-                        <h3 class="mb-2 text-sm font-semibold text-gray-800 sm:text-base dark:text-gray-200">
+                        <h3 class="mt-0 mb-2 text-sm font-semibold text-gray-800 sm:text-base dark:text-gray-200">
                           {entry.data.title}
                         </h3>
                         <div class="markdown-content">

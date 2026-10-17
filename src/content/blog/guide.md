@@ -41,10 +41,10 @@ export default defineConfig({
   authorUrl: "https://www.github.com/Niceeepoiu",
   authorBio: "A passionate developer.",
   authorDetails:
-    "I'm a developer who enjoys building and learning. This blog is where I share longer articles, journal entries, and notes from my projects.",
+    "A student with basic full-stack development skills who enjoys playing Minecraft.",
   authorLocation: "Zhejiang, China",
   githubUsername: "Niceeepoiu",
-  avatar: "https://www.github.com/Niceeepoiu.png",
+  avatar: "./avatar.webp",
   authorLinks: [
     {
       name: "GitHub",
@@ -58,7 +58,6 @@ export default defineConfig({
     { name: "Home", href: "/", icon: "lucide:home" },
     { name: "Blog", href: "/blog", icon: "lucide:book-open" },
     { name: "Journal", href: "/journal", icon: "lucide:calendar-days" },
-    { name: "Tags", href: "/blog/tags", icon: "lucide:tags" },
     { name: "About", href: "/about", icon: "lucide:user" },
   ],
   giscus: {

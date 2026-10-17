@@ -1,11 +1,12 @@
 ---
-import { getCollection, render } from "astro:content";
+import { render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { Icon } from "astro-icon/components";
 import { getTagHref } from "../../utils/tags";
+import { formatDate, formatISODate, getBlogPosts } from "../../utils/content";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+  const posts = await getBlogPosts();
   return posts.map((post) => ({
     params: { slug: post.id },
     props: post,
@@ -23,7 +24,7 @@ const { Content } = await render(post);
 >
   <div slot="page-header-details">
     <time
-      datetime={post.data.pubDate.toISOString().slice(0, 10)}
+      datetime={formatISODate(post.data.pubDate)}
       class="mr-auto flex inline-flex items-center gap-1 rounded-md bg-gray-50 p-2 text-sm font-medium text-gray-400 dark:bg-gray-800 dark:text-gray-500"
     >
       <Icon
@@ -31,15 +32,7 @@ const { Content } = await render(post);
         aria-hidden="true"
         class="mr-1 h-3.5 w-3.5 shrink-0"
       />
-      <span>
-        {
-          post.data.pubDate.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          })
-        }
-      </span>
+      <span>{formatDate(post.data.pubDate)}</span>
     </time>
     {
       post.data.tags.length > 0 && (
@@ -63,7 +56,6 @@ const { Content } = await render(post);
       )
     }
   </div>
-
   <article
     class="markdown-content rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900"
   >

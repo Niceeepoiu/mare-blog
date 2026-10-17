@@ -1,9 +1,8 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { getTagHref, getTagSummaries } from "../../../utils/tags";
-
-const tags = getTagSummaries(await getCollection("blog"));
+import { getBlogPosts } from "../../../utils/content";
+const tags = getTagSummaries(await getBlogPosts());
 ---
 
 <BaseLayout pageTitle="Tags" description="Browse articles by topic.">

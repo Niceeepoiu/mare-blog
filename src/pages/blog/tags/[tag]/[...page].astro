@@ -1,5 +1,5 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import type { GetStaticPaths, Page } from "astro";
 import { Icon } from "astro-icon/components";
 import siteConfig from "@config";
@@ -10,14 +10,16 @@ import {
   getTagHref,
   getTagSummaries,
 } from "../../../../utils/tags";
+import { getBlogPosts } from "../../../../utils/content";
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const allPosts = await getCollection("blog");
+  const allPosts = await getBlogPosts();
   const tags = getTagSummaries(allPosts);
   const pageSize = Math.max(1, Math.floor(siteConfig.postsPerPage ?? 6));
 
   return tags.flatMap((tag) => {
     const posts = getPostsForTag(allPosts, tag.slug);
+
     return paginate(posts, {
       params: { tag: tag.slug },
       pageSize,
@@ -55,11 +57,9 @@ const description =
       </a>
     </p>
   </div>
-
   <div class="flex flex-col gap-6">
     {page.data.map((post) => <PostCard post={post} />)}
   </div>
-
   <nav
     aria-label="Tag archive pagination"
     class="mt-8 flex flex-wrap items-center justify-center gap-2 text-sm"
@@ -84,31 +84,29 @@ const description =
         </span>
       )
     }
-    {
-      (
-        <div class="inline-flex rounded-lg border border-gray-200 dark:border-gray-700">
-          {pageLinks.map((pageNumber) => {
-            const href =
-              pageNumber === 1 ? tagHref : `${tagHref}/${pageNumber}`;
-            const isCurrent = page.currentPage === pageNumber;
-
-            return (
-              <a
-                href={href}
-                aria-current={isCurrent ? "page" : undefined}
-                class={`relative flex h-10 w-10 items-center justify-center border-r border-gray-200 text-sm transition-colors duration-200 first:rounded-l-lg last:rounded-r-lg last:border-r-0 dark:border-gray-700 ${
-                  isCurrent
-                    ? "z-10 bg-blue-600 font-medium text-white"
-                    : "bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-blue-400"
-                }`}
-              >
-                {pageNumber}
-              </a>
-            );
-          })}
-        </div>
-      )
-    }
+    <div
+      class="inline-flex rounded-lg border border-gray-200 dark:border-gray-700"
+    >
+      {
+        pageLinks.map((pageNumber) => {
+          const href = pageNumber === 1 ? tagHref : `${tagHref}/${pageNumber}`;
+          const isCurrent = page.currentPage === pageNumber;
+          return (
+            <a
+              href={href}
+              aria-current={isCurrent ? "page" : undefined}
+              class={`relative flex h-10 w-10 items-center justify-center border-r border-gray-200 text-sm transition-colors duration-200 first:rounded-l-lg last:rounded-r-lg last:border-r-0 dark:border-gray-700 ${
+                isCurrent
+                  ? "z-10 bg-blue-600 font-medium text-white"
+                  : "bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-blue-400"
+              }`}
+            >
+              {pageNumber}
+            </a>
+          );
+        })
+      }
+    </div>
     {
       page.url.next ? (
         <a

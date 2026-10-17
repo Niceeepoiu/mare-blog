@@ -1,13 +1,12 @@
 ---
 import siteConfig from "@config";
-import { getCollection } from "astro:content";
 import PostCard from "../components/PostCard.astro";
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
-const featuredPosts = (await getCollection("blog"))
-  .filter((post) => post.data.featured)
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+import { getFeaturedPosts } from "../utils/content";
+
+const featuredPosts = await getFeaturedPosts();
 ---
 
 <BaseLayout pageTitle="Home" description={siteConfig.description}>
