@@ -23,7 +23,7 @@ const { Content } = await render(post);
 >
   <div slot="page-header-details">
     <time
-      datetime={post.data.pubDate.toISOString()}
+      datetime={post.data.pubDate.toISOString().slice(0, 10)}
       class="mr-auto flex inline-flex items-center gap-1 rounded-md bg-gray-50 p-2 text-sm font-medium text-gray-400 dark:bg-gray-800 dark:text-gray-500"
     >
       <Icon
@@ -33,13 +33,10 @@ const { Content } = await render(post);
       />
       <span>
         {
-          post.data.pubDate.toLocaleString("en-US", {
+          post.data.pubDate.toLocaleDateString("en-US", {
             year: "numeric",
             month: "short",
             day: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false,
           })
         }
       </span>

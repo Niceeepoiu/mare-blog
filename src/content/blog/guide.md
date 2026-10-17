@@ -1,7 +1,7 @@
 ---
 title: "Getting Started"
 description: "A comprehensive guide on configuring your site, managing pages, publishing posts, and executing CLI commands in Mare Blog."
-pubDate: 2026-08-30T08:00
+pubDate: 2026-08-30
 featured: false
 tags: [astro, blogging]
 ---
@@ -164,7 +164,7 @@ To publish a new article:
 ---
 title: "Blog Title"
 description: "A short description of the post..."
-pubDate: 2026-08-30T09:00:00
+pubDate: 2026-08-30
 featured: true
 tags: [astro, writing]
 ---
@@ -195,7 +195,7 @@ appearing in the blog archive. Create a `.md` or `.mdx` file in
 ```markdown
 ---
 title: "A small note"
-pubDate: 2026-09-26T14:30:00
+pubDate: 2026-09-26
 ---
 
 Write a short note here. Markdown content appears directly on the timeline.

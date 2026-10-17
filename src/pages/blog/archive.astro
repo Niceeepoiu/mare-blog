@@ -47,7 +47,7 @@ const archiveEntries = (
                       class="col-span-3 grid grid-cols-[3.5rem_3rem_minmax(0,1fr)] items-center rounded-md py-2 transition-colors duration-200 hover:bg-blue-50/70 focus-visible:bg-blue-50/70 focus-visible:outline-none dark:hover:bg-gray-800/70 dark:focus-visible:bg-gray-800/70"
                     >
                       <time
-                        datetime={post.data.pubDate.toISOString()}
+                        datetime={post.data.pubDate.toISOString().slice(0, 10)}
                         class="pr-1 text-right text-xs font-medium text-gray-500 sm:text-sm dark:text-gray-400"
                       >
                         {post.data.pubDate

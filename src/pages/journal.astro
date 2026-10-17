@@ -3,15 +3,53 @@ import { getCollection, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const entries = (await getCollection("journal")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
 );
 
 const renderedEntries = await Promise.all(
-  entries.map(async (entry) => ({
-    entry,
-    Content: (await render(entry)).Content,
-  })),
+  entries.map(async (entry) => {
+    const { Content } = await render(entry);
+
+    return {
+      entry,
+      Content,
+    };
+  }),
 );
+
+const entriesByYear = new Map<number, typeof renderedEntries>();
+
+for (const item of renderedEntries) {
+  const year = item.entry.data.pubDate.getFullYear();
+  const yearEntries = entriesByYear.get(year) ?? [];
+
+  yearEntries.push(item);
+  entriesByYear.set(year, yearEntries);
+}
+
+// entries 已按日期倒序排列，因此年份分组也按倒序生成
+const journalYears = [...entriesByYear.entries()];
+
+// 避免在模板中重复创建日期格式化器
+const monthDayFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "2-digit",
+  day: "2-digit",
+});
+
+const formatMonthDay = (date: Date) =>
+  monthDayFormatter
+    .formatToParts(date)
+    .filter((part) => part.type === "month" || part.type === "day")
+    .map((part) => part.value)
+    .join("-");
+
+const formatDateTime = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
 ---
 
 <BaseLayout
@@ -20,50 +58,56 @@ const renderedEntries = await Promise.all(
 >
   {
     renderedEntries.length > 0 ? (
-      <ol class="space-y-10 rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900">
-        {renderedEntries.map(({ entry, Content }, index) => (
-          <li class="grid grid-cols-[6rem_1rem_minmax(0,1fr)] items-stretch gap-x-2 sm:grid-cols-[8.5rem_1.5rem_minmax(0,1fr)] sm:gap-x-4">
-            <time
-              datetime={entry.data.pubDate.toISOString()}
-              class="pt-1 text-right text-[11px] leading-5 whitespace-nowrap text-gray-500 sm:text-sm dark:text-gray-400"
+      <div class="rounded-xl bg-white px-4 py-6 shadow-sm sm:px-8 sm:py-8 lg:px-10 dark:bg-gray-900">
+        <div class="flex flex-col gap-7 sm:gap-8">
+          {journalYears.map(([year, yearEntries]) => (
+            <section
+              aria-labelledby={`journal-year-${year}`}
+              class="relative before:absolute before:top-5 before:bottom-0 before:left-20 before:border-l before:border-gray-300 before:content-[''] sm:before:top-5.75 dark:before:border-gray-700"
             >
-              <span class="inline-block">
-                {entry.data.pubDate.toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-              </span>
-              <span class="ml-2 inline-block">
-                {entry.data.pubDate.toLocaleTimeString("en-US", {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  hour12: false,
-                })}
-              </span>
-            </time>
-
-            <div class="relative flex justify-center">
-              {index < renderedEntries.length - 1 && (
-                <span
-                  aria-hidden="true"
-                  class="absolute top-3 -bottom-10 left-1/2 w-px -translate-x-1/2 bg-gray-300 dark:bg-gray-700"
-                />
-              )}
-              <span class="relative z-10 mt-1 h-3 w-3 rounded-full border-[3px] border-blue-600 bg-white dark:border-blue-400 dark:bg-gray-900" />
-            </div>
-
-            <article class="min-w-0 pb-1">
-              <h2 class="mb-3 text-xl font-semibold text-gray-900 dark:text-gray-100">
-                {entry.data.title}
+              <h2
+                id={`journal-year-${year}`}
+                class="relative grid grid-cols-[3.5rem_3rem_minmax(0,1fr)] items-center text-xl font-bold tracking-tight text-gray-800 sm:text-2xl dark:text-gray-100"
+              >
+                <span>{year}</span>
+                <span class="flex justify-center">
+                  <span class="relative z-10 h-3.5 w-3.5 rounded-full border-2 border-blue-500 bg-white dark:border-blue-400 dark:bg-gray-900" />
+                </span>
+                <span class="text-xs font-normal tracking-normal text-gray-500 sm:text-sm dark:text-gray-400">
+                  {yearEntries.length}{" "}
+                  {yearEntries.length === 1 ? "entry" : "entries"}
+                </span>
               </h2>
-              <div class="markdown-content">
-                <Content />
-              </div>
-            </article>
-          </li>
-        ))}
-      </ol>
+              <ol class="relative mt-2 space-y-0.5">
+                {yearEntries.map(({ entry, Content }) => {
+                  const date = entry.data.pubDate;
+                  return (
+                    <li class="grid grid-cols-[3.5rem_3rem_minmax(0,1fr)] items-start">
+                      <time
+                        datetime={formatDateTime(date)}
+                        class="col-start-1 row-start-1 pt-2 pr-1 text-right text-xs font-medium text-gray-500 sm:text-sm dark:text-gray-400"
+                      >
+                        {formatMonthDay(date)}
+                      </time>
+                      <span class="relative z-10 col-start-2 row-start-1 flex justify-center pt-2.75 sm:pt-3.25">
+                        <span class="h-3.5 w-3.5 rounded-full border-2 border-blue-500 bg-white dark:border-blue-400 dark:bg-gray-900" />
+                      </span>
+                      <article class="col-start-3 row-start-1 min-w-0 py-2">
+                        <h3 class="mb-2 text-sm font-semibold text-gray-800 sm:text-base dark:text-gray-200">
+                          {entry.data.title}
+                        </h3>
+                        <div class="markdown-content">
+                          <Content />
+                        </div>
+                      </article>
+                    </li>
+                  );
+                })}
+              </ol>
+            </section>
+          ))}
+        </div>
+      </div>
     ) : (
       <section class="rounded-lg bg-white p-5 shadow-sm sm:p-8 lg:p-12 dark:bg-gray-900">
         <p class="text-sm text-gray-500 dark:text-gray-400">
