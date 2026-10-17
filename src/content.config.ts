@@ -29,4 +29,15 @@ const journal = defineCollection({
   }),
 });
 
-export const collections = { blog, page, journal };
+const friend = defineCollection({
+  loader: glob({ pattern: "**/*.yaml", base: "./src/content/friend" }),
+  schema: z.object({
+    name: z.string().trim().min(1),
+    url: z.string().trim().min(1),
+    description: z.string().trim().min(1),
+    avatar: z.string().trim().min(1).optional(),
+    darkAvatar: z.string().trim().min(1).optional(),
+  }),
+});
+
+export const collections = { blog, page, journal, friend };

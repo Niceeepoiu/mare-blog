@@ -95,6 +95,7 @@ export default defineConfig({
     { name: "Home", href: "/", icon: "lucide:home" },
     { name: "Blog", href: "/blog", icon: "lucide:book-open" },
     { name: "Journal", href: "/journal", icon: "lucide:calendar-days" },
+    { name: "Friends", href: "/friends", icon: "lucide:users" },
     { name: "About", href: "/about", icon: "lucide:user" },
   ],
   giscus: {

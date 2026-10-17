@@ -185,7 +185,38 @@ tags:
   - writing
 ```
 
-## 5. Keeping a Journal
+## 5. Managing Friend Links
+
+The `/friends` page is linked from the main navigation. Its introduction and
+application instructions are editable in `src/content/page/friends.mdx`.
+Visitors can suggest a link in the Giscus comments using this format:
+
+```text
+Site name:
+Site URL:
+Site introduction:
+Avatar URL (optional):
+```
+
+Review submissions before adding them. Each published link is a YAML file in
+`src/content/friend/`; use a unique filename and provide a name, URL, and short
+description. The avatar is optional:
+
+```yaml
+name: "Example Blog"
+url: "https://example.com"
+description: "Notes on design, code, and the web."
+avatar: "https://example.com/avatar.png"
+darkAvatar: "https://example.com/avatar-dark.png"
+```
+
+`avatar` and `darkAvatar` are optional. Omit `avatar` to use the site's default
+icon. If `darkAvatar` is provided, it is shown in dark mode while `avatar` (or
+the default icon) is shown in light mode. Friend cards are generated from these
+files and sorted by name. The comment section follows the global
+`giscus.enabled` setting and the Giscus credentials in `site.config.ts`.
+
+## 6. Keeping a Journal
 
 Short notes and moments can be published on the Journal timeline without
 appearing in the blog archive. Create a `.md` or `.mdx` file in
@@ -204,7 +235,7 @@ Entries are sorted newest first. The date and time appear beside each entry on
 the left; its title and content appear on the right. Use the same
 `YYYY-MM-DDTHH:mm:ss` format for blog posts and journal entries.
 
-## 6. Commands
+## 7. Commands
 
 All commands are run from the root of the project, from a terminal:
 

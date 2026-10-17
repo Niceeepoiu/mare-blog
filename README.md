@@ -20,7 +20,10 @@ instant search, and no server-side runtime.
 
 ## 🧰 Tech Stack
 
-- [Astro](https://astro.build) · [Tailwind CSS](https://tailwindcss.com) · [Pagefind](https://pagefind.app) · [Giscus](https://giscus.app)
+- [Astro](https://astro.build)
+- [Tailwind CSS](https://tailwindcss.com)
+- [Pagefind](https://pagefind.app)
+- [Giscus](https://giscus.app)
 
 ## 🚀 Deploy to Cloudflare Pages
 
