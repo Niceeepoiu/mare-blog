@@ -1,13 +1,11 @@
 ---
 import siteConfig from "@config";
-import "nprogress/nprogress.css";
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Comment from "../components/Comments.astro";
 import GlobalTooltip from "../components/GlobalTooltip.astro";
 import BackToTop from "../components/BackToTop.astro";
-import { ClientRouter } from "astro:transitions";
 
 interface Props {
   pageTitle: string;
@@ -16,11 +14,11 @@ interface Props {
 }
 
 const { pageTitle, description, showComments = false } = Astro.props;
-
 const metaDescription = description ?? siteConfig.description;
 const lang = siteConfig.lang ?? "en";
 ---
 
+<!doctype html>
 <html lang={lang}>
   <head>
     <meta charset="utf-8" />
@@ -30,47 +28,22 @@ const lang = siteConfig.lang ?? "en";
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={metaDescription} />
     <title>{pageTitle} - {siteConfig.title}</title>
-    <ClientRouter />
-
     <script is:inline>
-      const applyTheme = () => {
-        const theme = (() => {
-          if (
-            typeof localStorage !== "undefined" &&
-            localStorage.getItem("theme")
-          ) {
-            return localStorage.getItem("theme");
-          }
-          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            return "dark";
-          }
-          return "light";
-        })();
-        if (theme === "dark") {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      };
-
-      applyTheme();
-      document.addEventListener("astro:after-swap", applyTheme);
-    </script>
-
-    <script>
-      import NProgress from "nprogress";
-      NProgress.configure({ showSpinner: false, speed: 400 });
-      document.addEventListener("astro:before-preparation", () => {
-        NProgress.start();
-      });
-      document.addEventListener("astro:page-load", () => {
-        NProgress.done();
-      });
+      (() => {
+        let theme = null;
+        try {
+          theme = localStorage.getItem("theme");
+        } catch {}
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        const useDark = theme === "dark" || (theme !== "light" && prefersDark);
+        document.documentElement.classList.toggle("dark", useDark);
+      })();
     </script>
   </head>
   <body>
-    <Header transition:persist />
-
+    <Header />
     <main class="mx-4 my-8 max-w-5xl sm:mx-6 lg:mx-auto" data-pagefind-body>
       <header
         class="mb-8 rounded-lg bg-white p-6 shadow-sm sm:p-8 lg:p-10 dark:bg-gray-900"
@@ -106,7 +79,7 @@ const lang = siteConfig.lang ?? "en";
       )
     }
     <BackToTop />
-    <Footer transition:persist />
+    <Footer />
     <GlobalTooltip />
   </body>
 </html>
