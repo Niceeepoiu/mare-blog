@@ -16,51 +16,6 @@ const contributionCellPattern =
   /<td\b(?=[^>]*\bdata-date="(?<date>\d{4}-\d{2}-\d{2})")(?=[^>]*\bdata-level="(?<level>[0-4])")[^>]*><\/td>\s*<tool-tip\b[^>]*>(?<label>[\s\S]*?)<\/tool-tip>/g;
 const contributionCountPattern = /(\d[\d,]*)\s+contributions?\b/i;
 
-const graphQLLevels: Record<string, number> = {
-  NONE: 0,
-  FIRST_QUARTILE: 1,
-  SECOND_QUARTILE: 2,
-  THIRD_QUARTILE: 3,
-  FOURTH_QUARTILE: 4,
-};
-
-const contributionCalendarQuery = `
-  query ContributionCalendar($login: String!) {
-    user(login: $login) {
-      contributionsCollection {
-        contributionCalendar {
-          weeks {
-            contributionDays {
-              date
-              contributionCount
-              contributionLevel
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-interface GraphQLContributionResponse {
-  data?: {
-    user?: {
-      contributionsCollection?: {
-        contributionCalendar?: {
-          weeks: {
-            contributionDays: {
-              date: string;
-              contributionCount: number;
-              contributionLevel: string;
-            }[];
-          }[];
-        };
-      };
-    } | null;
-  };
-  errors?: { message: string }[];
-}
-
 export async function fetchGitHubContributions(
   username: string,
 ): Promise<GitHubContributionDay[]> {
@@ -68,19 +23,8 @@ export async function fetchGitHubContributions(
     throw new Error("The configured GitHub username is invalid.");
   }
 
-  const token = process.env.GITHUB_TOKEN;
-  if (token) {
-    try {
-      return validateContributionDays(await fetchViaGraphQL(username, token));
-    } catch (error) {
-      console.warn(
-        "GitHub GraphQL contributions failed; falling back to the profile page.",
-        error,
-      );
-    }
-  }
-
-  return validateContributionDays(await fetchViaProfilePage(username));
+  const days = await fetchFromProfilePage(username);
+  return validateContributionDays(days);
 }
 
 async function fetchWithRetry(
@@ -111,62 +55,7 @@ async function fetchWithRetry(
   throw lastError;
 }
 
-async function fetchViaGraphQL(
-  username: string,
-  token: string,
-): Promise<GitHubContributionDay[]> {
-  const response = await fetchWithRetry("https://api.github.com/graphql", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-      "User-Agent": userAgent,
-    },
-    body: JSON.stringify({
-      query: contributionCalendarQuery,
-      variables: { login: username },
-    }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`GitHub GraphQL returned HTTP ${response.status}.`);
-  }
-
-  const payload = (await response.json()) as GraphQLContributionResponse;
-
-  if (payload.errors?.length) {
-    throw new Error(
-      `GitHub GraphQL returned errors: ${payload.errors
-        .map((error) => error.message)
-        .join("; ")}`,
-    );
-  }
-
-  const weeks =
-    payload.data?.user?.contributionsCollection?.contributionCalendar?.weeks;
-  if (!weeks) {
-    throw new Error("GitHub GraphQL response did not include a calendar.");
-  }
-
-  return weeks.flatMap((week) =>
-    week.contributionDays.map((day) => {
-      const level = graphQLLevels[day.contributionLevel];
-      if (level === undefined) {
-        throw new Error(
-          `Unknown GitHub contribution level: ${day.contributionLevel}`,
-        );
-      }
-
-      return {
-        date: day.date,
-        count: day.contributionCount,
-        level,
-      };
-    }),
-  );
-}
-
-async function fetchViaProfilePage(
+async function fetchFromProfilePage(
   username: string,
 ): Promise<GitHubContributionDay[]> {
   const response = await fetchWithRetry(
