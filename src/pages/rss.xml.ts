@@ -8,7 +8,7 @@ export async function GET(context: APIContext) {
 
   return rss({
     title: siteConfig.title,
-    description: siteConfig.description || "Niceeepoiu's Personal Blog",
+    description: siteConfig.description,
     site: context.site!,
     items: posts.map((post) => ({
       title: post.data.title,
@@ -16,6 +16,6 @@ export async function GET(context: APIContext) {
       description: post.data.description,
       link: getPostHref(post.id),
     })),
-    customData: `<language>en</language>`,
+    customData: `<language>${siteConfig.lang}</language>`,
   });
 }
