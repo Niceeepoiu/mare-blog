@@ -33,7 +33,6 @@ const activeNavHref = navItems
     >
       {siteConfig.title}
     </a>
-
     <nav class="hidden items-center gap-2 md:flex">
       {
         navItems.map((item) => {
@@ -55,7 +54,6 @@ const activeNavHref = navItems
         })
       }
     </nav>
-
     <div class="flex items-center gap-1">
       <button
         id="mobile-navigation-toggle"
@@ -72,7 +70,6 @@ const activeNavHref = navItems
       <ThemeToggle />
     </div>
   </div>
-
   <nav
     id="mobile-navigation-menu"
     aria-label="Mobile navigation"
@@ -103,17 +100,10 @@ const activeNavHref = navItems
 </header>
 
 <script>
-  type HeaderWindow = Window & {
-    __headerCleanup?: () => void;
-  };
-
-  const typedWindow = window as HeaderWindow;
-
   const closeMobileNavigation = () => {
     const menu = document.getElementById("mobile-navigation-menu");
     const toggle = document.getElementById("mobile-navigation-toggle");
     if (!menu || !toggle || menu.hidden) return;
-
     toggle.setAttribute("aria-expanded", "false");
 
     const prefersReducedMotion = window.matchMedia(
@@ -139,102 +129,43 @@ const activeNavHref = navItems
     const menu = document.getElementById("mobile-navigation-menu");
     const toggle = document.getElementById("mobile-navigation-toggle");
     if (!menu || !toggle) return;
-
     menu.classList.remove("is-closing");
     menu.hidden = false;
     toggle.setAttribute("aria-expanded", "true");
   };
 
-  const setupHeaderInteractions = () => {
-    if (typedWindow.__headerCleanup) {
-      typedWindow.__headerCleanup();
-      delete typedWindow.__headerCleanup;
+  const handleDocumentClick = (event: MouseEvent) => {
+    if (!(event.target instanceof Element)) return;
+    const menu = document.getElementById("mobile-navigation-menu");
+    const toggle = event.target.closest("#mobile-navigation-toggle");
+
+    if (toggle && menu) {
+      const isOpen = !menu.hidden && !menu.classList.contains("is-closing");
+      if (isOpen) {
+        closeMobileNavigation();
+      } else {
+        openMobileNavigation();
+      }
+      return;
     }
 
-    const handleDocumentClick = (event: MouseEvent) => {
-      if (!(event.target instanceof Element)) return;
-
-      const menu = document.getElementById("mobile-navigation-menu");
-      const toggle = event.target.closest("#mobile-navigation-toggle");
-
-      if (toggle && menu) {
-        const isOpen = !menu.hidden && !menu.classList.contains("is-closing");
-        if (isOpen) {
-          closeMobileNavigation();
-        } else {
-          openMobileNavigation();
-        }
-        return;
-      }
-
-      if (menu && !menu.hidden && !menu.classList.contains("is-closing")) {
-        const clickedLink = event.target.closest("#mobile-navigation-menu a");
-        const clickedOutside = !menu.contains(event.target);
-        if (clickedLink || clickedOutside) closeMobileNavigation();
-      }
-    };
-
-    const handleKeydown = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
-
-      const menu = document.getElementById("mobile-navigation-menu");
-      const toggle = document.getElementById("mobile-navigation-toggle");
-      if (!menu || menu.hidden) return;
-
-      closeMobileNavigation();
-      toggle?.focus();
-    };
-
-    document.addEventListener("click", handleDocumentClick);
-    document.addEventListener("keydown", handleKeydown);
-
-    typedWindow.__headerCleanup = () => {
-      document.removeEventListener("click", handleDocumentClick);
-      document.removeEventListener("keydown", handleKeydown);
-    };
+    if (menu && !menu.hidden && !menu.classList.contains("is-closing")) {
+      const clickedLink = event.target.closest("#mobile-navigation-menu a");
+      const clickedOutside = !menu.contains(event.target);
+      if (clickedLink || clickedOutside) closeMobileNavigation();
+    }
   };
 
-  document.addEventListener("astro:before-swap", () => {
-    if (typedWindow.__headerCleanup) {
-      typedWindow.__headerCleanup();
-      delete typedWindow.__headerCleanup;
-    }
-  });
+  const handleKeydown = (event: KeyboardEvent) => {
+    if (event.key !== "Escape") return;
 
-  setupHeaderInteractions();
-  document.addEventListener("astro:page-load", setupHeaderInteractions);
+    const menu = document.getElementById("mobile-navigation-menu");
+    const toggle = document.getElementById("mobile-navigation-toggle");
+    if (!menu || menu.hidden) return;
+    closeMobileNavigation();
+    toggle?.focus();
+  };
+
+  document.addEventListener("click", handleDocumentClick);
+  document.addEventListener("keydown", handleKeydown);
 </script>
-
-<style>
-  @media (prefers-reduced-motion: no-preference) {
-    #mobile-navigation-menu:not([hidden]) {
-      animation: mobile-navigation-enter 180ms ease-out both;
-    }
-
-    #mobile-navigation-menu.is-closing {
-      animation: mobile-navigation-exit 150ms ease-in both;
-    }
-
-    @keyframes mobile-navigation-enter {
-      from {
-        opacity: 0;
-        transform: translateY(-0.5rem);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes mobile-navigation-exit {
-      from {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      to {
-        opacity: 0;
-        transform: translateY(-0.5rem);
-      }
-    }
-  }
-</style>

@@ -53,24 +53,29 @@ const shouldRenderComments = giscus.enabled;
 <script is:inline>
   const COMMENTS_LOAD_TIMEOUT = 10000;
 
-  const cleanupCommentsState = () => {
-    if (window.__commentsCleanup) {
-      window.__commentsCleanup();
-      delete window.__commentsCleanup;
-    }
+  const updateGiscusTheme = () => {
+    const section = document.getElementById("comments-section");
+    if (!section) return;
 
-    if (window.__giscusMessageHandler) {
-      window.removeEventListener("message", window.__giscusMessageHandler);
-      delete window.__giscusMessageHandler;
-    }
+    const light = section.dataset.theme || "light";
+    const dark = section.dataset.darkTheme || "dark";
+    const targetTheme = document.documentElement.classList.contains("dark")
+      ? dark
+      : light;
+    const iframe = section.querySelector("iframe.giscus-frame");
 
-    if (document.__giscusThemeHandler) {
-      document.removeEventListener(
-        "theme-changed",
-        document.__giscusThemeHandler,
-      );
-      delete document.__giscusThemeHandler;
-    }
+    if (!(iframe instanceof HTMLIFrameElement)) return;
+
+    iframe.contentWindow?.postMessage(
+      {
+        giscus: {
+          setConfig: {
+            theme: targetTheme,
+          },
+        },
+      },
+      "https://giscus.app",
+    );
   };
 
   const setupComments = () => {
@@ -90,9 +95,6 @@ const shouldRenderComments = giscus.enabled;
     ) {
       return;
     }
-
-    if (section.dataset.commentsInitialized === "true") return;
-    section.dataset.commentsInitialized = "true";
 
     let loadTimeout;
     let observer;
@@ -164,55 +166,14 @@ const shouldRenderComments = giscus.enabled;
 
     retry.addEventListener("click", loadComments);
     loadComments();
-
-    window.__commentsCleanup = () => {
-      section.dataset.commentsInitialized = "false";
-      stopWatching();
-      retry.removeEventListener("click", loadComments);
-      mount.replaceChildren();
-    };
   };
 
-  const updateGiscusTheme = () => {
-    const section = document.getElementById("comments-section");
-    if (!section) return;
+  window.addEventListener("message", (event) => {
+    if (event.origin !== "https://giscus.app") return;
+    if (!(typeof event.data === "object" && event.data.giscus)) return;
+    updateGiscusTheme();
+  });
 
-    const light = section.dataset.theme || "light";
-    const dark = section.dataset.darkTheme || "dark";
-    const targetTheme = document.documentElement.classList.contains("dark")
-      ? dark
-      : light;
-    const iframe = section.querySelector("iframe.giscus-frame");
-
-    if (!(iframe instanceof HTMLIFrameElement)) return;
-
-    iframe.contentWindow?.postMessage(
-      {
-        giscus: {
-          setConfig: {
-            theme: targetTheme,
-          },
-        },
-      },
-      "https://giscus.app",
-    );
-  };
-
-  if (!window.__giscusMessageHandler) {
-    window.__giscusMessageHandler = (event) => {
-      if (event.origin !== "https://giscus.app") return;
-      if (!(typeof event.data === "object" && event.data.giscus)) return;
-      updateGiscusTheme();
-    };
-    window.addEventListener("message", window.__giscusMessageHandler);
-  }
-
-  if (!document.__giscusThemeHandler) {
-    document.__giscusThemeHandler = () => updateGiscusTheme();
-    document.addEventListener("theme-changed", document.__giscusThemeHandler);
-  }
-
-  document.addEventListener("astro:before-swap", cleanupCommentsState);
+  document.addEventListener("theme-changed", updateGiscusTheme);
   setupComments();
-  document.addEventListener("astro:page-load", setupComments);
 </script>

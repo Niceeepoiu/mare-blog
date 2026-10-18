@@ -11,7 +11,6 @@ import { Icon } from "astro-icon/components";
   <span id="theme-toggle-light-icon" class="hidden">
     <Icon name="lucide:sun" class="h-5 w-5" />
   </span>
-
   <span id="theme-toggle-dark-icon" class="hidden">
     <Icon name="lucide:moon" class="h-5 w-5" />
   </span>
@@ -96,5 +95,4 @@ import { Icon } from "astro-icon/components";
   };
 
   setupThemeToggle();
-  document.addEventListener("astro:after-swap", setupThemeToggle);
 </script>
