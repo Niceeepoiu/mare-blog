@@ -2,6 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
 import { getTagHref } from "../utils/tags";
+import { formatDate } from "../utils/content";
 
 interface Props {
   post: CollectionEntry<"blog">;
@@ -34,7 +35,6 @@ const { post } = Astro.props;
         </p>
       )
     }
-
     <time
       datetime={post.data.pubDate.toISOString().slice(0, 10)}
       class="mr-auto flex inline-flex items-center gap-1 rounded-md bg-gray-50 p-2 text-xs font-medium text-gray-400 dark:bg-gray-800 dark:text-gray-500"
@@ -44,17 +44,8 @@ const { post } = Astro.props;
         aria-hidden="true"
         class="mr-1 h-3.5 w-3.5 shrink-0"
       />
-      <span>
-        {
-          post.data.pubDate.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          })
-        }
-      </span>
+      <span>{formatDate(post.data.pubDate)}</span>
     </time>
-
     {
       post.data.tags.length > 0 && (
         <div class="mt-4">
@@ -79,7 +70,6 @@ const { post } = Astro.props;
       )
     }
   </div>
-
   <a
     href={`/blog/${post.id}`}
     aria-label={`Read article: ${post.data.title}`}
