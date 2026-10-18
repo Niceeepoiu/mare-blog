@@ -22,6 +22,10 @@ export async function getJournalEntries() {
   );
 }
 
+export function getPostHref(id: string): string {
+  return `/blog/${id}`;
+}
+
 export function formatDate(date: Date) {
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
