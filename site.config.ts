@@ -88,6 +88,11 @@ export default defineConfig({
       href: "https://www.github.com/Niceeepoiu",
       icon: "lucide:github",
     },
+    {
+      name: "Email",
+      href: "mailto:abefgpoiu@outlook.com",
+      icon: "lucide:mail",
+    },
   ],
   url: "https://mare-blog.pages.dev",
   postsPerPage: 6,
