@@ -1,8 +1,6 @@
 # Mare Blog
 
-A fast, minimal personal blog built with **Astro**. Publish articles, short
-journal entries, and standalone pages with a responsive reading experience,
-instant search, and no server-side runtime.
+A fast, minimal personal blog built with **Astro**.
 
 ## 🖼️ Preview
 
@@ -74,3 +72,10 @@ for site settings, Giscus setup, and instructions for publishing content.
 | `pnpm format`          | Formats code across the project using Prettier |
 | `pnpm astro ...`       | Runs Astro CLI commands                        |
 | `pnpm astro -- --help` | Gets help using the Astro CLI                  |
+
+## 📖 Theme References & Inspiration
+
+This project draws inspiration and design references from several amazing Astro themes:
+
+- **[Fuwari](https://github.com/saicaca/fuwari)** - ✨A static blog template built with Astro.
+- **[Frosti](github.com/EveSunMaple/Frosti)** - A clean, elegant, and fast static blog template! 🚀 Developed with Astro.
