@@ -51,129 +51,139 @@ const shouldRenderComments = giscus.enabled;
 }
 
 <script is:inline>
-  const COMMENTS_LOAD_TIMEOUT = 10000;
+  (() => {
+    const COMMENTS_LOAD_TIMEOUT = 10000;
 
-  const updateGiscusTheme = () => {
-    const section = document.getElementById("comments-section");
-    if (!section) return;
+    const updateGiscusTheme = () => {
+      const section = document.getElementById("comments-section");
+      if (!section) return;
 
-    const light = section.dataset.theme || "light";
-    const dark = section.dataset.darkTheme || "dark";
-    const targetTheme = document.documentElement.classList.contains("dark")
-      ? dark
-      : light;
-    const iframe = section.querySelector("iframe.giscus-frame");
+      const light = section.dataset.theme || "light";
+      const dark = section.dataset.darkTheme || "dark";
+      const targetTheme = document.documentElement.classList.contains("dark")
+        ? dark
+        : light;
+      const iframe = section.querySelector("iframe.giscus-frame");
 
-    if (!(iframe instanceof HTMLIFrameElement)) return;
-
-    iframe.contentWindow?.postMessage(
-      {
-        giscus: {
-          setConfig: {
-            theme: targetTheme,
-          },
-        },
-      },
-      "https://giscus.app",
-    );
-  };
-
-  const setupComments = () => {
-    const section = document.getElementById("comments-section");
-    if (!(section instanceof HTMLElement)) return;
-
-    const mount = section.querySelector("[data-comments-mount]");
-    const loading = section.querySelector("[data-comments-loading]");
-    const error = section.querySelector("[data-comments-error]");
-    const retry = section.querySelector("[data-comments-retry]");
-
-    if (
-      !(mount instanceof HTMLElement) ||
-      !(loading instanceof HTMLElement) ||
-      !(error instanceof HTMLElement) ||
-      !(retry instanceof HTMLButtonElement)
-    ) {
-      return;
-    }
-
-    let loadTimeout;
-    let observer;
-
-    const setState = (state) => {
-      const isLoading = state === "loading";
-      const isError = state === "error";
-
-      loading.classList.toggle("hidden", !isLoading);
-      error.classList.toggle("hidden", !isError);
-      mount.classList.toggle("hidden", isLoading || isError);
-    };
-
-    const stopWatching = () => {
-      window.clearTimeout(loadTimeout);
-      observer?.disconnect();
-      observer = undefined;
-    };
-
-    const showError = () => {
-      stopWatching();
-      mount.replaceChildren();
-      setState("error");
-    };
-
-    const markLoaded = () => {
-      const iframe = mount.querySelector("iframe.giscus-frame");
       if (!(iframe instanceof HTMLIFrameElement)) return;
 
-      stopWatching();
-      setState("loaded");
-      updateGiscusTheme();
-    };
-
-    const loadComments = () => {
-      stopWatching();
-      mount.replaceChildren();
-      setState("loading");
-
-      const script = document.createElement("script");
-      script.src = "https://giscus.app/client.js";
-      script.async = true;
-      script.crossOrigin = "anonymous";
-      script.dataset.giscusComments = "true";
-      script.dataset.repo = section.dataset.repo || "";
-      script.dataset.repoId = section.dataset.repoId || "";
-      script.dataset.category = section.dataset.category || "";
-      script.dataset.categoryId = section.dataset.categoryId || "";
-      script.dataset.mapping = "pathname";
-      script.dataset.reactionsEnabled = "1";
-      script.dataset.inputPosition = "top";
-      script.dataset.theme = section.dataset.theme || "light";
-      script.dataset.lang = section.dataset.lang || "en";
-
-      script.addEventListener("error", showError, { once: true });
-      script.addEventListener(
-        "load",
-        () => {
-          observer = new MutationObserver(markLoaded);
-          observer.observe(mount, { childList: true, subtree: true });
-          markLoaded();
+      iframe.contentWindow?.postMessage(
+        {
+          giscus: {
+            setConfig: {
+              theme: targetTheme,
+            },
+          },
         },
-        { once: true },
+        "https://giscus.app",
       );
-
-      mount.append(script);
-      loadTimeout = window.setTimeout(showError, COMMENTS_LOAD_TIMEOUT);
     };
 
-    retry.addEventListener("click", loadComments);
-    loadComments();
-  };
+    const setupComments = () => {
+      const section = document.getElementById("comments-section");
+      if (!(section instanceof HTMLElement)) return;
+      if (section.dataset.commentsReady === "true") return;
 
-  window.addEventListener("message", (event) => {
-    if (event.origin !== "https://giscus.app") return;
-    if (!(typeof event.data === "object" && event.data.giscus)) return;
-    updateGiscusTheme();
-  });
+      const mount = section.querySelector("[data-comments-mount]");
+      const loading = section.querySelector("[data-comments-loading]");
+      const error = section.querySelector("[data-comments-error]");
+      const retry = section.querySelector("[data-comments-retry]");
 
-  document.addEventListener("theme-changed", updateGiscusTheme);
-  setupComments();
+      if (
+        !(mount instanceof HTMLElement) ||
+        !(loading instanceof HTMLElement) ||
+        !(error instanceof HTMLElement) ||
+        !(retry instanceof HTMLButtonElement)
+      ) {
+        return;
+      }
+
+      section.dataset.commentsReady = "true";
+
+      let loadTimeout;
+      let observer;
+
+      const setState = (state) => {
+        const isLoading = state === "loading";
+        const isError = state === "error";
+
+        loading.classList.toggle("hidden", !isLoading);
+        error.classList.toggle("hidden", !isError);
+        mount.classList.toggle("hidden", isLoading || isError);
+      };
+
+      const stopWatching = () => {
+        window.clearTimeout(loadTimeout);
+        observer?.disconnect();
+        observer = undefined;
+      };
+
+      const showError = () => {
+        stopWatching();
+        mount.replaceChildren();
+        setState("error");
+      };
+
+      const markLoaded = () => {
+        const iframe = mount.querySelector("iframe.giscus-frame");
+        if (!(iframe instanceof HTMLIFrameElement)) return;
+
+        stopWatching();
+        setState("loaded");
+        updateGiscusTheme();
+      };
+
+      const loadComments = () => {
+        stopWatching();
+        mount.replaceChildren();
+        setState("loading");
+
+        const script = document.createElement("script");
+        script.src = "https://giscus.app/client.js";
+        script.async = true;
+        script.crossOrigin = "anonymous";
+        script.dataset.giscusComments = "true";
+        script.dataset.repo = section.dataset.repo || "";
+        script.dataset.repoId = section.dataset.repoId || "";
+        script.dataset.category = section.dataset.category || "";
+        script.dataset.categoryId = section.dataset.categoryId || "";
+        script.dataset.mapping = "pathname";
+        script.dataset.reactionsEnabled = "1";
+        script.dataset.inputPosition = "top";
+        script.dataset.theme = section.dataset.theme || "light";
+        script.dataset.lang = section.dataset.lang || "en";
+
+        script.addEventListener("error", showError, { once: true });
+        script.addEventListener(
+          "load",
+          () => {
+            observer = new MutationObserver(markLoaded);
+            observer.observe(mount, { childList: true, subtree: true });
+            markLoaded();
+          },
+          { once: true },
+        );
+
+        mount.append(script);
+        loadTimeout = window.setTimeout(showError, COMMENTS_LOAD_TIMEOUT);
+      };
+
+      retry.addEventListener("click", loadComments);
+      loadComments();
+    };
+    if (!window.__commentsBound) {
+      window.__commentsBound = true;
+
+      window.addEventListener("message", (event) => {
+        if (event.origin !== "https://giscus.app") return;
+        if (!(typeof event.data === "object" && event.data.giscus)) return;
+        updateGiscusTheme();
+      });
+
+      document.addEventListener("theme-changed", updateGiscusTheme);
+      document.addEventListener("astro:page-load", setupComments);
+    }
+
+    setupComments();
+  })();
 </script>

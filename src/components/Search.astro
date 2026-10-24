@@ -97,43 +97,49 @@ const isDev = import.meta.env.DEV;
 </style>
 
 <script is:inline>
-  const syncPagefindTheme = () => {
-    const pagefindModal = document.querySelector("pagefind-modal");
-    if (!(pagefindModal instanceof HTMLElement)) return;
+  (() => {
+    const syncPagefindTheme = () => {
+      const pagefindModal = document.querySelector("pagefind-modal");
+      if (!(pagefindModal instanceof HTMLElement)) return;
 
-    if (document.documentElement.classList.contains("dark")) {
-      pagefindModal.setAttribute("data-pf-theme", "dark");
-    } else {
-      pagefindModal.removeAttribute("data-pf-theme");
-    }
-  };
-
-  const setupSearchToggle = () => {
-    syncPagefindTheme();
-    const searchButton = document.getElementById("search-toggle");
-    const devDialog = document.getElementById("search-dev-dialog");
-
-    if (!searchButton) return;
-
-    if (devDialog instanceof HTMLDialogElement) {
-      devDialog.onclick = (event) => {
-        if (event.target === devDialog) devDialog.close();
-      };
-    }
-
-    searchButton.onclick = () => {
-      if (devDialog instanceof HTMLDialogElement) {
-        if (!devDialog.open) devDialog.showModal();
-        return;
-      }
-
-      const modal = document.querySelector("pagefind-modal");
-      if (modal && "open" in modal && typeof modal.open === "function") {
-        modal.open();
+      if (document.documentElement.classList.contains("dark")) {
+        pagefindModal.setAttribute("data-pf-theme", "dark");
+      } else {
+        pagefindModal.removeAttribute("data-pf-theme");
       }
     };
-  };
 
-  setupSearchToggle();
-  document.addEventListener("theme-changed", syncPagefindTheme);
+    const setupSearchToggle = () => {
+      syncPagefindTheme();
+      const searchButton = document.getElementById("search-toggle");
+      const devDialog = document.getElementById("search-dev-dialog");
+
+      if (!searchButton) return;
+
+      if (devDialog instanceof HTMLDialogElement) {
+        devDialog.onclick = (event) => {
+          if (event.target === devDialog) devDialog.close();
+        };
+      }
+
+      searchButton.onclick = () => {
+        if (devDialog instanceof HTMLDialogElement) {
+          if (!devDialog.open) devDialog.showModal();
+          return;
+        }
+
+        const modal = document.querySelector("pagefind-modal");
+        if (modal && "open" in modal && typeof modal.open === "function") {
+          modal.open();
+        }
+      };
+    };
+
+    setupSearchToggle();
+    if (!window.__searchToggleBound) {
+      window.__searchToggleBound = true;
+      document.addEventListener("theme-changed", syncPagefindTheme);
+      document.addEventListener("astro:after-swap", setupSearchToggle);
+    }
+  })();
 </script>

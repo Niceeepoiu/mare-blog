@@ -17,82 +17,90 @@ import { Icon } from "astro-icon/components";
 </button>
 
 <script is:inline>
-  const updateIcon = (isDark) => {
-    const darkIcon = document.getElementById("theme-toggle-dark-icon");
-    const lightIcon = document.getElementById("theme-toggle-light-icon");
-    if (!darkIcon || !lightIcon) return;
+  (() => {
+    const updateIcon = (isDark) => {
+      const darkIcon = document.getElementById("theme-toggle-dark-icon");
+      const lightIcon = document.getElementById("theme-toggle-light-icon");
+      if (!darkIcon || !lightIcon) return;
 
-    if (isDark) {
-      lightIcon.classList.remove("hidden");
-      darkIcon.classList.add("hidden");
-    } else {
-      darkIcon.classList.remove("hidden");
-      lightIcon.classList.add("hidden");
-    }
-  };
-
-  const setupThemeToggle = () => {
-    const toggleBtn = document.getElementById("theme-toggle");
-    if (!toggleBtn) return;
-
-    const initialIsDark = document.documentElement.classList.contains("dark");
-    updateIcon(initialIsDark);
-
-    toggleBtn.onclick = (event) => {
-      const isDark = document.documentElement.classList.contains("dark");
-      const nextIsDark = !isDark;
-
-      const toggleTheme = () => {
-        document.documentElement.classList.toggle("dark", nextIsDark);
-        localStorage.setItem("theme", nextIsDark ? "dark" : "light");
-        updateIcon(nextIsDark);
-
-        document.dispatchEvent(
-          new CustomEvent("theme-changed", { detail: { isDark: nextIsDark } }),
-        );
-      };
-
-      const isAppearanceTransition =
-        document.startViewTransition &&
-        !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-      if (!isAppearanceTransition) {
-        toggleTheme();
-        return;
+      if (isDark) {
+        lightIcon.classList.remove("hidden");
+        darkIcon.classList.add("hidden");
+      } else {
+        darkIcon.classList.remove("hidden");
+        lightIcon.classList.add("hidden");
       }
-
-      const rect = toggleBtn.getBoundingClientRect();
-      const x = event.clientX ?? rect.left + rect.width / 2;
-      const y = event.clientY ?? rect.top + rect.height / 2;
-
-      const endRadius = Math.hypot(
-        Math.max(x, innerWidth - x),
-        Math.max(y, innerHeight - y),
-      );
-
-      const transition = document.startViewTransition(() => {
-        toggleTheme();
-      });
-
-      transition.ready.then(() => {
-        const clipPath = [
-          `circle(0px at ${x}px ${y}px)`,
-          `circle(${endRadius}px at ${x}px ${y}px)`,
-        ];
-
-        document.documentElement.animate(
-          {
-            clipPath: clipPath,
-          },
-          {
-            duration: 450,
-            easing: "cubic-bezier(0.4, 0, 0.2, 1)",
-            pseudoElement: "::view-transition-new(root)",
-          },
-        );
-      });
     };
-  };
 
-  setupThemeToggle();
+    const setupThemeToggle = () => {
+      const toggleBtn = document.getElementById("theme-toggle");
+      if (!toggleBtn) return;
+
+      const initialIsDark = document.documentElement.classList.contains("dark");
+      updateIcon(initialIsDark);
+
+      toggleBtn.onclick = (event) => {
+        const isDark = document.documentElement.classList.contains("dark");
+        const nextIsDark = !isDark;
+
+        const toggleTheme = () => {
+          document.documentElement.classList.toggle("dark", nextIsDark);
+          localStorage.setItem("theme", nextIsDark ? "dark" : "light");
+          updateIcon(nextIsDark);
+
+          document.dispatchEvent(
+            new CustomEvent("theme-changed", {
+              detail: { isDark: nextIsDark },
+            }),
+          );
+        };
+
+        const isAppearanceTransition =
+          document.startViewTransition &&
+          !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (!isAppearanceTransition) {
+          toggleTheme();
+          return;
+        }
+
+        const rect = toggleBtn.getBoundingClientRect();
+        const x = event.clientX ?? rect.left + rect.width / 2;
+        const y = event.clientY ?? rect.top + rect.height / 2;
+
+        const endRadius = Math.hypot(
+          Math.max(x, innerWidth - x),
+          Math.max(y, innerHeight - y),
+        );
+
+        const transition = document.startViewTransition(() => {
+          toggleTheme();
+        });
+
+        transition.ready.then(() => {
+          const clipPath = [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${endRadius}px at ${x}px ${y}px)`,
+          ];
+
+          document.documentElement.animate(
+            {
+              clipPath: clipPath,
+            },
+            {
+              duration: 450,
+              easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+              pseudoElement: "::view-transition-new(root)",
+            },
+          );
+        });
+      };
+    };
+
+    setupThemeToggle();
+    if (!window.__themeToggleBound) {
+      window.__themeToggleBound = true;
+      document.addEventListener("astro:after-swap", setupThemeToggle);
+    }
+  })();
 </script>
