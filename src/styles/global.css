@@ -223,6 +223,20 @@
   }
 }
 
+#nprogress {
+  @apply pointer-events-none;
+
+  & .bar {
+    @apply fixed top-0 left-0 z-1000 h-0.5 w-full bg-blue-500 dark:bg-blue-400;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #nprogress .bar {
+    transition: none !important;
+  }
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
   @apply animate-none mix-blend-normal;

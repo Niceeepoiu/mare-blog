@@ -7,14 +7,21 @@ import Comment from "../components/Comments.astro";
 import GlobalTooltip from "../components/GlobalTooltip.astro";
 import BackToTop from "../components/BackToTop.astro";
 import PageTransition from "../components/PageTransition.astro";
+import LoadingBar from "../components/LoadingBar.astro";
 
 interface Props {
   pageTitle: string;
   description?: string;
   showComments?: boolean;
+  readingProgress?: boolean;
 }
 
-const { pageTitle, description, showComments = false } = Astro.props;
+const {
+  pageTitle,
+  description,
+  showComments = false,
+  readingProgress = false,
+} = Astro.props;
 const metaDescription = description ?? siteConfig.description;
 const lang = siteConfig.lang ?? "en";
 ---
@@ -52,6 +59,7 @@ const lang = siteConfig.lang ?? "en";
       })();
     </script>
     <PageTransition />
+    <LoadingBar />
   </head>
   <body>
     <Header />
@@ -59,6 +67,7 @@ const lang = siteConfig.lang ?? "en";
       class="mx-4 my-8 max-w-5xl sm:mx-6 lg:mx-auto"
       data-pagefind-body
       data-page-transition
+      data-reading-progress={readingProgress ? "" : undefined}
     >
       <header
         class="mb-8 rounded-lg bg-white p-6 shadow-sm sm:p-8 lg:p-10 dark:bg-gray-900"
